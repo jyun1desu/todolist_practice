@@ -1,0 +1,61 @@
+@use '../theme/color';
+@use '../utilities/breakpoint';
+
+$checkbox_size: 16px;
+$position_left: 15px;
+
+%icon_position {
+    position: absolute;
+    left: $position_left;
+    @include breakpoint.RWD(breakpoint.$pad_horizontal){
+        left: 25px;
+    }
+}
+
+span.checked_icon {
+    @extend %icon_position;
+    width: $checkbox_size;
+    height: $checkbox_size;
+
+    margin-bottom: 0;
+    padding: 2px;
+
+    box-sizing: content-box;
+
+    flex-shrink: 0;
+
+    background-color: white;
+    border-radius: 2px;
+
+
+    z-index: 1;
+
+    i {
+        color: white;
+        vertical-align: top;
+    }
+}
+
+.completed_checkbox {
+    @extend %icon_position;
+    width: $checkbox_size + 2px;
+    height: $checkbox_size + 2px;
+
+    opacity: 0;
+    z-index: 2;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:checked+span {
+       background-color: color.$main_color;
+
+       &+p {
+            color: #9b9b9b;
+            text-decoration: line-through;
+       }
+
+    } 
+
+}

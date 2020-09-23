@@ -1,0 +1,334 @@
+@use '../theme/color';
+@use '../utilities/breakpoint';
+
+@use '../component/checkbox';
+
+main {
+    margin-top: 15px;
+
+    %input_style {
+        width: 100%;
+        border: none;
+        border-radius: 2px;
+
+        font-size: 14px;
+
+        &::placeholder {
+            color: color.$secondary_font_color;
+            font-size: 14px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    %task_overview {
+        display: flex;
+        align-items: center;
+        padding: 10px 16px 10px 45px;
+
+        @include breakpoint.RWD(breakpoint.$pad_horizontal){
+            padding: 15px 16px 15px 60px;
+        }
+
+        border-bottom: 2px solid #c8c8c8;
+
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+    
+        position: relative;
+
+        .star_mark {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .edit_icon {
+            color: color.$main_color;
+        }
+    
+    }
+
+    .add_new_task {
+        background-color: white;
+        border: 2px solid #c8c8c8;
+        border-radius: 5px;
+
+        padding: 10px;
+
+        font-size: 18px;
+        color: color.$secondary_font_color;
+    }
+
+    .add_task_form {
+        background-color: color.$secondary_background_color;
+        border-radius: 5px;
+        box-shadow:  0px 3px 4px #c8c8c8;
+
+        overflow: hidden;
+
+        margin-top: 10px;
+
+        .title_area {
+            @extend %task_overview;
+
+            .task_title {
+                @extend %input_style;
+                background-color: color.$secondary_background_color;
+        
+                flex: 0 1 100%;
+                margin-right: 10px;
+
+                font-size: 18px;
+                font-weight: bold;
+        
+                &::placeholder {
+                    font-size: 18px;
+                    color: color.$primary_font_color;
+                    font-weight: bold;
+                }
+            }
+
+        }
+
+        .detail_area {
+            padding: 20px 45px;
+
+            @include breakpoint.RWD(breakpoint.$pad_horizontal){
+                padding-left: 60px;
+            }
+
+            >div {
+                display: flex;
+                align-items: flex-start;
+
+                &+div {
+                    margin-top: 15px;
+                }
+
+                .icon, .content_block p {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+    
+                .icon {  
+                    flex: 0 0 15px;
+                    margin-right: 10px;
+                    
+                }
+
+                .content_block {
+                    width: 100%;
+
+                    p {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+
+            .deadline {
+
+                .time_block {
+                    display: flex;
+                }
+
+                input {
+                    @extend %input_style;
+                    flex: 0 1 50%;
+                    padding-left: 10px;
+                
+                    &.deadline_date {
+                        margin-right: 10px;
+                    }
+                }
+
+            }
+
+            .file_update {
+                .update_button {
+                    width: 32px;
+                    height: 32px;
+
+                    border: none;
+                    border-radius: 2px;
+                    background-color: #c8c8c8;
+
+                    position: relative;
+
+                    &:before {
+                        content: "";
+                        display: block;
+                        width: 12px;
+                        height: 2px;
+                        background-color:white;
+
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                    }
+                    &:after {
+                        content: "";
+                        display: block;
+                        width: 2px;
+                        height: 12px;
+                        background-color:white;
+
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                        
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                }
+            }
+
+            textarea {
+                @extend %input_style;
+                padding-left: 10px;
+                height: 100px;
+                resize: none;
+            }
+
+        }
+
+        .button_area {
+            display: flex;
+            
+
+            button {
+                flex: 1 1 50%;
+                border: none;
+                padding: 10px 0;
+
+                font-size: 18px;
+                letter-spacing: 1px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .cancel_button {
+                background-color: #fdfdfd;
+                color: color.$warning_color;
+            }
+
+            .submit_button {
+                background-color: color.$main_color;
+                color: white;
+            }
+        }
+
+
+    }
+
+
+    .todo_list {
+        list-style: none;
+
+        margin-top: 20px;
+        margin-bottom: 0;
+        padding-left: 0;
+
+
+        .tasks {
+            border-radius: 5px;
+            margin-bottom: 8px;
+
+            overflow: hidden;
+        }
+
+        .main_information {
+            @extend %task_overview;
+            border-bottom: none;
+            
+            .task_title {
+                width: 100%;
+                margin-right: 10px;
+                margin-bottom: 0;
+                
+                flex: 0 1 100%;
+
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .edit_icon {
+                color: #000000;
+            }
+            
+        }
+
+        .marked_tasks {
+            background-color: color.$highlight_color;
+
+            .main_information {
+                padding-bottom: 5px;
+            }
+
+            .star_mark {
+                color: color.$highlight_icon_color;
+            }
+        }
+
+        .normal_tasks {
+            background-color: color.$secondary_background_color;
+            .main_information {
+                padding-bottom: 5px;
+            }
+        }
+
+        .completed_tasks {
+            background-color: color.$secondary_background_color;
+
+        }
+
+        .detail {
+            padding: 0 0 10px 45px;
+            display: flex;
+            align-items: center;
+
+            @include breakpoint.RWD(breakpoint.$pad_horizontal){
+                padding-left: 60px;
+                padding-bottom: 15px;
+            }
+
+            >span {
+                display: flex;
+                align-items: center;
+                font-size: 0;
+
+                &+span {
+                    margin-left: 12px;
+                }
+
+                >span {
+                    margin-left: 3px;
+                }
+
+                i,span {
+                    font-size: 12px;
+                    color: color.$secondary_icon_color;
+                }
+            }
+        }
+    }
+
+    .left_tasks_numbers {
+        padding-left: checkbox.$position_left;
+        @include breakpoint.RWD(breakpoint.$pad_horizontal){
+            padding-left: 25px;
+        }
+        font-style: italic;
+        color: color.$secondary_font_color;
+    }
+
+}

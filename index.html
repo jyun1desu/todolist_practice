@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 告知網頁使用utf8編碼（中文） -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- viewport語法 -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 設定ie相容模式 -->
+    <title>jyuny1 todolist</title>
+    <!-- 網頁名稱 -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <!-- include fontawesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- include bootstrap -->
+    <link rel="stylesheet" href="./css/main.css">
+    <!-- include style.css -->
+</head>
+
+<body>
+
+    <header>
+        <nav class="task_status_navbar wrapper container">
+            <a class="each_task_status choosed" href="##">My Tasks</a>
+            <a class="each_task_status" href="##">In Progress</a>
+            <a class="each_task_status" href="##">Completed</a>
+        </nav>
+    </header>
+    <main class="wrapper container">
+        <div class="add_new_task">+ Add Task</div>
+
+        <form class="add_task_form">
+            <div class="title_area">
+                <input class="completed_checkbox" type="checkbox">
+                <span class="checked_icon"><i class="fas fa-check"></i></span>
+                <input class="task_title" type="text" placeholder="Type Something Here...">
+                <span class="star_mark"><i class="far fa-star"></i></span>
+                <span class="edit_icon"><i class="fas fa-pen"></i></span>
+            </div>
+
+            <div class="detail_area">
+                <div class="deadline">
+                    <i class="icon far fa-calendar-alt"></i>
+                        <div class="content_block">
+                            <p>Deadline</p>
+                            <div class="time_block">
+                                <input class="deadline_date" type="text" placeholder="yyyy/mm/dd">
+                                <input class="deadline_time" type="text" placeholder="hh:mm">
+                            </div>
+                        </div>
+                </div>
+                <div class="file_update">
+                    <i class="icon far fa-file"></i>
+                        <div class="content_block">
+                            <p>File</p>
+                            <button class="update_button"></button>
+                        </div>
+
+                </div>
+                <div class="memo">
+                    <i class="icon far fa-comment-dots"></i>
+                    <div class="content_block">
+                        <p>Comment</p>
+                        <textarea placeholder="Type your memo here..."></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button_area">
+                <button type="reset" class="cancel_button">&times; Cancel</button>
+                <button type="submit" class="submit_button">&#43; Add Task</button>
+            </div>
+
+        </form>
+
+        <ul class="todo_list">
+            <li class="marked_tasks tasks">
+                <div class="title_overview">
+                    <div class="main_information">
+                        <input class="completed_checkbox" type="checkbox">
+                        <span class="checked_icon"><i class="fas fa-check"></i></span>
+                        <p class="task_title">Type Something Here...</p>
+                        <span class="star_mark"><i class="fas fa-star"></i></span>
+                        <span class="edit_icon"><i class="far fa-pen"></i></span>
+                    </div>
+
+                    <div class="detail">
+                        <span>
+                            <i class="far fa-calendar-alt"></i>
+                            <span>05/23</span>
+                        </span>
+                        <span><i class="far fa-file"></i></span>
+                        <span><i class="far fa-comment-dots"></i></span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="marked_tasks tasks">
+                <div class="title_overview">
+                    <div class="main_information">
+                        <input class="completed_checkbox" type="checkbox">
+                        <span class="checked_icon"><i class="fas fa-check"></i></span>
+                        <p class="task_title">Type Something Here...</p>
+                        <span class="star_mark"><i class="fas fa-star"></i></span>
+                        <span class="edit_icon"><i class="far fa-pen"></i></span>
+                    </div>
+
+                    <div class="detail">
+                        <span><i class="far fa-file"></i></span>
+                        <span><i class="far fa-comment-dots"></i></span>
+                    </div>
+                </div>
+            </li>
+            
+            <li class="normal_tasks tasks">
+                <div class="title_overview">
+                    <div class="main_information">
+                        <input class="completed_checkbox" type="checkbox">
+                        <span class="checked_icon"><i class="fas fa-check"></i></span>
+                        <p class="task_title">Type Something Here...</p>
+                        <span class="star_mark"><i class="far fa-star"></i></span>
+                        <span class="edit_icon"><i class="far fa-pen"></i></span>
+                    </div>
+
+                    <div class="detail">
+                        <span>
+                            <i class="far fa-calendar-alt"></i>
+                            <span>2020/05/23</span>
+                        </span>
+                        <span><i class="far fa-file"></i></span>
+                        <span><i class="far fa-comment-dots"></i></span>
+                    </div>
+            </li>
+
+            <li class="normal_tasks tasks">
+                <div class="title_overview">
+                    <div class="main_information">
+                        <input class="completed_checkbox" type="checkbox">
+                        <span class="checked_icon"><i class="fas fa-check"></i></span>
+                        <p class="task_title">Type Something Here...</p>
+                        <span class="star_mark"><i class="far fa-star"></i></span>
+                        <span class="edit_icon"><i class="far fa-pen"></i></span>
+                    </div>
+
+                    <div class="detail">
+                        <span><i class="far fa-file"></i></span>
+                    </div>
+            </li>
+
+            <li class="completed_tasks tasks">
+                <div class="title_overview">
+                    <div class="main_information">
+                        <input class="completed_checkbox" type="checkbox" checked>
+                        <span class="checked_icon"><i class="fas fa-check"></i></span>
+                        <p class="task_title">Type Something Here...</p>
+                        <span class="star_mark"><i class="far fa-star"></i></span>
+                        <span class="edit_icon"><i class="far fa-pen"></i></span>
+                    </div>
+
+            </li>
+        </ul>
+
+        <p class="left_tasks_numbers">
+            0 tasks left
+        </p>
+
+        
+
+    </main>
+    
+</body>
+
+</html>
