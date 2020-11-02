@@ -85,6 +85,19 @@ span.checked_icon i {
   text-decoration: line-through;
 }
 
+.add_new_task {
+  background-color: white;
+  border: 2px solid #c8c8c8;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  color: #c8c8c8;
+}
+
+.add_new_task.click {
+  display: none;
+}
+
 main {
   margin-top: 15px;
 }
@@ -120,17 +133,6 @@ main .todo_list .main_information .star_mark, main .add_task_form .title_area .s
 main .todo_list .main_information .edit_icon, main .add_task_form .title_area .edit_icon {
   color: #4A90E2;
 }
-main .add_new_task {
-  background-color: white;
-  border: 2px solid #c8c8c8;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 18px;
-  color: #c8c8c8;
-}
-main .add_new_task.click {
-  display: none;
-}
 main .add_task_form {
   display: none;
   background-color: #f2f2f2;
@@ -147,6 +149,9 @@ main .add_task_form.click {
 main .add_task_form.click-active {
   display: block;
   max-height: 500px;
+}
+main .add_task_form .title_area.marked {
+  background-color: #FFF2DC;
 }
 main .add_task_form .title_area .task_title {
   background-color: transparent;
@@ -165,6 +170,10 @@ main .add_task_form .title_area input[type=checkbox] {
 }
 main .add_task_form .title_area label {
   margin-bottom: 0;
+  color: #000000;
+}
+main .add_task_form .title_area input:checked + label {
+  color: #F5A623;
 }
 main .add_task_form .detail_area {
   padding: 20px 45px;

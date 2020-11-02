@@ -39,18 +39,17 @@ function addTask(e){
     tasks.push(task);
     this.querySelector('[name="title"]').placeholder = "Type Something Here...";
     this.querySelector('[name="title"]').style.setProperty("--c", "#000000");
-    this.reset();
-    this.querySelector('.title_area').style.backgroundColor = "transparent";
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    this.querySelector('.title_area').classList.remove('marked');
     this.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
-    this.querySelector('label[for="priority"]').style.color = "#000000";
+    this.reset();
 }
 
 function cancelAdding(e){
     e.preventDefault();
     addTaskForm.reset();
-    addTaskForm.querySelector('.title_area').style.backgroundColor = "transparent";
+    addTaskForm.querySelector('.title_area').classList.remove('marked');
     addTaskForm.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
-    addTaskForm.querySelector('label[for="priority"]').style.color = "#000000";
 }
 
 function updateName(){
@@ -61,13 +60,11 @@ function updateName(){
 function markPriority(e){
     const starMark = this.parentNode.querySelector('label[for="priority"]');
     if(this.checked){
-        this.parentNode.style.backgroundColor = "#FFF2DC";
+        this.parentNode.classList.add('marked');
         starMark.innerHTML = `<i class="fas fa-star"></i>`;
-        starMark.style.color = "#F5A623";
     }else{
-        this.parentNode.style.backgroundColor = "transparent";
+        this.parentNode.classList.remove('marked');
         starMark.innerHTML = `<i class="far fa-star"></i>`;
-        starMark.style.color = "#000000";
     }
 }
 

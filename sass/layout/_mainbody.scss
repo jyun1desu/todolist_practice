@@ -2,6 +2,7 @@
 @use '../utilities/breakpoint';
 
 @use '../component/checkbox';
+@use '../component/add_task_button';
 
 main {
     margin-top: 15px;
@@ -47,21 +48,6 @@ main {
 
     }
 
-    .add_new_task {
-        background-color: white;
-        border: 2px solid #c8c8c8;
-        border-radius: 5px;
-
-        padding: 10px;
-
-        font-size: 18px;
-        color: color.$secondary_font_color;
-    }
-
-    .add_new_task.click {
-        display: none;
-    }
-
     .add_task_form {
         display: none;
         background-color: color.$secondary_background_color;
@@ -88,6 +74,10 @@ main {
         .title_area {
             @extend %task_overview;
 
+            &.marked{
+                background-color: color.$highlight_color;
+            }
+
             .task_title {
                 @extend %input_style;
                 background-color: transparent;
@@ -105,11 +95,17 @@ main {
                 }
             }
 
-            input[type="checkbox"]{
+            input[type="checkbox"] {
                 display: none;
             }
-            label{
+
+            label {
                 margin-bottom: 0;
+                color: color.$primary_font_color;
+            }
+
+            input:checked+label {
+                color: color.$highlight_icon_color;
             }
         }
 
@@ -222,7 +218,7 @@ main {
                     display: none;
                 }
 
-                .file_name{
+                .file_name {
                     vertical-align: middle;
                     margin-right: 10px;
                 }
