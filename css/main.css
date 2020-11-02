@@ -19,24 +19,27 @@ header {
 header .task_status_navbar {
   display: flex;
 }
-header .task_status_navbar > a {
+header .task_status_navbar > button {
   flex: 1 1 33.3333333333%;
   padding: 10px 10px 13px 10px;
   text-align: center;
   font-size: 16px;
   color: #00408B;
+  background-color: transparent;
+  border: none;
 }
-header .task_status_navbar > a:hover {
+header .task_status_navbar > button:hover {
   text-decoration: none;
   color: white;
   border-bottom: 5px solid #00408B;
 }
-header .task_status_navbar a + a {
+header .task_status_navbar button + button {
   margin-left: 20px;
 }
-header .task_status_navbar .choosed {
+header .task_status_navbar :focus {
   color: white;
   border-bottom: 5px solid #00408B;
+  outline: none;
 }
 
 .completed_checkbox, span.checked_icon {
