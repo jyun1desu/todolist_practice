@@ -5,6 +5,8 @@ const cancelButton = document.querySelector('.cancel_button');
 const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
 const priority = document.querySelector('#priority');
+//剩餘任務數量
+const countLeft = document.querySelector('.left_tasks_numbers');
 
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -82,3 +84,6 @@ addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", cancelAdding);
 updateFile.addEventListener("change", updateName)
 priority.addEventListener("change", markPriority);
+
+
+countLeft.textContent=`${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
