@@ -106,8 +106,6 @@ main .todo_list .main_information, main .add_task_form .title_area {
   align-items: center;
   padding: 10px 16px 10px 45px;
   border-bottom: 2px solid #c8c8c8;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
   position: relative;
 }
 @media (min-width: 992px) {
@@ -151,7 +149,7 @@ main .add_task_form.click-active {
   max-height: 500px;
 }
 main .add_task_form .title_area .task_title {
-  background-color: #f2f2f2;
+  background-color: transparent;
   flex: 0 1 100%;
   margin-right: 10px;
   font-size: 18px;
@@ -161,6 +159,12 @@ main .add_task_form .title_area .task_title::placeholder {
   font-size: 18px;
   color: var(--c, #000000);
   font-weight: bold;
+}
+main .add_task_form .title_area input[type=checkbox] {
+  display: none;
+}
+main .add_task_form .title_area label {
+  margin-bottom: 0;
 }
 main .add_task_form .detail_area {
   padding: 20px 45px;

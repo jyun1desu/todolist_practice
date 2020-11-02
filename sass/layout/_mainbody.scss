@@ -34,9 +34,6 @@ main {
 
         border-bottom: 2px solid #c8c8c8;
 
-        border-top-right-radius: 20px;
-        border-top-left-radius: 20px;
-
         position: relative;
 
         .star_mark {
@@ -93,7 +90,7 @@ main {
 
             .task_title {
                 @extend %input_style;
-                background-color: color.$secondary_background_color;
+                background-color: transparent;
 
                 flex: 0 1 100%;
                 margin-right: 10px;
@@ -108,6 +105,12 @@ main {
                 }
             }
 
+            input[type="checkbox"]{
+                display: none;
+            }
+            label{
+                margin-bottom: 0;
+            }
         }
 
         .detail_area {

@@ -3,6 +3,9 @@ const addTaskForm = document.querySelector('.add_task_form');
 const cancelButton = document.querySelector('.cancel_button');
 const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
+const priority = document.querySelector('#priority');
+
+const tasks = [];
 
 function newTask(){
     this.classList.add('click');
@@ -29,13 +32,25 @@ function addTask(e){
         deadlineTime,
         updateFile,
         memo,
-        done: false
+        done: false,
+        primary: priority.checked
     }
-    console.log(task);
+
+    tasks.push(task);
+    this.querySelector('[name="title"]').placeholder = "Type Something Here...";
+    this.querySelector('[name="title"]').style.setProperty("--c", "#000000");
+    this.reset();
+    this.querySelector('.title_area').style.backgroundColor = "transparent";
+    this.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
+    this.querySelector('label[for="priority"]').style.color = "#000000";
 }
 
 function cancelAdding(e){
     e.preventDefault();
+    addTaskForm.reset();
+    addTaskForm.querySelector('.title_area').style.backgroundColor = "transparent";
+    addTaskForm.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
+    addTaskForm.querySelector('label[for="priority"]').style.color = "#000000";
 }
 
 function updateName(){
@@ -43,7 +58,21 @@ function updateName(){
     fileName.textContent = file;
 }
 
+function markPriority(e){
+    const starMark = this.parentNode.querySelector('label[for="priority"]');
+    if(this.checked){
+        this.parentNode.style.backgroundColor = "#FFF2DC";
+        starMark.innerHTML = `<i class="fas fa-star"></i>`;
+        starMark.style.color = "#F5A623";
+    }else{
+        this.parentNode.style.backgroundColor = "transparent";
+        starMark.innerHTML = `<i class="far fa-star"></i>`;
+        starMark.style.color = "#000000";
+    }
+}
+
 addTaskButton.addEventListener("click",newTask);
 addTaskForm.addEventListener("submit",addTask);
 cancelButton.addEventListener("click",cancelAdding);
 updateFile.addEventListener("change",updateName)
+priority.addEventListener("change",markPriority);
