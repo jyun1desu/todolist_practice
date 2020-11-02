@@ -33,56 +33,45 @@ header .task_status_navbar > button:hover {
   color: white;
   border-bottom: 5px solid #00408B;
 }
+header .task_status_navbar > button:focus {
+  outline: none;
+}
 header .task_status_navbar button + button {
   margin-left: 20px;
 }
-header .task_status_navbar :focus {
+header .task_status_navbar .focus-active {
   color: white;
   border-bottom: 5px solid #00408B;
   outline: none;
 }
 
-.completed_checkbox, span.checked_icon {
+label[for=status] {
   position: absolute;
   left: 15px;
 }
 @media (min-width: 992px) {
-  .completed_checkbox, span.checked_icon {
+  label[for=status] {
     left: 25px;
   }
 }
 
-span.checked_icon {
-  width: 16px;
-  height: 16px;
+label[for=status] {
   margin-bottom: 0;
-  padding: 2px;
-  box-sizing: content-box;
-  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 20px;
   background-color: white;
-  border-radius: 2px;
-  z-index: 1;
-}
-span.checked_icon i {
   color: white;
-  vertical-align: top;
 }
 
 .completed_checkbox {
-  width: 18px;
-  height: 18px;
-  opacity: 0;
-  z-index: 2;
+  display: none;
 }
-.completed_checkbox:focus {
-  outline: none;
-}
-.completed_checkbox:checked + span {
+.completed_checkbox:checked#status + label {
   background-color: #4A90E2;
-}
-.completed_checkbox:checked + span + p {
-  color: #9b9b9b;
-  text-decoration: line-through;
+  color: white;
 }
 
 .add_new_task {
@@ -165,14 +154,14 @@ main .add_task_form .title_area .task_title::placeholder {
   color: var(--c, #000000);
   font-weight: bold;
 }
-main .add_task_form .title_area input[type=checkbox] {
+main .add_task_form .title_area input#priority {
   display: none;
 }
-main .add_task_form .title_area label {
+main .add_task_form .title_area label[for=priority] {
   margin-bottom: 0;
   color: #000000;
 }
-main .add_task_form .title_area input:checked + label {
+main .add_task_form .title_area input#priority:checked + label {
   color: #F5A623;
 }
 main .add_task_form .detail_area {

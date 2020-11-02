@@ -21,13 +21,17 @@ header {
                 color: white;
                 border-bottom: 5px solid #00408B;
             }
+
+            &:focus {
+                outline: none;
+            }
         }
         
         button+button {
             margin-left: 20px;
         }
 
-        :focus {
+        .focus-active {
             color: white;
             border-bottom: 5px solid #00408B;
             outline: none;

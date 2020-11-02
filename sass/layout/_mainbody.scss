@@ -95,16 +95,16 @@ main {
                 }
             }
 
-            input[type="checkbox"] {
+            input#priority {
                 display: none;
             }
 
-            label {
+            label[for="priority"] {
                 margin-bottom: 0;
                 color: color.$primary_font_color;
             }
 
-            input:checked+label {
+            input#priority:checked+label {
                 color: color.$highlight_icon_color;
             }
         }

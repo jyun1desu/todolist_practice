@@ -1,3 +1,4 @@
+const navButtons = document.querySelectorAll('.each_task_status');
 const addTaskButton = document.querySelector('.add_new_task');
 const addTaskForm = document.querySelector('.add_task_form');
 const cancelButton = document.querySelector('.cancel_button');
@@ -5,23 +6,24 @@ const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
 const priority = document.querySelector('#priority');
 
-const tasks = [];
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function newTask(){
+function newTask() {
     this.classList.add('click');
     addTaskForm.classList.add('click');
-    setTimeout(()=>addTaskForm.classList.add('click-active'),5)
+    setTimeout(() => addTaskForm.classList.add('click-active'), 5)
 }
 
-function addTask(e){
+function addTask(e) {
     e.preventDefault();
     const taskTitle = this.querySelector('[name="title"]').value;
     const deadlineDate = this.querySelector('[name="date"]').value;
     const deadlineTime = this.querySelector('[name="time"]').value;
     const updateFile = this.querySelector('[name="update"]').value;
     const memo = this.querySelector('[name="memo_content"]').value;
+    const status = this.querySelector('input#status');
 
-    if(!taskTitle.length){
+    if (!taskTitle.length) {
         this.querySelector('[name="title"]').placeholder = "Please add the task title here";
         this.querySelector('[name="title"]').style.setProperty("--c", "#D0021B")
         return;
@@ -32,7 +34,7 @@ function addTask(e){
         deadlineTime,
         updateFile,
         memo,
-        done: false,
+        done: status.checked,
         primary: priority.checked
     }
 
@@ -45,31 +47,38 @@ function addTask(e){
     this.reset();
 }
 
-function cancelAdding(e){
+function cancelAdding(e) {
     e.preventDefault();
     addTaskForm.reset();
     addTaskForm.querySelector('.title_area').classList.remove('marked');
     addTaskForm.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
 }
 
-function updateName(){
+function updateName() {
     const file = this.files[0].name;
     fileName.textContent = file;
 }
 
-function markPriority(e){
+function markPriority(e) {
     const starMark = this.parentNode.querySelector('label[for="priority"]');
-    if(this.checked){
+    if (this.checked) {
         this.parentNode.classList.add('marked');
         starMark.innerHTML = `<i class="fas fa-star"></i>`;
-    }else{
+    } else {
         this.parentNode.classList.remove('marked');
         starMark.innerHTML = `<i class="far fa-star"></i>`;
     }
 }
 
-addTaskButton.addEventListener("click",newTask);
-addTaskForm.addEventListener("submit",addTask);
-cancelButton.addEventListener("click",cancelAdding);
-updateFile.addEventListener("change",updateName)
-priority.addEventListener("change",markPriority);
+function focus() {
+    navButtons.forEach(button => button.classList.remove('focus-active'));
+    this.classList.add('focus-active');
+}
+
+
+navButtons.forEach(button => button.addEventListener("click", focus));
+addTaskButton.addEventListener("click", newTask);
+addTaskForm.addEventListener("submit", addTask);
+cancelButton.addEventListener("click", cancelAdding);
+updateFile.addEventListener("change", updateName)
+priority.addEventListener("change", markPriority);
