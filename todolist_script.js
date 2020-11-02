@@ -12,6 +12,26 @@ function newTask(){
 
 function addTask(e){
     e.preventDefault();
+    const taskTitle = this.querySelector('[name="title"]').value;
+    const deadlineDate = this.querySelector('[name="date"]').value;
+    const deadlineTime = this.querySelector('[name="time"]').value;
+    const updateFile = this.querySelector('[name="update"]').value;
+    const memo = this.querySelector('[name="memo_content"]').value;
+
+    if(!taskTitle.length){
+        this.querySelector('[name="title"]').placeholder = "Please add the task title here";
+        this.querySelector('[name="title"]').style.setProperty("--c", "#D0021B")
+        return;
+    }
+    const task = {
+        taskTitle,
+        deadlineDate,
+        deadlineTime,
+        updateFile,
+        memo,
+        done: false
+    }
+    console.log(task);
 }
 
 function cancelAdding(e){
@@ -20,10 +40,7 @@ function cancelAdding(e){
 
 function updateName(){
     const file = this.files[0].name;
-    fileName.textContent = file
-
-    console.log(fileName)
-
+    fileName.textContent = file;
 }
 
 addTaskButton.addEventListener("click",newTask);

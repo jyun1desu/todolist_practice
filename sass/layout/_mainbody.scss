@@ -103,7 +103,7 @@ main {
 
                 &::placeholder {
                     font-size: 18px;
-                    color: color.$primary_font_color;
+                    color: var(--c, color.$primary_font_color);
                     font-weight: bold;
                 }
             }
@@ -221,7 +221,7 @@ main {
 
                 .file_name{
                     vertical-align: middle;
-                    margin-left: 10px;
+                    margin-right: 10px;
                 }
             }
 

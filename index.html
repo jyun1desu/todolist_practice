@@ -34,7 +34,7 @@
             <div class="title_area">
                 <input class="completed_checkbox" type="checkbox">
                 <span class="checked_icon"><i class="fas fa-check"></i></span>
-                <input class="task_title" type="text" placeholder="Type Something Here...">
+                <input name="title" class="task_title" type="text" placeholder="Type Something Here...">
                 <span class="star_mark"><i class="far fa-star"></i></span>
                 <span class="edit_icon"><i class="fas fa-pen"></i></span>
             </div>
@@ -45,8 +45,8 @@
                         <div class="content_block">
                             <p>Deadline</p>
                             <div class="time_block">
-                                <input class="deadline_date" type="date" placeholder="yyyy/mm/dd">
-                                <input class="deadline_time" type="time" placeholder="hh:mm">
+                                <input name="date" class="deadline_date" type="date" placeholder="yyyy/mm/dd">
+                                <input name="time" class="deadline_time" type="time" placeholder="hh:mm">
                             </div>
                         </div>
                 </div>
@@ -54,8 +54,8 @@
                     <i class="icon far fa-file"></i>
                         <div class="content_block">
                             <p>File</p>
-                            <input id="file_update" type="file" class="update_button" value="">
-                            <label for="file_update"></label><span class="file_name"></span>
+                            <input id="file_update" name="update" type="file" class="update_button" value="">
+                            <span class="file_name"></span><label for="file_update"></label>
                         </div>
 
                 </div>
@@ -63,7 +63,7 @@
                     <i class="icon far fa-comment-dots"></i>
                     <div class="content_block">
                         <p>Comment</p>
-                        <textarea placeholder="Type your memo here..."></textarea>
+                        <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
                     </div>
                 </div>
 
