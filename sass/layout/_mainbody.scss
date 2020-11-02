@@ -28,7 +28,7 @@ main {
         align-items: center;
         padding: 10px 16px 10px 45px;
 
-        @include breakpoint.RWD(breakpoint.$pad_horizontal){
+        @include breakpoint.RWD(breakpoint.$pad_horizontal) {
             padding: 15px 16px 15px 60px;
         }
 
@@ -36,7 +36,7 @@ main {
 
         border-top-right-radius: 20px;
         border-top-left-radius: 20px;
-    
+
         position: relative;
 
         .star_mark {
@@ -47,7 +47,7 @@ main {
         .edit_icon {
             color: color.$main_color;
         }
-    
+
     }
 
     .add_new_task {
@@ -69,19 +69,20 @@ main {
         display: none;
         background-color: color.$secondary_background_color;
         border-radius: 5px;
-        box-shadow:  0px 3px 4px #c8c8c8;
+        box-shadow: 0px 3px 4px #c8c8c8;
 
         overflow: hidden;
 
         margin-top: 10px;
 
 
-        &.click{
+        &.click {
             display: block;
             max-height: 0px;
             transition: 0.5s;
         }
-        &.click-active{
+
+        &.click-active {
             display: block;
             max-height: 500px;
         }
@@ -93,13 +94,13 @@ main {
             .task_title {
                 @extend %input_style;
                 background-color: color.$secondary_background_color;
-        
+
                 flex: 0 1 100%;
                 margin-right: 10px;
 
                 font-size: 18px;
                 font-weight: bold;
-        
+
                 &::placeholder {
                     font-size: 18px;
                     color: color.$primary_font_color;
@@ -112,7 +113,7 @@ main {
         .detail_area {
             padding: 20px 45px;
 
-            @include breakpoint.RWD(breakpoint.$pad_horizontal){
+            @include breakpoint.RWD(breakpoint.$pad_horizontal) {
                 padding-left: 60px;
             }
 
@@ -124,15 +125,16 @@ main {
                     margin-top: 15px;
                 }
 
-                .icon, .content_block p {
+                .icon,
+                .content_block p {
                     font-size: 16px;
                     line-height: 20px;
                 }
-    
-                .icon {  
+
+                .icon {
                     flex: 0 0 15px;
                     margin-right: 10px;
-                    
+
                 }
 
                 .content_block {
@@ -155,7 +157,7 @@ main {
                     @extend %input_style;
                     flex: 0 1 50%;
                     padding-left: 10px;
-                
+
                     &.deadline_date {
                         margin-right: 10px;
                     }
@@ -164,46 +166,62 @@ main {
             }
 
             .file_update {
-                .update_button {
+                label {
                     width: 32px;
                     height: 32px;
+                    margin-bottom: 0;
 
                     border: none;
                     border-radius: 2px;
                     background-color: #c8c8c8;
 
                     position: relative;
+                    vertical-align: middle;
 
                     &:before {
                         content: "";
                         display: block;
                         width: 12px;
                         height: 2px;
-                        background-color:white;
+                        background-color: white;
 
                         position: absolute;
                         left: 50%;
                         top: 50%;
-                        transform: translate(-50%,-50%);
+                        transform: translate(-50%, -50%);
                     }
+
                     &:after {
                         content: "";
                         display: block;
                         width: 2px;
                         height: 12px;
-                        background-color:white;
+                        background-color: white;
 
                         position: absolute;
                         left: 50%;
                         top: 50%;
-                        transform: translate(-50%,-50%);
-                        
+                        transform: translate(-50%, -50%);
+
                     }
 
                     &:focus {
                         outline: none;
                     }
 
+                    &:hover {
+                        background-color: color.$main_color;
+                    }
+
+                }
+
+                input {
+                    display: none;
+                }
+
+                .file_name{
+                    vertical-align: middle;
+                    margin-left: 10px;
                 }
             }
 
@@ -218,7 +236,7 @@ main {
 
         .button_area {
             display: flex;
-            
+
 
             button {
                 flex: 1 1 50%;
@@ -266,12 +284,12 @@ main {
         .main_information {
             @extend %task_overview;
             border-bottom: none;
-            
+
             .task_title {
                 width: 100%;
                 margin-right: 10px;
                 margin-bottom: 0;
-                
+
                 flex: 0 1 100%;
 
                 font-size: 18px;
@@ -281,7 +299,7 @@ main {
             .edit_icon {
                 color: #000000;
             }
-            
+
         }
 
         .marked_tasks {
@@ -298,6 +316,7 @@ main {
 
         .normal_tasks {
             background-color: color.$secondary_background_color;
+
             .main_information {
                 padding-bottom: 5px;
             }
@@ -313,7 +332,7 @@ main {
             display: flex;
             align-items: center;
 
-            @include breakpoint.RWD(breakpoint.$pad_horizontal){
+            @include breakpoint.RWD(breakpoint.$pad_horizontal) {
                 padding-left: 60px;
                 padding-bottom: 15px;
             }
@@ -331,7 +350,8 @@ main {
                     margin-left: 3px;
                 }
 
-                i,span {
+                i,
+                span {
                     font-size: 12px;
                     color: color.$secondary_icon_color;
                 }
@@ -341,9 +361,11 @@ main {
 
     .left_tasks_numbers {
         padding-left: checkbox.$position_left;
-        @include breakpoint.RWD(breakpoint.$pad_horizontal){
+
+        @include breakpoint.RWD(breakpoint.$pad_horizontal) {
             padding-left: 25px;
         }
+
         font-style: italic;
         color: color.$secondary_font_color;
     }

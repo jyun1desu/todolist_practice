@@ -45,8 +45,8 @@
                         <div class="content_block">
                             <p>Deadline</p>
                             <div class="time_block">
-                                <input class="deadline_date" type="text" placeholder="yyyy/mm/dd">
-                                <input class="deadline_time" type="text" placeholder="hh:mm">
+                                <input class="deadline_date" type="date" placeholder="yyyy/mm/dd">
+                                <input class="deadline_time" type="time" placeholder="hh:mm">
                             </div>
                         </div>
                 </div>
@@ -54,7 +54,8 @@
                     <i class="icon far fa-file"></i>
                         <div class="content_block">
                             <p>File</p>
-                            <button class="update_button"></button>
+                            <input id="file_update" type="file" class="update_button" value="">
+                            <label for="file_update"></label><span class="file_name"></span>
                         </div>
 
                 </div>
@@ -69,7 +70,7 @@
             </div>
 
             <div class="button_area">
-                <button type="reset" class="cancel_button">&times; Cancel</button>
+                <button class="cancel_button">&times; Cancel</button>
                 <button type="submit" class="submit_button">&#43; Add Task</button>
             </div>
 

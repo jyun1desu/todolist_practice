@@ -177,7 +177,8 @@ main .add_task_form .detail_area > div {
 main .add_task_form .detail_area > div + div {
   margin-top: 15px;
 }
-main .add_task_form .detail_area > div .icon, main .add_task_form .detail_area > div .content_block p {
+main .add_task_form .detail_area > div .icon,
+main .add_task_form .detail_area > div .content_block p {
   font-size: 16px;
   line-height: 20px;
 }
@@ -201,15 +202,17 @@ main .add_task_form .detail_area .deadline input {
 main .add_task_form .detail_area .deadline input.deadline_date {
   margin-right: 10px;
 }
-main .add_task_form .detail_area .file_update .update_button {
+main .add_task_form .detail_area .file_update label {
   width: 32px;
   height: 32px;
+  margin-bottom: 0;
   border: none;
   border-radius: 2px;
   background-color: #c8c8c8;
   position: relative;
+  vertical-align: middle;
 }
-main .add_task_form .detail_area .file_update .update_button:before {
+main .add_task_form .detail_area .file_update label:before {
   content: "";
   display: block;
   width: 12px;
@@ -220,7 +223,7 @@ main .add_task_form .detail_area .file_update .update_button:before {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-main .add_task_form .detail_area .file_update .update_button:after {
+main .add_task_form .detail_area .file_update label:after {
   content: "";
   display: block;
   width: 2px;
@@ -231,8 +234,18 @@ main .add_task_form .detail_area .file_update .update_button:after {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-main .add_task_form .detail_area .file_update .update_button:focus {
+main .add_task_form .detail_area .file_update label:focus {
   outline: none;
+}
+main .add_task_form .detail_area .file_update label:hover {
+  background-color: #4A90E2;
+}
+main .add_task_form .detail_area .file_update input {
+  display: none;
+}
+main .add_task_form .detail_area .file_update .file_name {
+  vertical-align: middle;
+  margin-left: 10px;
 }
 main .add_task_form .detail_area textarea {
   padding-left: 10px;
@@ -325,7 +338,8 @@ main .todo_list .detail > span + span {
 main .todo_list .detail > span > span {
   margin-left: 3px;
 }
-main .todo_list .detail > span i, main .todo_list .detail > span span {
+main .todo_list .detail > span i,
+main .todo_list .detail > span span {
   font-size: 12px;
   color: #757575;
 }
