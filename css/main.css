@@ -301,6 +301,9 @@ main .todo_list .tasks {
 main .todo_list .tasks.marked {
   background-color: #FFF2DC;
 }
+main .todo_list .task-done .task_title {
+  text-decoration: line-through;
+}
 main .todo_list .main_information {
   border-bottom: none;
 }
@@ -311,27 +314,6 @@ main .todo_list .main_information .task_title {
   flex: 0 1 100%;
   font-size: 18px;
   font-weight: bold;
-}
-main .todo_list .main_information .edit_icon {
-  color: #000000;
-}
-main .todo_list .marked_tasks {
-  background-color: #FFF2DC;
-}
-main .todo_list .marked_tasks .main_information {
-  padding-bottom: 5px;
-}
-main .todo_list .marked_tasks .star_mark {
-  color: #F5A623;
-}
-main .todo_list .normal_tasks {
-  background-color: #f2f2f2;
-}
-main .todo_list .normal_tasks .main_information {
-  padding-bottom: 5px;
-}
-main .todo_list .completed_tasks {
-  background-color: #f2f2f2;
 }
 main .todo_list .detail {
   padding: 0 0 10px 45px;

@@ -275,6 +275,10 @@ main {
             }
         }
 
+        .task-done .task_title{
+            text-decoration: line-through;
+        }
+
         .main_information {
             @extend %task_overview;
             border-bottom: none;
@@ -289,35 +293,6 @@ main {
                 font-size: 18px;
                 font-weight: bold;
             }
-
-            .edit_icon {
-                color: #000000;
-            }
-
-        }
-
-        .marked_tasks {
-            background-color: color.$highlight_color;
-
-            .main_information {
-                padding-bottom: 5px;
-            }
-
-            .star_mark {
-                color: color.$highlight_icon_color;
-            }
-        }
-
-        .normal_tasks {
-            background-color: color.$secondary_background_color;
-
-            .main_information {
-                padding-bottom: 5px;
-            }
-        }
-
-        .completed_tasks {
-            background-color: color.$secondary_background_color;
 
         }
 

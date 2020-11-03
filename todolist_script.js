@@ -7,7 +7,7 @@ const fileName = document.querySelector('.file_name');
 //完成狀態
 const status = document.querySelector('input#status');
 //打星星
-const priority = document.querySelector('#priority');
+// const priority = document.querySelector('#priority');
 //編輯中
 const editting = document.querySelector('#edit');
 //剩餘任務數量
@@ -110,18 +110,18 @@ function handleEdit() {
 }
 
 function populateList(tasks = [], taskList) {
-    taskList.innerHTML = tasks.map(task => {
+    taskList.innerHTML = tasks.map((task,index) => {
         return `
-        <li class="tasks ${task.primary?"marked":""}">
+        <li class="tasks ${task.primary?"marked":""} ${task.done?"task-done":""}">
             <div class="title_overview">
                 <div class="main_information">
-                    <input id="status" class="completed_checkbox" type="checkbox" ${task.done?"checked":" "}>
-                    <label for="status" class="completed_checkbox" ><i class="fas fa-check"></i></label>
+                    <input id="status${index}" class="completed_checkbox" type="checkbox" ${task.done?"checked":" "}>
+                    <label for="status${index}" class="completed_checkbox" ><i class="fas fa-check"></i></label>
                     <p class="task_title">${task.taskTitle}</p>
-                    <input id="priority" class="star_mark" type="checkbox" ${task.primary?"checked":" "}>
-                    <label for="priority" class="star_mark"><i class="${task.primary?"fas":"far"} fa-star"></i></label>
-                    <input id="edit" class="edit_icon" type="checkbox">
-                    <label for="edit" class="edit_icon"><i class="far fa-pen"></i><label>
+                    <input id="priority${index}" class="star_mark" type="checkbox" ${task.primary?"checked":" "}>
+                    <label for="priority${index}" class="star_mark"><i class="${task.primary?"fas":"far"} fa-star"></i></label>
+                    <input id="edit${index}" class="edit_icon" type="checkbox">
+                    <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i><label>
                 </div>
 
                 <div class="detail">
@@ -145,7 +145,7 @@ addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
 updateFile.addEventListener("change", updateName)
-priority.addEventListener("change", markPriority);
+// priority.addEventListener("change", markPriority);
 status.addEventListener("change", toggleDone);
 editting.addEventListener("input", handleEdit);
 //點擊外圍收回新增表單
@@ -163,19 +163,22 @@ function hello(e) {
     const task = input.parentNode.parentNode.parentNode;
     switch (inputType) {
         case "completed_checkbox":
-            console.log("donetoggle")
+            task.classList.toggle('task-done');
             break;
         case "star_mark":
-            input.checked = !input.checked;
-            task.classList.toggle('marked')
+            task.classList.toggle('marked');
             if (input.checked) {
-                e.target.parentNode.innerHTML = `<i class="fas fa-star"></i>`;
-            }else{
                 e.target.parentNode.innerHTML = `<i class="far fa-star"></i>`;
+            }else{
+                e.target.parentNode.innerHTML = `<i class="fas fa-star"></i>`;
             }
             break;
         case "edit_icon":
-            console.log("edit")
+            if (input.checked) {
+                e.target.parentNode.innerHTML = `<i class="far fa-pen"></i>`;
+            } else {
+                e.target.parentNode.innerHTML = `<i class="fas fa-pen"></i>`;
+            }
             break;
     }
 }
