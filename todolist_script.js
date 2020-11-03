@@ -1,20 +1,26 @@
 const navButtons = document.querySelectorAll('.each_task_status');
+//新增任務
 const addTaskButton = document.querySelector('.add_new_task');
 const addTaskForm = document.querySelector('.add_task_form');
 const cancelButton = document.querySelector('.cancel_button');
 const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
-//完成狀態
+////////完成狀態
 const status = document.querySelector('input#status');
-//打星星
-// const priority = document.querySelector('#priority');
-//編輯中
+///////打星星
+const priority = document.querySelector('#priority');
+///////編輯中
 const editting = document.querySelector('#edit');
-//剩餘任務數量
+///////剩餘任務數量
 const countLeft = document.querySelector('.left_tasks_numbers');
-//任務清單
+//已存在任務
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
+
+function focus() {
+    navButtons.forEach(button => button.classList.remove('focus-active'));
+    this.classList.add('focus-active');
+}
 
 function newTask() {
     this.classList.add('click');
@@ -50,6 +56,7 @@ function addTask(e) {
     }
 
     tasks.push(task);
+    populateList(tasks, taskList);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     this.reset();
     resetForm();
@@ -69,7 +76,7 @@ function updateName() {
     fileName.textContent = file;
 }
 
-function markPriority(e) {
+function markPriority() {
     const starMark = this.parentNode.querySelector('label[for="priority"]');
     if (this.checked) {
         this.parentNode.classList.add('marked');
@@ -80,12 +87,7 @@ function markPriority(e) {
     }
 }
 
-function focus() {
-    navButtons.forEach(button => button.classList.remove('focus-active'));
-    this.classList.add('focus-active');
-}
-
-function toggleDone(e) {
+function toggleDone() {
     const checkbox = this.parentNode;
     if (this.checked) checkbox.classList.add('task-done');
     else(checkbox.classList.remove('task-done'))
@@ -97,22 +99,20 @@ function withDraw() {
     setTimeout(() => addTaskButton.classList.remove('click'), 280);
 }
 
-function handleEdit() {
+function handleEditButton() {
     const editMark = this.parentNode.querySelector('label[for="edit"]');
     if (this.checked) {
         editMark.innerHTML = `<i class="fas fa-pen"></i>`;
     } else {
         editMark.innerHTML = `<i class="far fa-pen"></i>`;
-        addTaskForm.classList.remove('click-active');
-        setTimeout(() => addTaskForm.classList.remove('click'), 280);
-        setTimeout(() => addTaskButton.classList.remove('click'), 280);
+        withDraw();
     }
 }
 
 function populateList(tasks = [], taskList) {
     taskList.innerHTML = tasks.map((task,index) => {
         return `
-        <li class="tasks ${task.primary?"marked":""} ${task.done?"task-done":""}">
+        <form data-index="${index}" class="tasks ${task.primary?"marked":""} ${task.done?"task-done":""}">
             <div class="title_overview">
                 <div class="main_information">
                     <input id="status${index}" class="completed_checkbox" type="checkbox" ${task.done?"checked":" "}>
@@ -132,31 +132,12 @@ function populateList(tasks = [], taskList) {
                 ${task.memo?`<span><i class="far fa-comment-dots"></i></span>`:""}
                     </div>
                 </div>
-        </li>
+        </form>
         `
     }).join("");
 }
 
-
-//navbar分類點擊
-navButtons.forEach(button => button.addEventListener("click", focus));
-//新增任務
-addTaskButton.addEventListener("click", newTask);
-addTaskForm.addEventListener("submit", addTask);
-cancelButton.addEventListener("click", resetForm);
-updateFile.addEventListener("change", updateName)
-// priority.addEventListener("change", markPriority);
-status.addEventListener("change", toggleDone);
-editting.addEventListener("input", handleEdit);
-//點擊外圍收回新增表單
-window.addEventListener("click", (e) => {
-    if (e.target === document.body) withDraw();
-});
-populateList(tasks, taskList);
-
-taskList.addEventListener("click", hello);
-
-function hello(e) {
+function handleTaskEdit(e) {
     if (!e.target.matches('i')) return;
     const input = e.target.parentNode.previousElementSibling;
     const inputType = input.classList[0];
@@ -164,9 +145,11 @@ function hello(e) {
     switch (inputType) {
         case "completed_checkbox":
             task.classList.toggle('task-done');
+            tasks[task.dataset.index].done = !tasks[task.dataset.index].done
             break;
         case "star_mark":
             task.classList.toggle('marked');
+            tasks[task.dataset.index].primary = !tasks[task.dataset.index].primary
             if (input.checked) {
                 e.target.parentNode.innerHTML = `<i class="far fa-star"></i>`;
             }else{
@@ -176,12 +159,33 @@ function hello(e) {
         case "edit_icon":
             if (input.checked) {
                 e.target.parentNode.innerHTML = `<i class="far fa-pen"></i>`;
+                
             } else {
                 e.target.parentNode.innerHTML = `<i class="fas fa-pen"></i>`;
             }
             break;
     }
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
+
+// populateList(tasks, taskList);
+//navbar分類點擊
+navButtons.forEach(button => button.addEventListener("click", focus));
+//新增任務
+addTaskButton.addEventListener("click", newTask);
+addTaskForm.addEventListener("submit", addTask);
+cancelButton.addEventListener("click", resetForm);
+updateFile.addEventListener("change", updateName)
+priority.addEventListener("change", markPriority);
+status.addEventListener("change", toggleDone);
+editting.addEventListener("input", handleEditButton);
+//點擊外圍收回新增表單
+window.addEventListener("click", (e) => {
+    if (e.target === document.body) withDraw();
+});
+
+
+taskList.addEventListener("click", handleTaskEdit);
 
 //計算剩餘任務數量
 countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`

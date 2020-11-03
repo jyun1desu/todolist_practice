@@ -297,19 +297,19 @@ main {
         }
 
         .detail {
-            padding: 0 0 10px 45px;
+            padding: 0 0 0 45px;
             display: flex;
             align-items: center;
 
             @include breakpoint.RWD(breakpoint.$pad_horizontal) {
                 padding-left: 60px;
-                padding-bottom: 15px;
             }
 
             >span {
                 display: flex;
                 align-items: center;
                 font-size: 0;
+                margin-bottom: 10px;
 
                 &+span {
                     margin-left: 12px;

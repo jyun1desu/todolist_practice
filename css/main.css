@@ -316,20 +316,20 @@ main .todo_list .main_information .task_title {
   font-weight: bold;
 }
 main .todo_list .detail {
-  padding: 0 0 10px 45px;
+  padding: 0 0 0 45px;
   display: flex;
   align-items: center;
 }
 @media (min-width: 992px) {
   main .todo_list .detail {
     padding-left: 60px;
-    padding-bottom: 15px;
   }
 }
 main .todo_list .detail > span {
   display: flex;
   align-items: center;
   font-size: 0;
+  margin-bottom: 10px;
 }
 main .todo_list .detail > span + span {
   margin-left: 12px;
