@@ -1,3 +1,12 @@
+* {
+  outline: 1px solid #999;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: #e1e1e1;
 }
@@ -55,8 +64,15 @@ label[for=status] {
   }
 }
 
-label[for=status] {
+input[type=checkbox] {
+  display: none;
+}
+
+label {
   margin-bottom: 0;
+}
+
+label[for=status] {
   width: 20px;
   height: 20px;
   text-align: center;
@@ -66,9 +82,23 @@ label[for=status] {
   color: white;
 }
 
-.completed_checkbox {
+input#priority, input#edit {
   display: none;
 }
+
+label[for=priority], label[for=edit] {
+  margin-bottom: 0;
+  color: #000000;
+}
+
+input#priority:checked + label {
+  color: #F5A623;
+}
+
+input#edit:checked + label {
+  color: #4A90E2;
+}
+
 .completed_checkbox:checked#status + label {
   background-color: #4A90E2;
   color: white;
@@ -132,12 +162,19 @@ main .add_task_form {
 }
 main .add_task_form.click {
   display: block;
-  max-height: 0px;
+  max-height: 10px;
   transition: 0.5s;
 }
 main .add_task_form.click-active {
   display: block;
+  opacity: 1;
   max-height: 500px;
+}
+main .add_task_form .title_area.task-done {
+  background-color: transparent;
+}
+main .add_task_form .title_area.task-done .task_title {
+  text-decoration: line-through;
 }
 main .add_task_form .title_area.marked {
   background-color: #FFF2DC;
@@ -151,18 +188,8 @@ main .add_task_form .title_area .task_title {
 }
 main .add_task_form .title_area .task_title::placeholder {
   font-size: 18px;
-  color: var(--c, #000000);
+  color: var(--c, #c8c8c8);
   font-weight: bold;
-}
-main .add_task_form .title_area input#priority {
-  display: none;
-}
-main .add_task_form .title_area label[for=priority] {
-  margin-bottom: 0;
-  color: #000000;
-}
-main .add_task_form .title_area input#priority:checked + label {
-  color: #F5A623;
 }
 main .add_task_form .detail_area {
   padding: 20px 45px;
@@ -282,9 +309,13 @@ main .todo_list {
   padding-left: 0;
 }
 main .todo_list .tasks {
+  background-color: #f2f2f2;
   border-radius: 5px;
   margin-bottom: 8px;
   overflow: hidden;
+}
+main .todo_list .tasks.marked {
+  background-color: #FFF2DC;
 }
 main .todo_list .main_information {
   border-bottom: none;

@@ -37,7 +37,8 @@
                 <input name="title" class="task_title" type="text" placeholder="Type Something Here...">
                 <input id="priority" type="checkbox">
                 <label for="priority" class="star_mark"><i class="far fa-star"></i></label>
-                <span class="edit_icon"><i class="fas fa-pen"></i></span>
+                <input id="edit" type="checkbox" checked>
+                <label for="edit" class="edit_icon"><i class="fas fa-pen"></i><label>
             </div>
 
             <div class="detail_area">
@@ -71,14 +72,14 @@
             </div>
 
             <div class="button_area">
-                <button class="cancel_button">&times; Cancel</button>
+                <button type="reset" class="cancel_button">&times; Cancel</button>
                 <button type="submit" class="submit_button">&#43; Add Task</button>
             </div>
 
         </form>
 
-        <!-- <ul class="todo_list">
-            <li class="marked_tasks tasks">
+        <ul class="todo_list">
+            <!-- <li class="marked_tasks tasks">
                 <div class="title_overview">
                     <div class="main_information">
                         <input id="status" class="completed_checkbox" type="checkbox">
@@ -99,7 +100,7 @@
                 </div>
             </li>
 
-            <li class="marked_tasks tasks">
+            <!-- <li class="marked_tasks tasks">
                 <div class="title_overview">
                     <div class="main_information">
                         <input id="status" class="completed_checkbox" type="checkbox">
@@ -134,35 +135,9 @@
                         <span><i class="far fa-file"></i></span>
                         <span><i class="far fa-comment-dots"></i></span>
                     </div>
-            </li>
+            </li> -->
 
-            <li class="normal_tasks tasks">
-                <div class="title_overview">
-                    <div class="main_information">
-                        <input class="completed_checkbox" type="checkbox">
-                        <span class="checked_icon"><i class="fas fa-check"></i></span>
-                        <p class="task_title">Type Something Here...</p>
-                        <span class="star_mark"><i class="far fa-star"></i></span>
-                        <span class="edit_icon"><i class="far fa-pen"></i></span>
-                    </div>
-
-                    <div class="detail">
-                        <span><i class="far fa-file"></i></span>
-                    </div>
-            </li>
-
-            <li class="completed_tasks tasks">
-                <div class="title_overview">
-                    <div class="main_information">
-                        <input class="completed_checkbox" type="checkbox" checked>
-                        <span class="checked_icon"><i class="fas fa-check"></i></span>
-                        <p class="task_title">Type Something Here...</p>
-                        <span class="star_mark"><i class="far fa-star"></i></span>
-                        <span class="edit_icon"><i class="far fa-pen"></i></span>
-                    </div>
-
-            </li>
-        </ul> -->
+        </ul>
 
         <p class="left_tasks_numbers">
             0 tasks left

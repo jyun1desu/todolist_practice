@@ -53,26 +53,33 @@ main {
         background-color: color.$secondary_background_color;
         border-radius: 5px;
         box-shadow: 0px 3px 4px #c8c8c8;
-
         overflow: hidden;
-
         margin-top: 10px;
 
 
         &.click {
             display: block;
-            max-height: 0px;
+            max-height: 10px;
             transition: 0.5s;
         }
 
         &.click-active {
             display: block;
+            opacity: 1;
             max-height: 500px;
         }
 
 
         .title_area {
             @extend %task_overview;
+
+            &.task-done{
+                background-color: transparent;
+
+                .task_title{
+                    text-decoration: line-through;
+                }
+            }
 
             &.marked{
                 background-color: color.$highlight_color;
@@ -90,23 +97,11 @@ main {
 
                 &::placeholder {
                     font-size: 18px;
-                    color: var(--c, color.$primary_font_color);
+                    color: var(--c, color.$secondary_font_color);
                     font-weight: bold;
                 }
             }
 
-            input#priority {
-                display: none;
-            }
-
-            label[for="priority"] {
-                margin-bottom: 0;
-                color: color.$primary_font_color;
-            }
-
-            input#priority:checked+label {
-                color: color.$highlight_icon_color;
-            }
         }
 
         .detail_area {
@@ -264,7 +259,6 @@ main {
 
     }
 
-
     .todo_list {
         list-style: none;
 
@@ -274,10 +268,15 @@ main {
 
 
         .tasks {
+            background-color: color.$secondary_background_color;
             border-radius: 5px;
             margin-bottom: 8px;
 
             overflow: hidden;
+
+            &.marked{
+                background-color: color.$highlight_color;
+            }
         }
 
         .main_information {

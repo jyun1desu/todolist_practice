@@ -1,20 +1,25 @@
 @use '../utilities/breakpoint';
 @use '../theme/color';
 
-// * {
-//     outline: 1px solid #999;
-// }
+* {
+    outline: 1px solid #999;
+}
+
+html,
+body {
+    height: 100%;
+}
 
 body {
     background-color: color.$primary_background_color;
 }
 
 .wrapper {
-    @include breakpoint.RWD(breakpoint.$pad_horizontal){
+    @include breakpoint.RWD(breakpoint.$pad_horizontal) {
         max-width: 720px;
     }
 
-    @include breakpoint.RWD(breakpoint.$laptop){
+    @include breakpoint.RWD(breakpoint.$laptop) {
         max-width: 800px;
     }
 
