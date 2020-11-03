@@ -13,47 +13,44 @@ $position_left: 15px;
     }
 }
 
-input[type="checkbox"]{
-    display: none;
-}
+input {
+    &[type="checkbox"] {
+        display: none;
+    }
 
-label{
-    margin-bottom: 0;
-}
-
-label[for="status"]{
-    @extend %icon_position;
-    width: $checkbox_size;
-    height: $checkbox_size;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 20px;
-    background-color: white;
-    color: white;
-}
-
-input#priority,input#edit {
-    display: none;
-}
-
-label[for="priority"],label[for="edit"] {
-    margin-bottom: 0;
-    color: color.$primary_font_color;
-}
-
-input#priority:checked+label {
-    color: color.$highlight_icon_color;
-}
-input#edit:checked+label {
-    color: color.$main_color;
-}
-
-.completed_checkbox {
-
-    &:checked#status+label {
+    &.completed_checkbox:checked+label {
         background-color: color.$main_color;
         color: white;
 
     }
 
+    &.star_mark:checked+label {
+        color: color.$highlight_icon_color;
+    }
+
+    &.edit_icon:checked+label {
+        color: color.$main_color;
+    }
+
+}
+
+label {
+    margin-bottom: 0;
+
+    &.completed_checkbox {
+        @extend %icon_position;
+        width: $checkbox_size;
+        height: $checkbox_size;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+        background-color: white;
+        color: white;
+    }
+
+    &.star_mark,
+    &.edit_icon {
+        margin-bottom: 0;
+        color: color.$primary_font_color;
+    }
 }

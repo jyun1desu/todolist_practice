@@ -50,12 +50,12 @@ header .task_status_navbar .focus-active {
   outline: none;
 }
 
-label[for=status] {
+label.completed_checkbox {
   position: absolute;
   left: 15px;
 }
 @media (min-width: 992px) {
-  label[for=status] {
+  label.completed_checkbox {
     left: 25px;
   }
 }
@@ -63,12 +63,21 @@ label[for=status] {
 input[type=checkbox] {
   display: none;
 }
+input.completed_checkbox:checked + label {
+  background-color: #4A90E2;
+  color: white;
+}
+input.star_mark:checked + label {
+  color: #F5A623;
+}
+input.edit_icon:checked + label {
+  color: #4A90E2;
+}
 
 label {
   margin-bottom: 0;
 }
-
-label[for=status] {
+label.completed_checkbox {
   width: 20px;
   height: 20px;
   text-align: center;
@@ -77,27 +86,9 @@ label[for=status] {
   background-color: white;
   color: white;
 }
-
-input#priority, input#edit {
-  display: none;
-}
-
-label[for=priority], label[for=edit] {
+label.star_mark, label.edit_icon {
   margin-bottom: 0;
   color: #000000;
-}
-
-input#priority:checked + label {
-  color: #F5A623;
-}
-
-input#edit:checked + label {
-  color: #4A90E2;
-}
-
-.completed_checkbox:checked#status + label {
-  background-color: #4A90E2;
-  color: white;
 }
 
 .add_new_task {

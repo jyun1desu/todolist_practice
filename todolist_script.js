@@ -116,11 +116,11 @@ function populateList(tasks = [], taskList) {
             <div class="title_overview">
                 <div class="main_information">
                     <input id="status" class="completed_checkbox" type="checkbox" ${task.done?"checked":" "}>
-                    <label for="status"><i class="fas fa-check"></i></label>
+                    <label for="status" class="completed_checkbox" ><i class="fas fa-check"></i></label>
                     <p class="task_title">${task.taskTitle}</p>
-                    <input id="priority" type="checkbox" ${task.primary?"checked":" "}>
+                    <input id="priority" class="star_mark" type="checkbox" ${task.primary?"checked":" "}>
                     <label for="priority" class="star_mark"><i class="${task.primary?"fas":"far"} fa-star"></i></label>
-                    <input id="edit" type="checkbox">
+                    <input id="edit" class="edit_icon" type="checkbox">
                     <label for="edit" class="edit_icon"><i class="far fa-pen"></i><label>
                 </div>
 
@@ -152,7 +152,33 @@ editting.addEventListener("input", handleEdit);
 window.addEventListener("click", (e) => {
     if (e.target === document.body) withDraw();
 });
-populateList(tasks,taskList);
+populateList(tasks, taskList);
+
+taskList.addEventListener("click", hello);
+
+function hello(e) {
+    if (!e.target.matches('i')) return;
+    const input = e.target.parentNode.previousElementSibling;
+    const inputType = input.classList[0];
+    const task = input.parentNode.parentNode.parentNode;
+    switch (inputType) {
+        case "completed_checkbox":
+            console.log("donetoggle")
+            break;
+        case "star_mark":
+            input.checked = !input.checked;
+            task.classList.toggle('marked')
+            if (input.checked) {
+                e.target.parentNode.innerHTML = `<i class="fas fa-star"></i>`;
+            }else{
+                e.target.parentNode.innerHTML = `<i class="far fa-star"></i>`;
+            }
+            break;
+        case "edit_icon":
+            console.log("edit")
+            break;
+    }
+}
 
 //計算剩餘任務數量
 countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
