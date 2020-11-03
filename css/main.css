@@ -1,7 +1,3 @@
-* {
-  outline: 1px solid #999;
-}
-
 html,
 body {
   height: 100%;
@@ -148,9 +144,6 @@ main .todo_list .main_information, main .add_task_form .title_area {
 main .todo_list .main_information .star_mark, main .add_task_form .title_area .star_mark {
   margin-left: auto;
   margin-right: 10px;
-}
-main .todo_list .main_information .edit_icon, main .add_task_form .title_area .edit_icon {
-  color: #4A90E2;
 }
 main .add_task_form {
   display: none;
