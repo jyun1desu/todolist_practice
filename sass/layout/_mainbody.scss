@@ -187,12 +187,12 @@ main {
                 }
             }
 
-            .cancel_button {
+            .cancel_button , .cancel_edit_button {
                 background-color: #fdfdfd;
                 color: color.$warning_color;
             }
 
-            .submit_button {
+            .submit_button,.save_button {
                 background-color: color.$main_color;
                 color: white;
             }

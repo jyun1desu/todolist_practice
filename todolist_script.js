@@ -17,6 +17,72 @@ const countLeft = document.querySelector('.left_tasks_numbers');
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
 
+function populateList(tasks = [], taskList) {
+    taskList.innerHTML = tasks.map((task, index) => {
+        return `
+        <form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}">
+        <div class="main_information">
+        <input id="status${index}" data-use="done" onclick="toggleStatus(this)" class="completed_checkbox" type="checkbox"
+            ${task.done?"checked":" "}>
+                        <label for="status${index}" class="completed_checkbox  ${task.done?" clicked":""}"><i
+            class="fas fa-check"></i></label>
+        <p class="task_title">${task.taskTitle}</p>
+        <input id="priority${index}" data-use="primary" onclick="toggleStatus(this)" class="star_mark" type="checkbox"
+            ${task.primary?"checked":" "}>
+                        <label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"><i
+            class="${task.primary?"fas":"far"} fa-star"></i></label>
+        <input id="edit${index}" onclick="toggleShow(this)" class="edit_icon" type="checkbox">
+        <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i><label>
+    </div>
+    
+    <div class="quick_detail">
+        ${task.deadlineDate?`<span>
+            <i class="far fa-calendar-alt"></i>
+            <span>${task.deadlineDate}</span></span>`:""}
+        ${task.updateFile?`<span><i class="far fa-file"></i></span>`:""}
+        ${task.memo?`<span><i class="far fa-comment-dots"></i></span>`:""}
+    </div>
+    
+    <div class="detail_area" style="display:none;">
+        <div class="deadline">
+            <i class="icon far fa-calendar-alt"></i>
+            <div class="content_block">
+                <p>Deadline</p>
+                <div class="time_block">
+                    <input name="date" class="deadline_date" value="${task.deadlineDate}" type="date"
+                        placeholder="yyyy/mm/dd">
+                    <input name="time" class="deadline_time" value="${task.deadlineTime}" type="time" placeholder="hh:mm">
+                </div>
+            </div>
+        </div>
+        <div class="file_update">
+            <i class="icon far fa-file"></i>
+            <div class="content_block">
+                <p>File</p>
+                <input id="file_update" name="update" type="file" class="update_button" value="">
+                ${task.updateFile?`<span class="file_name">${task.updateFile}</span>`:""}
+                <label for="file_update"></label>
+            </div>
+        </div>
+        <div class="memo">
+            <i class="icon far fa-comment-dots"></i>
+            <div class="content_block">
+                <p>Comment</p>
+                <textarea name="memo_content" placeholder="Type your memo here...">${task.memo}</textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="button_area" style="display:none;">
+    <button class="cancel_edit_button">&times; Cancel</button>
+    <button class="save_button">&#43; Save</button>
+</div>
+        </form>
+        `
+    }).join("");
+    countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
+}
+
 function focus() {
     navButtons.forEach(button => button.classList.remove('focus-active'));
     this.classList.add('focus-active');
@@ -83,16 +149,6 @@ function withDraw() {
     setTimeout(() => addTaskButton.classList.remove('click'), 280);
 }
 
-function handleEditButton() {
-    const editMark = this.parentNode.querySelector('label[for="edit"]');
-    if (this.checked) {
-        editMark.innerHTML = `<i class="fas fa-pen"></i>`;
-    } else {
-        editMark.innerHTML = `<i class="far fa-pen"></i>`;
-        withDraw();
-    }
-}
-
 function toggleStatus(element) {
     const label = element.nextElementSibling;
     const icon = label.firstChild;
@@ -109,73 +165,6 @@ function toggleStatus(element) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
-
-function populateList(tasks = [], taskList) {
-    taskList.innerHTML = tasks.map((task, index) => {
-        return `
-        <form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}">
-        <div class="main_information">
-        <input id="status${index}" data-use="done" onclick="toggleStatus(this)" class="completed_checkbox" type="checkbox"
-            ${task.done?"checked":" "}>
-                        <label for="status${index}" class="completed_checkbox  ${task.done?" clicked":""}"><i
-            class="fas fa-check"></i></label>
-        <p class="task_title">${task.taskTitle}</p>
-        <input id="priority${index}" data-use="primary" onclick="toggleStatus(this)" class="star_mark" type="checkbox"
-            ${task.primary?"checked":" "}>
-                        <label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"><i
-            class="${task.primary?"fas":"far"} fa-star"></i></label>
-        <input id="edit${index}" onclick="toggleShow(this)" class="edit_icon" type="checkbox">
-        <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i><label>
-    </div>
-    
-    <div class="quick_detail">
-        ${task.deadlineDate?`<span>
-            <i class="far fa-calendar-alt"></i>
-            <span>${task.deadlineDate}</span></span>`:""}
-        ${task.updateFile?`<span><i class="far fa-file"></i></span>`:""}
-        ${task.memo?`<span><i class="far fa-comment-dots"></i></span>`:""}
-    </div>
-    
-    <div class="detail_area" style="display:none;">
-        <div class="deadline">
-            <i class="icon far fa-calendar-alt"></i>
-            <div class="content_block">
-                <p>Deadline</p>
-                <div class="time_block">
-                    <input name="date" class="deadline_date" value="${task.deadlineDate}" type="date"
-                        placeholder="yyyy/mm/dd">
-                    <input name="time" class="deadline_time" value="${task.deadlineTime}" type="time" placeholder="hh:mm">
-                </div>
-            </div>
-        </div>
-        <div class="file_update">
-            <i class="icon far fa-file"></i>
-            <div class="content_block">
-                <p>File</p>
-                <input id="file_update" name="update" type="file" class="update_button" value="">
-                ${task.updateFile?`<span class="file_name">${task.updateFile}</span>`:""}
-                <label for="file_update"></label>
-            </div>
-        </div>
-        <div class="memo">
-            <i class="icon far fa-comment-dots"></i>
-            <div class="content_block">
-                <p>Comment</p>
-                <textarea name="memo_content" placeholder="Type your memo here...">${task.memo}</textarea>
-            </div>
-        </div>
-
-    </div>
-    <div class="button_area" style="display:none;">
-    <button class="cancel_button">&times; Cancel</button>
-    <button class="submit_button">&#43; Save</button>
-</div>
-        </form>
-        `
-    }).join("");
-    countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
-}
-
 
 function toggleShow(element){
     const quick_detail = element.parentNode.nextElementSibling;
@@ -201,65 +190,6 @@ function toggleShow(element){
     }
 }
 
-// function taskDropdown(element) {
-//     const taskForm = element.parentNode.parentNode;
-//     const index = taskForm.dataset.index
-//     const task = tasks[taskForm.dataset.index]
-//     const label = element.nextElementSibling;
-//     const icon = label.firstChild;
-
-//     icon.classList.toggle('fas');
-//     icon.classList.toggle('far');
-
-
-//     taskForm.innerHTML = `<div class="main_information">
-//     <input id="status${index}" data-use="done" class="completed_checkbox" onclick="toggleStatus(this)" type="checkbox" ${task.done?"checked":" "}>
-//     <label for="status${index}" class="completed_checkbox" ><i class="fas fa-check"></i></label>
-//     <p class="task_title">${task.taskTitle}</p>
-//     <input id="priority${index}" data-use="primary" class="star_mark" onclick="toggleStatus(this)" type="checkbox" ${task.primary?"checked":" "}>
-//     <label for="priority${index}" class="star_mark ${task.primary?"clicked":""}"><i class="${task.primary?"fas":"far"} fa-star"></i></label>
-//     <input id="edit${index}" onclick="toggleShow(this)" class="edit_icon" type="checkbox" checked>
-//     <label for="edit${index}" class="edit_icon clicked"><i class="fas fa-pen"></i><label>
-// </div>
-
-// <div class="detail_area">
-//     <div class="deadline">
-//         <i class="icon far fa-calendar-alt"></i>
-//         <div class="content_block">
-//             <p>Deadline</p>
-//             <div class="time_block">
-//                 <input name="date" class="deadline_date" value="${task.deadlineDate}" type="date" placeholder="yyyy/mm/dd">
-//                 <input name="time" class="deadline_time" value="${task.deadlineTime}" type="time" placeholder="hh:mm">
-//             </div>
-//         </div>
-//     </div>
-// <div class="file_update">
-//     <i class="icon far fa-file"></i>
-//     <div class="content_block">
-//         <p>File</p>
-//         <input id="file_update" name="update" type="file" class="update_button" value="">
-//         ${task.updateFile?`<span class="file_name">${task.updateFile}</span>`:""}
-//         <label for="file_update"></label>
-//     </div>
-
-// </div>
-// <div class="memo">
-//     <i class="icon far fa-comment-dots"></i>
-//     <div class="content_block">
-//         <p>Comment</p>
-//         <textarea name="memo_content" placeholder="Type your memo here...">${task.memo}</textarea>
-//     </div>
-// </div>
-
-// </div>
-
-// <div class="button_area">
-// <button type="reset" class="cancel_button">&times; Cancel</button>
-// <button type="submit" class="submit_button">&#43; Save</button>
-// </div>`
-
-// }
-
 populateList(tasks, taskList);
 //navbar分類點擊
 navButtons.forEach(button => button.addEventListener("click", focus));
@@ -268,6 +198,6 @@ addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
 updateFile.addEventListener("change", updateName);
-editting.addEventListener("input", handleEditButton);
+editting.addEventListener("input", withDraw);
 
 //計算剩餘任務數量

@@ -241,11 +241,11 @@ main .todo_list .button_area button, main .add_task_form .button_area button {
 main .todo_list .button_area button:focus, main .add_task_form .button_area button:focus {
   outline: none;
 }
-main .todo_list .button_area .cancel_button, main .add_task_form .button_area .cancel_button {
+main .todo_list .button_area .cancel_button, main .add_task_form .button_area .cancel_button, main .todo_list .button_area .cancel_edit_button, main .add_task_form .button_area .cancel_edit_button {
   background-color: #fdfdfd;
   color: #D0021B;
 }
-main .todo_list .button_area .submit_button, main .add_task_form .button_area .submit_button {
+main .todo_list .button_area .submit_button, main .add_task_form .button_area .submit_button, main .todo_list .button_area .save_button, main .add_task_form .button_area .save_button {
   background-color: #4A90E2;
   color: white;
 }
