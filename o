@@ -1,0 +1,23 @@
+`
+        <form data-index="${index}" class="tasks ${task.primary?"marked":""} ${task.done?"task-done":""}">
+            <div class="title_overview">
+                <div class="main_information">
+                    <input id="status${index}" class="completed_checkbox" type="checkbox" ${task.done?"checked":" "}>
+                    <label for="status${index}" class="completed_checkbox" ><i class="fas fa-check"></i></label>
+                    <p class="task_title">${task.taskTitle}</p>
+                    <input id="priority${index}" class="star_mark" type="checkbox" ${task.primary?"checked":" "}>
+                    <label for="priority${index}" class="star_mark"><i class="${task.primary?"fas":"far"} fa-star"></i></label>
+                    <input id="edit${index}" class="edit_icon" type="checkbox">
+                    <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i><label>
+                </div>
+
+                <div class="quick_detail">
+                ${task.deadlineDate?`<span>
+                <i class="far fa-calendar-alt"></i>
+                <span>${task.deadlineDate}</span></span>`:""}
+                ${task.updateFile?`<span><i class="far fa-file"></i></span>`:""}
+                ${task.memo?`<span><i class="far fa-comment-dots"></i></span>`:""}
+                    </div>
+                </div>
+        </form>
+        `

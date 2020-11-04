@@ -44,64 +44,10 @@ main {
 
     }
 
-    .add_task_form {
-        display: none;
-        background-color: color.$secondary_background_color;
-        border-radius: 5px;
-        box-shadow: 0px 3px 4px #c8c8c8;
-        overflow: hidden;
-        margin-top: 10px;
-
-
-        &.click {
-            display: block;
-            max-height: 10px;
-            transition: 0.5s;
-        }
-
-        &.click-active {
-            display: block;
-            opacity: 1;
-            max-height: 500px;
-        }
-
-
-        .title_area {
-            @extend %task_overview;
-
-            &.task-done{
-                background-color: transparent;
-
-                .task_title{
-                    text-decoration: line-through;
-                }
-            }
-
-            &.marked{
-                background-color: color.$highlight_color;
-            }
-
-            .task_title {
-                @extend %input_style;
-                background-color: transparent;
-
-                flex: 0 1 100%;
-                margin-right: 10px;
-
-                font-size: 18px;
-                font-weight: bold;
-
-                &::placeholder {
-                    font-size: 18px;
-                    color: var(--c, color.$secondary_font_color);
-                    font-weight: bold;
-                }
-            }
-
-        }
-
+    %task_detail{
         .detail_area {
             padding: 20px 45px;
+            background-color: color.$secondary_background_color;
 
             @include breakpoint.RWD(breakpoint.$pad_horizontal) {
                 padding-left: 60px;
@@ -251,11 +197,70 @@ main {
                 color: white;
             }
         }
+    }
+
+    .add_task_form {
+        @extend %task_detail;
+        display: none;
+        background-color: color.$secondary_background_color;
+        border-radius: 5px;
+        box-shadow: 0px 3px 4px #c8c8c8;
+        overflow: hidden;
+        margin-top: 10px;
+
+
+        &.click {
+            display: block;
+            max-height: 10px;
+            transition: 0.5s;
+        }
+
+        &.click-active {
+            display: block;
+            opacity: 1;
+            max-height: 500px;
+        }
+
+
+        .title_area {
+            @extend %task_overview;
+
+            &.task-done{
+                background-color: transparent;
+
+                .task_title{
+                    text-decoration: line-through;
+                }
+            }
+
+            &.marked{
+                background-color: color.$highlight_color;
+            }
+
+            .task_title {
+                @extend %input_style;
+                background-color: transparent;
+
+                flex: 0 1 100%;
+                margin-right: 10px;
+
+                font-size: 18px;
+                font-weight: bold;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: var(--c, color.$secondary_font_color);
+                    font-weight: bold;
+                }
+            }
+
+        }
 
 
     }
 
     .todo_list {
+        @extend %task_detail;
         list-style: none;
 
         margin-top: 20px;
@@ -296,7 +301,7 @@ main {
 
         }
 
-        .detail {
+        .quick_detail {
             padding: 0 0 0 45px;
             display: flex;
             align-items: center;
@@ -325,6 +330,10 @@ main {
                     color: color.$secondary_icon_color;
                 }
             }
+        }
+
+        .detail_area{
+            border-top: 2px solid color.$secondary_font_color;
         }
     }
 

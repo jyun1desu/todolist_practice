@@ -60,20 +60,6 @@ label.completed_checkbox {
   }
 }
 
-input[type=checkbox] {
-  display: none;
-}
-input.completed_checkbox:checked + label {
-  background-color: #4A90E2;
-  color: white;
-}
-input.star_mark:checked + label {
-  color: #F5A623;
-}
-input.edit_icon:checked + label {
-  color: #4A90E2;
-}
-
 label {
   margin-bottom: 0;
 }
@@ -86,9 +72,19 @@ label.completed_checkbox {
   background-color: white;
   color: white;
 }
-label.star_mark, label.edit_icon {
+label.completed_checkbox.clicked {
+  background-color: #4A90E2;
+  color: white;
+}
+label.star_mark {
   margin-bottom: 0;
   color: #000000;
+}
+label.star_mark.clicked {
+  color: #F5A623;
+}
+label.edit_icon.clicked {
+  color: #4A90E2;
 }
 
 .add_new_task {
@@ -107,17 +103,17 @@ label.star_mark, label.edit_icon {
 main {
   margin-top: 15px;
 }
-main .add_task_form .detail_area textarea, main .add_task_form .detail_area .deadline input, main .add_task_form .title_area .task_title {
+main .add_task_form .title_area .task_title, main .todo_list .detail_area textarea, main .add_task_form .detail_area textarea, main .todo_list .detail_area .deadline input, main .add_task_form .detail_area .deadline input {
   width: 100%;
   border: none;
   border-radius: 2px;
   font-size: 14px;
 }
-main .add_task_form .detail_area textarea::placeholder, main .add_task_form .detail_area .deadline input::placeholder, main .add_task_form .title_area .task_title::placeholder {
+main .add_task_form .title_area .task_title::placeholder, main .todo_list .detail_area textarea::placeholder, main .add_task_form .detail_area textarea::placeholder, main .todo_list .detail_area .deadline input::placeholder, main .add_task_form .detail_area .deadline input::placeholder {
   color: #c8c8c8;
   font-size: 14px;
 }
-main .add_task_form .detail_area textarea:focus, main .add_task_form .detail_area .deadline input:focus, main .add_task_form .title_area .task_title:focus {
+main .add_task_form .title_area .task_title:focus, main .todo_list .detail_area textarea:focus, main .add_task_form .detail_area textarea:focus, main .todo_list .detail_area .deadline input:focus, main .add_task_form .detail_area .deadline input:focus {
   outline: none;
 }
 main .todo_list .main_information, main .add_task_form .title_area {
@@ -135,6 +131,119 @@ main .todo_list .main_information, main .add_task_form .title_area {
 main .todo_list .main_information .star_mark, main .add_task_form .title_area .star_mark {
   margin-left: auto;
   margin-right: 10px;
+}
+main .todo_list .detail_area, main .add_task_form .detail_area {
+  padding: 20px 45px;
+  background-color: #f2f2f2;
+}
+@media (min-width: 992px) {
+  main .todo_list .detail_area, main .add_task_form .detail_area {
+    padding-left: 60px;
+  }
+}
+main .todo_list .detail_area > div, main .add_task_form .detail_area > div {
+  display: flex;
+  align-items: flex-start;
+}
+main .todo_list .detail_area > div + div, main .add_task_form .detail_area > div + div {
+  margin-top: 15px;
+}
+main .todo_list .detail_area > div .icon, main .add_task_form .detail_area > div .icon,
+main .todo_list .detail_area > div .content_block p,
+main .add_task_form .detail_area > div .content_block p {
+  font-size: 16px;
+  line-height: 20px;
+}
+main .todo_list .detail_area > div .icon, main .add_task_form .detail_area > div .icon {
+  flex: 0 0 15px;
+  margin-right: 10px;
+}
+main .todo_list .detail_area > div .content_block, main .add_task_form .detail_area > div .content_block {
+  width: 100%;
+}
+main .todo_list .detail_area > div .content_block p, main .add_task_form .detail_area > div .content_block p {
+  margin-bottom: 10px;
+}
+main .todo_list .detail_area .deadline .time_block, main .add_task_form .detail_area .deadline .time_block {
+  display: flex;
+}
+main .todo_list .detail_area .deadline input, main .add_task_form .detail_area .deadline input {
+  flex: 0 1 50%;
+  padding-left: 10px;
+}
+main .todo_list .detail_area .deadline input.deadline_date, main .add_task_form .detail_area .deadline input.deadline_date {
+  margin-right: 10px;
+}
+main .todo_list .detail_area .file_update label, main .add_task_form .detail_area .file_update label {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 2px;
+  background-color: #c8c8c8;
+  position: relative;
+  vertical-align: middle;
+}
+main .todo_list .detail_area .file_update label:before, main .add_task_form .detail_area .file_update label:before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+main .todo_list .detail_area .file_update label:after, main .add_task_form .detail_area .file_update label:after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 12px;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+main .todo_list .detail_area .file_update label:focus, main .add_task_form .detail_area .file_update label:focus {
+  outline: none;
+}
+main .todo_list .detail_area .file_update label:hover, main .add_task_form .detail_area .file_update label:hover {
+  background-color: #4A90E2;
+}
+main .todo_list .detail_area .file_update input, main .add_task_form .detail_area .file_update input {
+  display: none;
+}
+main .todo_list .detail_area .file_update .file_name, main .add_task_form .detail_area .file_update .file_name {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+main .todo_list .detail_area textarea, main .add_task_form .detail_area textarea {
+  padding-left: 10px;
+  height: 100px;
+  resize: none;
+}
+main .todo_list .button_area, main .add_task_form .button_area {
+  display: flex;
+}
+main .todo_list .button_area button, main .add_task_form .button_area button {
+  flex: 1 1 50%;
+  border: none;
+  padding: 10px 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+main .todo_list .button_area button:focus, main .add_task_form .button_area button:focus {
+  outline: none;
+}
+main .todo_list .button_area .cancel_button, main .add_task_form .button_area .cancel_button {
+  background-color: #fdfdfd;
+  color: #D0021B;
+}
+main .todo_list .button_area .submit_button, main .add_task_form .button_area .submit_button {
+  background-color: #4A90E2;
+  color: white;
 }
 main .add_task_form {
   display: none;
@@ -175,117 +284,6 @@ main .add_task_form .title_area .task_title::placeholder {
   color: var(--c, #c8c8c8);
   font-weight: bold;
 }
-main .add_task_form .detail_area {
-  padding: 20px 45px;
-}
-@media (min-width: 992px) {
-  main .add_task_form .detail_area {
-    padding-left: 60px;
-  }
-}
-main .add_task_form .detail_area > div {
-  display: flex;
-  align-items: flex-start;
-}
-main .add_task_form .detail_area > div + div {
-  margin-top: 15px;
-}
-main .add_task_form .detail_area > div .icon,
-main .add_task_form .detail_area > div .content_block p {
-  font-size: 16px;
-  line-height: 20px;
-}
-main .add_task_form .detail_area > div .icon {
-  flex: 0 0 15px;
-  margin-right: 10px;
-}
-main .add_task_form .detail_area > div .content_block {
-  width: 100%;
-}
-main .add_task_form .detail_area > div .content_block p {
-  margin-bottom: 10px;
-}
-main .add_task_form .detail_area .deadline .time_block {
-  display: flex;
-}
-main .add_task_form .detail_area .deadline input {
-  flex: 0 1 50%;
-  padding-left: 10px;
-}
-main .add_task_form .detail_area .deadline input.deadline_date {
-  margin-right: 10px;
-}
-main .add_task_form .detail_area .file_update label {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 0;
-  border: none;
-  border-radius: 2px;
-  background-color: #c8c8c8;
-  position: relative;
-  vertical-align: middle;
-}
-main .add_task_form .detail_area .file_update label:before {
-  content: "";
-  display: block;
-  width: 12px;
-  height: 2px;
-  background-color: white;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-main .add_task_form .detail_area .file_update label:after {
-  content: "";
-  display: block;
-  width: 2px;
-  height: 12px;
-  background-color: white;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-main .add_task_form .detail_area .file_update label:focus {
-  outline: none;
-}
-main .add_task_form .detail_area .file_update label:hover {
-  background-color: #4A90E2;
-}
-main .add_task_form .detail_area .file_update input {
-  display: none;
-}
-main .add_task_form .detail_area .file_update .file_name {
-  vertical-align: middle;
-  margin-right: 10px;
-}
-main .add_task_form .detail_area textarea {
-  padding-left: 10px;
-  height: 100px;
-  resize: none;
-}
-main .add_task_form .button_area {
-  display: flex;
-}
-main .add_task_form .button_area button {
-  flex: 1 1 50%;
-  border: none;
-  padding: 10px 0;
-  font-size: 18px;
-  letter-spacing: 1px;
-}
-main .add_task_form .button_area button:focus {
-  outline: none;
-}
-main .add_task_form .button_area .cancel_button {
-  background-color: #fdfdfd;
-  color: #D0021B;
-}
-main .add_task_form .button_area .submit_button {
-  background-color: #4A90E2;
-  color: white;
-}
 main .todo_list {
   list-style: none;
   margin-top: 20px;
@@ -315,32 +313,35 @@ main .todo_list .main_information .task_title {
   font-size: 18px;
   font-weight: bold;
 }
-main .todo_list .detail {
+main .todo_list .quick_detail {
   padding: 0 0 0 45px;
   display: flex;
   align-items: center;
 }
 @media (min-width: 992px) {
-  main .todo_list .detail {
+  main .todo_list .quick_detail {
     padding-left: 60px;
   }
 }
-main .todo_list .detail > span {
+main .todo_list .quick_detail > span {
   display: flex;
   align-items: center;
   font-size: 0;
   margin-bottom: 10px;
 }
-main .todo_list .detail > span + span {
+main .todo_list .quick_detail > span + span {
   margin-left: 12px;
 }
-main .todo_list .detail > span > span {
+main .todo_list .quick_detail > span > span {
   margin-left: 3px;
 }
-main .todo_list .detail > span i,
-main .todo_list .detail > span span {
+main .todo_list .quick_detail > span i,
+main .todo_list .quick_detail > span span {
   font-size: 12px;
   color: #757575;
+}
+main .todo_list .detail_area {
+  border-top: 2px solid #c8c8c8;
 }
 main .left_tasks_numbers {
   padding-left: 15px;

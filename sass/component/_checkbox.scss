@@ -15,23 +15,8 @@ $position_left: 15px;
 
 input {
     &[type="checkbox"] {
-        display: none;
+        // display: none;
     }
-
-    &.completed_checkbox:checked+label {
-        background-color: color.$main_color;
-        color: white;
-
-    }
-
-    &.star_mark:checked+label {
-        color: color.$highlight_icon_color;
-    }
-
-    &.edit_icon:checked+label {
-        color: color.$main_color;
-    }
-
 }
 
 label {
@@ -46,11 +31,23 @@ label {
         line-height: 20px;
         background-color: white;
         color: white;
+
+        &.clicked{
+            background-color: color.$main_color;
+            color: white;
+        }
     }
 
-    &.star_mark,
-    &.edit_icon {
+    &.star_mark{
         margin-bottom: 0;
         color: color.$primary_font_color;
+        &.clicked{
+            color: color.$highlight_icon_color;
+        }
+    }
+    &.edit_icon {
+        &.clicked{
+            color: color.$main_color;
+        }
     }
 }
