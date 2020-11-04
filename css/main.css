@@ -60,6 +60,10 @@ label.completed_checkbox {
   }
 }
 
+input[type=checkbox] {
+  display: none;
+}
+
 label {
   margin-bottom: 0;
 }
@@ -263,14 +267,14 @@ main .add_task_form.click-active {
   opacity: 1;
   max-height: 500px;
 }
-main .add_task_form .title_area.task-done {
-  background-color: transparent;
+main .add_task_form.primary .title_area {
+  background-color: #FFF2DC;
 }
-main .add_task_form .title_area.task-done .task_title {
+main .add_task_form.done .task_title {
   text-decoration: line-through;
 }
-main .add_task_form .title_area.marked {
-  background-color: #FFF2DC;
+main .add_task_form .title_area.done {
+  background-color: transparent;
 }
 main .add_task_form .title_area .task_title {
   background-color: transparent;
@@ -296,10 +300,10 @@ main .todo_list .tasks {
   margin-bottom: 8px;
   overflow: hidden;
 }
-main .todo_list .tasks.marked {
+main .todo_list .tasks.primary {
   background-color: #FFF2DC;
 }
-main .todo_list .task-done .task_title {
+main .todo_list .done .task_title {
   text-decoration: line-through;
 }
 main .todo_list .main_information {

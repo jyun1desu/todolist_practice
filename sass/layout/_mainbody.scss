@@ -208,7 +208,6 @@ main {
         overflow: hidden;
         margin-top: 10px;
 
-
         &.click {
             display: block;
             max-height: 10px;
@@ -221,20 +220,25 @@ main {
             max-height: 500px;
         }
 
+        &.primary{
+            .title_area {
+                background-color: color.$highlight_color;
+            }
+        }
+
+        &.done{
+            .task_title{
+                text-decoration: line-through;
+            }
+        }    
+
 
         .title_area {
             @extend %task_overview;
 
-            &.task-done{
+            &.done{
                 background-color: transparent;
 
-                .task_title{
-                    text-decoration: line-through;
-                }
-            }
-
-            &.marked{
-                background-color: color.$highlight_color;
             }
 
             .task_title {
@@ -275,12 +279,12 @@ main {
 
             overflow: hidden;
 
-            &.marked{
+            &.primary{
                 background-color: color.$highlight_color;
             }
         }
 
-        .task-done .task_title{
+        .done .task_title{
             text-decoration: line-through;
         }
 
