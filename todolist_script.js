@@ -5,17 +5,14 @@ const addTaskForm = document.querySelector('.add_task_form');
 const cancelButton = document.querySelector('.cancel_button');
 const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
-////////完成狀態
-const status = document.querySelector('input#status');
-///////打星星
-const priority = document.querySelector('#priority');
 ///////編輯中
 const editting = addTaskForm.querySelector('#edit');
 ///////剩餘任務數量
 const countLeft = document.querySelector('.left_tasks_numbers');
-//已存在任務
+//任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
+//編輯任務
 
 function populateList(tasks = [], taskList) {
     taskList.innerHTML = tasks.map((task, index) => {
@@ -59,9 +56,9 @@ function populateList(tasks = [], taskList) {
             <i class="icon far fa-file"></i>
             <div class="content_block">
                 <p>File</p>
-                <input id="file_update" name="update" type="file" class="update_button" value="">
+                <input id="file_update${index}" onchange="fileNameUpdate(this)" name="update" type="file" class="update_button">
                 ${task.updateFile?`<span class="file_name">${task.updateFile}</span>`:""}
-                <label for="file_update"></label>
+                <label for="file_update${index}"></label>
             </div>
         </div>
         <div class="memo">
@@ -74,13 +71,19 @@ function populateList(tasks = [], taskList) {
 
     </div>
     <div class="button_area" style="display:none;">
-    <button class="cancel_edit_button">&times; Cancel</button>
-    <button class="save_button">&#43; Save</button>
+    <button type="button" class="cancel_edit_button">&times; Cancel</button>
+    <button type="button" class="save_button">&#43; Save</button>
 </div>
         </form>
         `
     }).join("");
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
+}
+
+function fileNameUpdate(element){
+    const file = element.files[0].name;
+    const fileNameElement = element.nextElementSibling;
+    fileNameElement.textContent = file;
 }
 
 function focus() {
@@ -102,7 +105,7 @@ function addTask(e) {
     const taskTitle = this.querySelector('[name="title"]').value;
     const deadlineDate = this.querySelector('[name="date"]').value;
     const deadlineTime = this.querySelector('[name="time"]').value;
-    const updateFile = this.querySelector('[name="update"]').value;
+    const updateFile = this.querySelector('.file_name').textContent;
     const memo = this.querySelector('[name="memo_content"]').value;
     const status = this.querySelector('input#status');
 
@@ -138,11 +141,6 @@ function resetForm() {
     withDraw();
 }
 
-function updateName() {
-    const file = this.files[0].name;
-    fileName.textContent = file;
-}
-
 function withDraw() {
     addTaskForm.classList.remove('click-active');
     setTimeout(() => addTaskForm.classList.remove('click'), 280);
@@ -159,31 +157,31 @@ function toggleStatus(element) {
     task.classList.toggle(`${usage}`);
     icon.classList.toggle('fas');
     icon.classList.toggle('far');
-    if(task.dataset.index){
+    if (task.dataset.index) {
         tasks[index][usage] = !tasks[index][usage];
     }
     localStorage.setItem('tasks', JSON.stringify(tasks));
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
 
-function toggleShow(element){
+function toggleShow(element) {
     const quick_detail = element.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
     const button = detail.nextElementSibling;
     const label = element.nextElementSibling;
     const icon = label.firstChild
 
-    if(element.checked){
-        quick_detail.style.setProperty('display','none');
-        detail.style.setProperty('display','block');
-        button.style.setProperty('display','flex');
+    if (element.checked) {
+        quick_detail.style.setProperty('display', 'none');
+        detail.style.setProperty('display', 'block');
+        button.style.setProperty('display', 'flex');
         label.classList.add("clicked");
         icon.classList.add('fas');
         icon.classList.remove('far');
-    }else{
-        detail.style.setProperty('display','none');
-        button.style.setProperty('display','none');
-        quick_detail.style.setProperty('display','flex');
+    } else {
+        detail.style.setProperty('display', 'none');
+        button.style.setProperty('display', 'none');
+        quick_detail.style.setProperty('display', 'flex');
         label.classList.remove("clicked");
         icon.classList.add('far');
         icon.classList.remove('fas');
@@ -197,7 +195,32 @@ navButtons.forEach(button => button.addEventListener("click", focus));
 addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
-updateFile.addEventListener("change", updateName);
 editting.addEventListener("input", withDraw);
+taskList.addEventListener("click",editTask);
+
+function editTask(e){
+    const element = e.target;
+    const taskForm = element.parentNode.parentNode;
+    const index = taskForm.dataset.index;
+    const taskCoords = tasks[index];
+
+    if(element.matches('button.save_button')){
+        const editedDate = taskForm.querySelector('[name="date"]').value;
+        const editedTime = taskForm.querySelector('[name="time"]').value;
+        const editedFile = taskForm.querySelector('.file_name').textContent;
+        const editedMemo = taskForm.querySelector('[name="memo_content"]').value;
+
+        taskCoords.deadlineDate = editedDate;
+        taskCoords.deadlineTime = editedTime;
+        taskCoords.updateFile = editedFile;
+        taskCoords.memo = editedMemo;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+    if(element.matches('button.cancel_edit_button')){
+        taskForm.querySelector('[name="date"]').value = taskCoords.deadlineDate;
+        taskForm.querySelector('[name="time"]').value = taskCoords.deadlineTime;
+        taskForm.querySelector('[name="memo_content"]').value = taskCoords.memo;
+    }
+}
 
 //計算剩餘任務數量
