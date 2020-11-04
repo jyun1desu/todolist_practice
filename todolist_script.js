@@ -12,6 +12,7 @@ const countLeft = document.querySelector('.left_tasks_numbers');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
+let taskOrdinal = 0
 //編輯任務
 
 function populateList(tasks = [], taskList) {
@@ -80,15 +81,23 @@ function populateList(tasks = [], taskList) {
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
 
-function fileNameUpdate(element){
-    const file = element.files[0].name;
-    const fileNameElement = element.nextElementSibling;
-    fileNameElement.textContent = file;
-}
-
 function focus() {
     navButtons.forEach(button => button.classList.remove('focus-active'));
     this.classList.add('focus-active');
+}
+
+function selectAll(){
+    populateList(tasks, taskList);
+}
+
+function sortUndo() {
+    const sortedList = tasks.filter(task => !task.done);
+    populateList(sortedList, taskList);
+}
+
+function sortDone() {
+    const sortedList = tasks.filter(task => task.done);
+    populateList(sortedList, taskList);
 }
 
 function newTask() {
@@ -114,12 +123,16 @@ function addTask(e) {
         this.querySelector('[name="title"]').style.setProperty("--c", "#D0021B")
         return;
     }
+
+    taskOrdinal++
+
     const task = {
         taskTitle,
         deadlineDate,
         deadlineTime,
         updateFile,
         memo,
+        taskOrdinal,
         done: status.checked,
         primary: priority.checked
     }
@@ -134,11 +147,20 @@ function addTask(e) {
 function resetForm() {
     addTaskForm.querySelector('[name="title"]').placeholder = "Type Something Here...";
     addTaskForm.querySelector('[name="title"]').style.setProperty("--c", "#c8c8c8");
-    addTaskForm.querySelector('.title_area').classList.remove('marked');
-    addTaskForm.querySelector('.title_area').classList.remove('task-done');
+    addTaskForm.classList.remove('primary');
+    addTaskForm.classList.remove('done');
     addTaskForm.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
     fileName.textContent = "";
+    addTaskForm.reset();
+    addTaskForm.querySelector('label[for="status"]').classList.remove('clicked')
+    addTaskForm.querySelector('label[for="priority"]').classList.remove('clicked')
     withDraw();
+}
+
+function fileNameUpdate(element) {
+    const file = element.files[0].name;
+    const fileNameElement = element.nextElementSibling;
+    fileNameElement.textContent = file;
 }
 
 function withDraw() {
@@ -188,23 +210,13 @@ function toggleShow(element) {
     }
 }
 
-populateList(tasks, taskList);
-//navbar分類點擊
-navButtons.forEach(button => button.addEventListener("click", focus));
-//新增任務
-addTaskButton.addEventListener("click", newTask);
-addTaskForm.addEventListener("submit", addTask);
-cancelButton.addEventListener("click", resetForm);
-editting.addEventListener("input", withDraw);
-taskList.addEventListener("click",editTask);
-
-function editTask(e){
+function editTask(e) {
     const element = e.target;
     const taskForm = element.parentNode.parentNode;
     const index = taskForm.dataset.index;
     const taskCoords = tasks[index];
 
-    if(element.matches('button.save_button')){
+    if (element.matches('button.save_button')) {
         const editedDate = taskForm.querySelector('[name="date"]').value;
         const editedTime = taskForm.querySelector('[name="time"]').value;
         const editedFile = taskForm.querySelector('.file_name').textContent;
@@ -216,11 +228,21 @@ function editTask(e){
         taskCoords.memo = editedMemo;
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-    if(element.matches('button.cancel_edit_button')){
+    if (element.matches('button.cancel_edit_button')) {
         taskForm.querySelector('[name="date"]').value = taskCoords.deadlineDate;
         taskForm.querySelector('[name="time"]').value = taskCoords.deadlineTime;
         taskForm.querySelector('[name="memo_content"]').value = taskCoords.memo;
     }
 }
+
+populateList(tasks, taskList);
+//navbar分類點擊
+navButtons.forEach(button => button.addEventListener("click", focus));
+//新增任務
+addTaskButton.addEventListener("click", newTask);
+addTaskForm.addEventListener("submit", addTask);
+cancelButton.addEventListener("click", resetForm);
+editting.addEventListener("input", withDraw);
+taskList.addEventListener("click", editTask);
 
 //計算剩餘任務數量
