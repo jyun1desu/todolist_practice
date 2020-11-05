@@ -107,17 +107,17 @@ label.edit_icon.clicked {
 main {
   margin-top: 15px;
 }
-main .add_task_form .title_area .task_title, main .todo_list .detail_area textarea, main .add_task_form .detail_area textarea, main .todo_list .detail_area .deadline input, main .add_task_form .detail_area .deadline input {
+main .todo_list .main_information .task_title, main .add_task_form .title_area .task_title, main .todo_list .detail_area textarea, main .add_task_form .detail_area textarea, main .todo_list .detail_area .deadline input, main .add_task_form .detail_area .deadline input {
   width: 100%;
   border: none;
   border-radius: 2px;
   font-size: 14px;
 }
-main .add_task_form .title_area .task_title::placeholder, main .todo_list .detail_area textarea::placeholder, main .add_task_form .detail_area textarea::placeholder, main .todo_list .detail_area .deadline input::placeholder, main .add_task_form .detail_area .deadline input::placeholder {
+main .todo_list .main_information .task_title::placeholder, main .add_task_form .title_area .task_title::placeholder, main .todo_list .detail_area textarea::placeholder, main .add_task_form .detail_area textarea::placeholder, main .todo_list .detail_area .deadline input::placeholder, main .add_task_form .detail_area .deadline input::placeholder {
   color: #c8c8c8;
   font-size: 14px;
 }
-main .add_task_form .title_area .task_title:focus, main .todo_list .detail_area textarea:focus, main .add_task_form .detail_area textarea:focus, main .todo_list .detail_area .deadline input:focus, main .add_task_form .detail_area .deadline input:focus {
+main .todo_list .main_information .task_title:focus, main .add_task_form .title_area .task_title:focus, main .todo_list .detail_area textarea:focus, main .add_task_form .detail_area textarea:focus, main .todo_list .detail_area .deadline input:focus, main .add_task_form .detail_area .deadline input:focus {
   outline: none;
 }
 main .todo_list .main_information, main .add_task_form .title_area {
@@ -319,11 +319,16 @@ main .todo_list .main_information {
   border-bottom: none;
 }
 main .todo_list .main_information .task_title {
-  width: 100%;
   margin-right: 10px;
   margin-bottom: 0;
   flex: 0 1 100%;
   font-size: 18px;
+  font-weight: bold;
+  background-color: transparent;
+}
+main .todo_list .main_information .task_title::placeholder {
+  font-size: 18px;
+  color: var(--c, #c8c8c8);
   font-weight: bold;
 }
 main .todo_list .quick_detail {

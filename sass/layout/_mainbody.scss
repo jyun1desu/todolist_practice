@@ -304,14 +304,19 @@ main {
             border-bottom: none;
 
             .task_title {
-                width: 100%;
+                @extend %input_style;
                 margin-right: 10px;
                 margin-bottom: 0;
-
                 flex: 0 1 100%;
-
                 font-size: 18px;
                 font-weight: bold;
+                background-color:transparent;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: var(--c, color.$secondary_font_color);
+                    font-weight: bold;
+                }
             }
 
         }

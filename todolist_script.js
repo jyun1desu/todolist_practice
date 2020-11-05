@@ -24,7 +24,7 @@ function populateList(tasks = [], taskList) {
             ${task.done?"checked":" "}>
                         <label for="status${index}" class="completed_checkbox  ${task.done?" clicked":""}"><i
             class="fas fa-check"></i></label>
-        <p class="task_title">${task.taskTitle}</p>
+        <input type="text" class="task_title" value="${task.taskTitle}" placeholder="Type Something Here..." readonly>
         <input id="priority${index}" data-use="primary" onclick="toggleStatus(this)" class="star_mark" type="checkbox"
             ${task.primary?"checked":" "}>
                         <label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"><i
@@ -58,7 +58,7 @@ function populateList(tasks = [], taskList) {
             <div class="content_block">
                 <p>File</p>
                 <input id="file_update${index}" onchange="fileNameUpdate(this)" name="update" type="file" class="update_button">
-                ${task.updateFile?`<span class="file_name">${task.updateFile}</span>`:""}
+                <span class="file_name">${task.updateFile||""}</span>
                 <label for="file_update${index}"></label>
             </div>
         </div>
@@ -193,6 +193,7 @@ function toggleShow(element) {
     const button = detail.nextElementSibling;
     const label = element.nextElementSibling;
     const icon = label.firstChild
+    const title = task.querySelector('input[type="text"]');
 
     if (element.checked) {
         task.classList.add('noquery');
@@ -202,6 +203,7 @@ function toggleShow(element) {
         label.classList.add("clicked");
         icon.classList.add('fas');
         icon.classList.remove('far');
+        title.readOnly = false;
     } else {
         task.classList.remove('noquery')
         detail.style.setProperty('display', 'none');
@@ -210,31 +212,45 @@ function toggleShow(element) {
         label.classList.remove("clicked");
         icon.classList.add('far');
         icon.classList.remove('fas');
+        title.readOnly = true;
     }
 }
 
 function editTask(e) {
     const element = e.target;
     const taskForm = element.parentNode.parentNode;
+    const title = taskForm.querySelector('input[type="text"]');
     const index = taskForm.dataset.index;
     const taskCoords = tasks[index];
 
+    if (element.matches('button.cancel_edit_button')) {
+        title.value = taskCoords.taskTitle;;
+        taskForm.querySelector('[name="date"]').value = taskCoords.deadlineDate;
+        taskForm.querySelector('[name="time"]').value = taskCoords.deadlineTime;
+        taskForm.querySelector('[name="memo_content"]').value = taskCoords.memo;
+    }
+
     if (element.matches('button.save_button')) {
+        const editedTitle = title.value;
         const editedDate = taskForm.querySelector('[name="date"]').value;
         const editedTime = taskForm.querySelector('[name="time"]').value;
-        const editedFile = taskForm.querySelector('.file_name').textContent;
+        const editedFile = taskForm.querySelector('.file_name').textContent
         const editedMemo = taskForm.querySelector('[name="memo_content"]').value;
 
+        if (!title.value.length) {
+            title.placeholder = "Please add the task title here";
+            title.style.setProperty("--c", "#D0021B")
+            return;
+        }
+
+        taskCoords.taskTitle = editedTitle;
         taskCoords.deadlineDate = editedDate;
         taskCoords.deadlineTime = editedTime;
         taskCoords.updateFile = editedFile;
         taskCoords.memo = editedMemo;
         localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-    if (element.matches('button.cancel_edit_button')) {
-        taskForm.querySelector('[name="date"]').value = taskCoords.deadlineDate;
-        taskForm.querySelector('[name="time"]').value = taskCoords.deadlineTime;
-        taskForm.querySelector('[name="memo_content"]').value = taskCoords.memo;
+
+
     }
 }
 
