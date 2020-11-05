@@ -363,6 +363,18 @@ main .todo_list {
   margin-bottom: 0;
   padding-left: 0;
 }
+main .todo_list.sort-undone #primary_category, main .todo_list.sort-undone #normal_category {
+  display: block;
+}
+main .todo_list.sort-undone #done_category {
+  display: none;
+}
+main .todo_list.sort-done #primary_category, main .todo_list.sort-done #normal_category {
+  display: none;
+}
+main .todo_list.sort-done #done_category {
+  display: block;
+}
 main .todo_list .tasks {
   background-color: #f2f2f2;
   border-radius: 5px;

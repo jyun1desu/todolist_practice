@@ -23,9 +23,9 @@
 
     <header>
         <nav class="task_status_navbar wrapper container">
-            <button onclick="selectAll()" class="each_task_status focus-active">My Tasks</button>
-            <button onclick="sortUndo()" class="each_task_status">In Progress</button>
-            <button onclick="sortDone()" class="each_task_status">Completed</button>
+            <button id="selectAll" onclick="select(this)" class="each_task_status focus-active">My Tasks</button>
+            <button id="selectUndone" onclick="select(this)" class="each_task_status">In Progress</button>
+            <button id="selectDone" onclick="select(this)" class="each_task_status">Completed</button>
         </nav>
     </header>
     <main class="wrapper container">

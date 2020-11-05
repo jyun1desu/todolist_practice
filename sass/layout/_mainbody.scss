@@ -274,6 +274,24 @@ main {
         margin-bottom: 0;
         padding-left: 0;
 
+        &.sort-undone{
+            #primary_category,#normal_category{
+                display: block;
+            }
+            #done_category{
+                display: none;
+            }
+        }
+
+        &.sort-done{
+            #primary_category,#normal_category{
+                display: none;
+            }
+            #done_category{
+                display: block;
+            }
+        }
+
 
         .tasks {
 
