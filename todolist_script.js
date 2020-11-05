@@ -86,19 +86,19 @@ function focus() {
     this.classList.add('focus-active');
 }
 
-function selectAll(){
-    populateList(tasks, taskList);
-}
+// function selectAll(){
+//     // populateList(tasks, taskList);
+// }
 
-function sortUndo() {
-    const sortedList = tasks.filter(task => !task.done);
-    populateList(sortedList, taskList);
-}
+// function sortUndo() {
+//     // const sortedList = tasks.filter(task => !task.done);
+//     // populateList(sortedList, taskList);
+// }
 
-function sortDone() {
-    const sortedList = tasks.filter(task => task.done);
-    populateList(sortedList, taskList);
-}
+// function sortDone() {
+// //     const sortedList = tasks.filter(task => task.done);
+// //     populateList(sortedList, taskList);
+// // }
 
 function newTask() {
     this.classList.add('click');
@@ -187,6 +187,7 @@ function toggleStatus(element) {
 }
 
 function toggleShow(element) {
+    const task = element.parentNode.parentNode;
     const quick_detail = element.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
     const button = detail.nextElementSibling;
@@ -194,6 +195,7 @@ function toggleShow(element) {
     const icon = label.firstChild
 
     if (element.checked) {
+        task.classList.add('noquery');
         quick_detail.style.setProperty('display', 'none');
         detail.style.setProperty('display', 'block');
         button.style.setProperty('display', 'flex');
@@ -201,6 +203,7 @@ function toggleShow(element) {
         icon.classList.add('fas');
         icon.classList.remove('far');
     } else {
+        task.classList.remove('noquery')
         detail.style.setProperty('display', 'none');
         button.style.setProperty('display', 'none');
         quick_detail.style.setProperty('display', 'flex');
