@@ -15,9 +15,8 @@ const taskList = document.querySelector('.todo_list');
 //編輯任務
 
 const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
-
 droppableAreas.forEach(area => {
-    // area.addEventListener('dragover', handleDragover);
+    area.addEventListener('dragover', handleDragover);
     // area.addEventListener('dragleave', handleDragleave);
     area.addEventListener('drop', handleDrop);
 })
@@ -31,18 +30,19 @@ function handleDragStart(event, element) {
     draggedElement = element
     element.style.opacity = "0.3";
     element.style.transform = "scale(1) translateY(0)";
-
+    element.parentNode.classList.add('pop');
 }
 
 function handleDragEnd(event, element) {
     element.style.opacity = "1";
     element.style.transform = "scale(1) translateY(0)";
     currentPassbyElement.style.margin = "0 0 8px"
+    element.parentNode.classList.remove('pop');
 }
 
-function handleDragenter(event, element) {
+function handleDragPassby(event, element) {
     if (draggedElement !== element) {
-        const moveDown = event.pageY > previousY
+        const moveDown = event.pageY > previousY;
         element.style.margin = `${moveDown?"0 0px 50px":"50px 0px 8px"}`;
     }
     if (currentPassbyElement && currentPassbyElement !== element) {
@@ -53,16 +53,32 @@ function handleDragenter(event, element) {
 }
 
 //拖曳物件drop區域
+function handleDragover(e) {
+    e.preventDefault();
+}
 
 function handleDrop(e) {
-    // e.preventDefault();
-    console.log(e)
+    const draggedElementArea = draggedElement.parentNode;
+    const dropdownArea = this;
+    if (draggedElementArea !== dropdownArea) return;
+
+    const moveDown =  e.pageY > currentPassbyElement.offsetTop;
+    if(moveDown){
+        console.log("down")
+        dropdownArea.insertBefore(draggedElement,currentPassbyElement.nextElementSibling)
+    }
+    if(!moveDown){
+        console.log("up")
+        dropdownArea.insertBefore(draggedElement,currentPassbyElement)
+    }
+    // draggedElement.remove();
+    
 }
 
 
 function populateList(tasks = [], taskList) {
     const taskHTMLlist = tasks.map((task, index) => {
-        const eachTaskHTML = `<form data-index="${index}" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragenter(event,this)" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
+        const eachTaskHTML = `<form data-index="${index}" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragPassby(event,this)" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">

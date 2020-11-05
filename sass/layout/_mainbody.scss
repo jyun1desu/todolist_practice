@@ -276,6 +276,14 @@ main {
 
         .droppable_area{
             border: 1px solid transparent;
+
+            &.pop{
+                // transform: scale(1.05);
+                border-bottom: 1px solid color.$secondary_font_color;
+                transition: 0.5s;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
         }
 
         &.sort-undone{
@@ -298,16 +306,17 @@ main {
 
 
         .tasks {
-
             background-color: color.$secondary_background_color;
             border-radius: 5px;
             margin-bottom: 8px;
+            user-select: none;
 
             overflow: hidden;
 
             &.primary {
                 background-color: color.$highlight_color;
             }
+
         }
 
         .done .task_title {

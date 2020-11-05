@@ -125,7 +125,7 @@ label.delete_icon.editting {
   transition: all 0.4s;
 }
 .tasks:hover {
-  transform: scale(1.05) translateY(-10px);
+  transform: scale(1.02) translateY(-8px);
   box-shadow: 0px 0px 5px 3px #c8c8c8;
 }
 .tasks:hover .drag_icon {
@@ -366,6 +366,12 @@ main .todo_list {
 main .todo_list .droppable_area {
   border: 1px solid transparent;
 }
+main .todo_list .droppable_area.pop {
+  border-bottom: 1px solid #c8c8c8;
+  transition: 0.5s;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
 main .todo_list.sort-undone #primary_category, main .todo_list.sort-undone #normal_category {
   display: block;
 }
@@ -382,6 +388,7 @@ main .todo_list .tasks {
   background-color: #f2f2f2;
   border-radius: 5px;
   margin-bottom: 8px;
+  user-select: none;
   overflow: hidden;
 }
 main .todo_list .tasks.primary {
