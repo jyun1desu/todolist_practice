@@ -274,6 +274,10 @@ main {
         margin-bottom: 0;
         padding-left: 0;
 
+        .droppable_area{
+            border: 1px solid transparent;
+        }
+
         &.sort-undone{
             #primary_category,#normal_category{
                 display: block;

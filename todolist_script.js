@@ -14,9 +14,55 @@ const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
 //編輯任務
 
+const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
+
+droppableAreas.forEach(area => {
+    // area.addEventListener('dragover', handleDragover);
+    // area.addEventListener('dragleave', handleDragleave);
+    area.addEventListener('drop', handleDrop);
+})
+
+let draggedElement;
+let currentPassbyElement;
+let previousY;
+
+//拖曳物件
+function handleDragStart(event, element) {
+    draggedElement = element
+    element.style.opacity = "0.3";
+    element.style.transform = "scale(1) translateY(0)";
+
+}
+
+function handleDragEnd(event, element) {
+    element.style.opacity = "1";
+    element.style.transform = "scale(1) translateY(0)";
+    currentPassbyElement.style.margin = "0 0 8px"
+}
+
+function handleDragenter(event, element) {
+    if (draggedElement !== element) {
+        const moveDown = event.pageY > previousY
+        element.style.margin = `${moveDown?"0 0px 50px":"50px 0px 8px"}`;
+    }
+    if (currentPassbyElement && currentPassbyElement !== element) {
+        currentPassbyElement.style.margin = "0 0 8px";
+    }
+    currentPassbyElement = element;
+    previousY = event.pageY;
+}
+
+//拖曳物件drop區域
+
+function handleDrop(e) {
+    // e.preventDefault();
+    console.log(e)
+}
+
+
 function populateList(tasks = [], taskList) {
     const taskHTMLlist = tasks.map((task, index) => {
-        const eachTaskHTML = `<form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
+        const eachTaskHTML = `<form data-index="${index}" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragenter(event,this)" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
@@ -151,7 +197,6 @@ function addTask(e) {
         deadlineTime,
         updateFile,
         memo,
-        taskOrdinal,
         done: status.checked,
         primary: priority.checked
     }

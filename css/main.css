@@ -363,6 +363,9 @@ main .todo_list {
   margin-bottom: 0;
   padding-left: 0;
 }
+main .todo_list .droppable_area {
+  border: 1px solid transparent;
+}
 main .todo_list.sort-undone #primary_category, main .todo_list.sort-undone #normal_category {
   display: block;
 }
