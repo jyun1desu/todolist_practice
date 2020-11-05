@@ -18,7 +18,7 @@ let taskOrdinal = 0
 function populateList(tasks = [], taskList) {
     taskList.innerHTML = tasks.map((task, index) => {
         return `
-        <form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}">
+        <form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
@@ -211,8 +211,10 @@ function toggleShow(element) {
         icon.classList.add('fas');
         icon.classList.remove('far');
         title.readOnly = false;
+        task.setAttribute('draggable', false);
     } else {
         task.classList.remove('noquery')
+        task.setAttribute('draggable', true);
         detail.style.setProperty('display', 'none');
         button.style.setProperty('display', 'none');
         quick_detail.style.setProperty('display', 'flex');

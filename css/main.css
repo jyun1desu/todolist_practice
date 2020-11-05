@@ -87,13 +87,16 @@ label.star_mark {
 label.star_mark.clicked {
   color: #F5A623;
 }
+label.edit_icon {
+  margin-right: 10px;
+}
 label.edit_icon.clicked {
   color: #4A90E2;
 }
 label.delete_icon {
   transform: scale(0);
   max-width: 0px;
-  transition: transform 0.5s, max-width 0.5s;
+  transition: transform 0.8s, max-width 1s;
   transform-origin: right;
 }
 label.delete_icon:hover {
@@ -102,7 +105,6 @@ label.delete_icon:hover {
 label.delete_icon.editting {
   transform: scale(1);
   max-width: 20px;
-  margin-left: 10px;
 }
 
 .add_new_task {
@@ -132,7 +134,6 @@ label.delete_icon.editting {
 .tasks:hover .delete_icon {
   transform: scale(1);
   max-width: 20px;
-  margin-left: 10px;
 }
 .tasks.noquery:hover {
   transform: scale(1) translateY(0);
