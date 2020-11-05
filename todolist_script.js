@@ -19,6 +19,8 @@ function populateList(tasks = [], taskList) {
     taskList.innerHTML = tasks.map((task, index) => {
         return `
         <form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}">
+        <div class="drag_icon">
+        </div>
         <div class="main_information">
         <input id="status${index}" data-use="done" onclick="toggleStatus(this)" class="completed_checkbox" type="checkbox"
             ${task.done?"checked":" "}>
@@ -30,7 +32,10 @@ function populateList(tasks = [], taskList) {
                         <label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"><i
             class="${task.primary?"fas":"far"} fa-star"></i></label>
         <input id="edit${index}" onclick="toggleShow(this)" class="edit_icon" type="checkbox">
-        <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i><label>
+        <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i></label>
+
+        <input id="delete${index}" class="delete_icon" type="checkbox">
+        <label for="delete${index}" onclick="deleteTask(this)" class="delete_icon"><i class="far fa-trash-alt"></i></label>
     </div>
     
     <div class="quick_detail">
@@ -194,6 +199,7 @@ function toggleShow(element) {
     const label = element.nextElementSibling;
     const icon = label.firstChild
     const title = task.querySelector('input[type="text"]');
+    const deleteIcon = task.querySelector('label.delete_icon');
 
     if (element.checked) {
         task.classList.add('noquery');
@@ -201,6 +207,7 @@ function toggleShow(element) {
         detail.style.setProperty('display', 'block');
         button.style.setProperty('display', 'flex');
         label.classList.add("clicked");
+        deleteIcon.classList.add("editting")
         icon.classList.add('fas');
         icon.classList.remove('far');
         title.readOnly = false;
@@ -212,6 +219,7 @@ function toggleShow(element) {
         label.classList.remove("clicked");
         icon.classList.add('far');
         icon.classList.remove('fas');
+        deleteIcon.classList.remove("editting")
         title.readOnly = true;
     }
 }
@@ -254,6 +262,9 @@ function editTask(e) {
     }
 }
 
+function deleteTask(element){
+    console.log(element)
+}
 populateList(tasks, taskList);
 //navbar分類點擊
 navButtons.forEach(button => button.addEventListener("click", focus));

@@ -3,6 +3,7 @@
 
 @use '../component/checkbox';
 @use '../component/add_task_button';
+@use '../component/task_hover_effect';
 
 main {
     margin-top: 15px;
@@ -27,10 +28,10 @@ main {
     %task_overview {
         display: flex;
         align-items: center;
-        padding: 10px 16px 10px 45px;
+        padding: 10px 16px 10px 60px;
 
         @include breakpoint.RWD(breakpoint.$pad_horizontal) {
-            padding: 15px 16px 15px 60px;
+            padding: 15px 16px 15px 70px;
         }
 
         border-bottom: 2px solid #c8c8c8;
@@ -44,7 +45,7 @@ main {
 
     }
 
-    %task_detail{
+    %task_detail {
         .detail_area {
             padding: 20px 45px;
             background-color: color.$secondary_background_color;
@@ -187,12 +188,14 @@ main {
                 }
             }
 
-            .cancel_button , .cancel_edit_button {
+            .cancel_button,
+            .cancel_edit_button {
                 background-color: #fdfdfd;
                 color: color.$warning_color;
             }
 
-            .submit_button,.save_button {
+            .submit_button,
+            .save_button {
                 background-color: color.$main_color;
                 color: white;
             }
@@ -220,23 +223,23 @@ main {
             max-height: 500px;
         }
 
-        &.primary{
+        &.primary {
             .title_area {
                 background-color: color.$highlight_color;
             }
         }
 
-        &.done{
-            .task_title{
+        &.done {
+            .task_title {
                 text-decoration: line-through;
             }
-        }    
+        }
 
 
         .title_area {
             @extend %task_overview;
 
-            &.done{
+            &.done {
                 background-color: transparent;
 
             }
@@ -273,29 +276,19 @@ main {
 
 
         .tasks {
+
             background-color: color.$secondary_background_color;
             border-radius: 5px;
             margin-bottom: 8px;
 
             overflow: hidden;
-            transition: all 0.4s;
 
-            &:hover{
-                transform: scale(1.05) translateY(-10px);
-                box-shadow: 0px 0px 5px 3px #c8c8c8;
-            }
-
-            &.noquery:hover{
-                transform: scale(1) translateY(0);
-                box-shadow: none;
-            }
-
-            &.primary{
+            &.primary {
                 background-color: color.$highlight_color;
             }
         }
 
-        .done .task_title{
+        .done .task_title {
             text-decoration: line-through;
         }
 
@@ -310,7 +303,7 @@ main {
                 flex: 0 1 100%;
                 font-size: 18px;
                 font-weight: bold;
-                background-color:transparent;
+                background-color: transparent;
 
                 &::placeholder {
                     font-size: 18px;
@@ -322,7 +315,7 @@ main {
         }
 
         .quick_detail {
-            padding: 0 0 0 45px;
+            padding: 0 0 0 60px;
             display: flex;
             align-items: center;
 
@@ -352,7 +345,7 @@ main {
             }
         }
 
-        .detail_area{
+        .detail_area {
             border-top: 2px solid color.$secondary_font_color;
         }
     }

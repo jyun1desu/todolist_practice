@@ -52,7 +52,7 @@ header .task_status_navbar .focus-active {
 
 label.completed_checkbox {
   position: absolute;
-  left: 15px;
+  left: 28px;
 }
 @media (min-width: 992px) {
   label.completed_checkbox {
@@ -90,6 +90,20 @@ label.star_mark.clicked {
 label.edit_icon.clicked {
   color: #4A90E2;
 }
+label.delete_icon {
+  transform: scale(0);
+  max-width: 0px;
+  transition: transform 0.5s, max-width 0.5s;
+  transform-origin: right;
+}
+label.delete_icon:hover {
+  color: #D0021B;
+}
+label.delete_icon.editting {
+  transform: scale(1);
+  max-width: 20px;
+  margin-left: 10px;
+}
 
 .add_new_task {
   background-color: white;
@@ -102,6 +116,56 @@ label.edit_icon.clicked {
 
 .add_new_task.click {
   display: none;
+}
+
+.tasks {
+  position: relative;
+  transition: all 0.4s;
+}
+.tasks:hover {
+  transform: scale(1.05) translateY(-10px);
+  box-shadow: 0px 0px 5px 3px #c8c8c8;
+}
+.tasks:hover .drag_icon {
+  opacity: 1;
+}
+.tasks:hover .delete_icon {
+  transform: scale(1);
+  max-width: 20px;
+  margin-left: 10px;
+}
+.tasks.noquery:hover {
+  transform: scale(1) translateY(0);
+  box-shadow: none;
+}
+.tasks.noquery:hover .drag_icon {
+  display: none;
+}
+.tasks .drag_icon {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.1s;
+  left: 8px;
+  background-color: #e1e1e1;
+}
+.tasks .drag_icon:before, .tasks .drag_icon:after {
+  content: "";
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-color: inherit;
+  border-radius: inherit;
+}
+.tasks .drag_icon:before {
+  top: -9px;
+}
+.tasks .drag_icon:after {
+  top: 9px;
 }
 
 main {
@@ -123,13 +187,13 @@ main .todo_list .main_information .task_title:focus, main .add_task_form .title_
 main .todo_list .main_information, main .add_task_form .title_area {
   display: flex;
   align-items: center;
-  padding: 10px 16px 10px 45px;
+  padding: 10px 16px 10px 60px;
   border-bottom: 2px solid #c8c8c8;
   position: relative;
 }
 @media (min-width: 992px) {
   main .todo_list .main_information, main .add_task_form .title_area {
-    padding: 15px 16px 15px 60px;
+    padding: 15px 16px 15px 70px;
   }
 }
 main .todo_list .main_information .star_mark, main .add_task_form .title_area .star_mark {
@@ -241,11 +305,15 @@ main .todo_list .button_area button, main .add_task_form .button_area button {
 main .todo_list .button_area button:focus, main .add_task_form .button_area button:focus {
   outline: none;
 }
-main .todo_list .button_area .cancel_button, main .add_task_form .button_area .cancel_button, main .todo_list .button_area .cancel_edit_button, main .add_task_form .button_area .cancel_edit_button {
+main .todo_list .button_area .cancel_button, main .add_task_form .button_area .cancel_button,
+main .todo_list .button_area .cancel_edit_button,
+main .add_task_form .button_area .cancel_edit_button {
   background-color: #fdfdfd;
   color: #D0021B;
 }
-main .todo_list .button_area .submit_button, main .add_task_form .button_area .submit_button, main .todo_list .button_area .save_button, main .add_task_form .button_area .save_button {
+main .todo_list .button_area .submit_button, main .add_task_form .button_area .submit_button,
+main .todo_list .button_area .save_button,
+main .add_task_form .button_area .save_button {
   background-color: #4A90E2;
   color: white;
 }
@@ -299,15 +367,6 @@ main .todo_list .tasks {
   border-radius: 5px;
   margin-bottom: 8px;
   overflow: hidden;
-  transition: all 0.4s;
-}
-main .todo_list .tasks:hover {
-  transform: scale(1.05) translateY(-10px);
-  box-shadow: 0px 0px 5px 3px #c8c8c8;
-}
-main .todo_list .tasks.noquery:hover {
-  transform: scale(1) translateY(0);
-  box-shadow: none;
 }
 main .todo_list .tasks.primary {
   background-color: #FFF2DC;
@@ -332,7 +391,7 @@ main .todo_list .main_information .task_title::placeholder {
   font-weight: bold;
 }
 main .todo_list .quick_detail {
-  padding: 0 0 0 45px;
+  padding: 0 0 0 60px;
   display: flex;
   align-items: center;
 }
@@ -362,7 +421,7 @@ main .todo_list .detail_area {
   border-top: 2px solid #c8c8c8;
 }
 main .left_tasks_numbers {
-  padding-left: 15px;
+  padding-left: 28px;
   font-style: italic;
   color: #c8c8c8;
 }
