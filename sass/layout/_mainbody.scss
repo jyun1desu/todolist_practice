@@ -278,10 +278,10 @@ main {
             border: 1px solid transparent;
 
             &.pop{
-                // transform: scale(1.05);
+                border-top: 1px solid color.$secondary_font_color;
                 border-bottom: 1px solid color.$secondary_font_color;
                 transition: 0.5s;
-                padding-bottom: 15px;
+                padding: 15px 0;
                 margin-bottom: 15px;
             }
         }
