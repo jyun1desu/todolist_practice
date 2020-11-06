@@ -352,7 +352,6 @@ function deleteTask(element) {
             return el;
         }
     });
-    console.log(deleted)
     localStorage.setItem('order', JSON.stringify(deleted));
     orderArray = JSON.parse(localStorage.getItem('order'));
     populateList(tasks, taskList);
