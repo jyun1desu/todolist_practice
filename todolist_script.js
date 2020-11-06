@@ -12,7 +12,7 @@ const countLeft = document.querySelector('.left_tasks_numbers');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
-const orderArray = JSON.parse(localStorage.getItem('order')) || [];
+let orderArray = JSON.parse(localStorage.getItem('order')) || [];
 //編輯任務
 
 const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
@@ -227,7 +227,7 @@ function populateList(tasksArray = [], taskList) {
         </form>`
         return eachTaskHTML
     })
-    if(orderArray){
+    if (orderArray) {
         taskHTMLlist = orderArray.map(order => taskHTMLlist[order]);
     }
     const sortedPrimary = taskHTMLlist.filter(el => el.includes(`tasks primary`) && !el.includes(`tasks primary done`)).join("");
@@ -428,11 +428,22 @@ function editTask(e) {
 }
 
 function deleteTask(element) {
-    const index = element.previousElementSibling.id.match(/\d+/);
-    tasks.splice(index, 1)
+    const dataIndex = element.previousElementSibling.id.match(/\d+/);
+    const orderIndex = orderArray.findIndex(el => el == dataIndex);
+    tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    orderArray.splice(orderIndex, 1);
+    const deleted = orderArray.map(el => {
+        if (el > orderIndex) {
+            return el - 1;
+        } else {
+            return el;
+        }
+    });
+    console.log(deleted)
+    localStorage.setItem('order', JSON.stringify(deleted));
+    orderArray = JSON.parse(localStorage.getItem('order'));
     populateList(tasks, taskList);
-
 }
 
 populateList(tasks, taskList);
