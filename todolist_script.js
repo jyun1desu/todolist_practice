@@ -238,11 +238,11 @@ function resetForm() {
     withDraw();
 }
 
-// function fileNameUpdate(element) {
-//     const file = element.files[0].name;
-//     const fileNameElement = element.nextElementSibling;
-//     fileNameElement.textContent = file;
-// }
+function fileNameUpdate(element) {
+    const file = element.files[0].name;
+    const fileNameElement = element.nextElementSibling;
+    fileNameElement.textContent = file;
+}
 
 function withDraw() {
     addTaskForm.classList.remove('click-active');
@@ -267,8 +267,6 @@ function toggleStatus(element) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('order', JSON.stringify(orderArray));
     populateList(tasks, taskList);
-    const a = Array.from(taskList.querySelectorAll('.tasks'))
-    console.log(a.map(el=>el.dataset.index))
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
 
@@ -340,8 +338,7 @@ function editTask(e) {
         taskCoords.updateFile = editedFile;
         taskCoords.memo = editedMemo;
         localStorage.setItem('tasks', JSON.stringify(tasks));
-
-
+        populateList(tasks, taskList);
     }
 }
 
