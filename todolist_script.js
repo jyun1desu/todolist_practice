@@ -24,6 +24,7 @@ droppableAreas.forEach(area => {
 let draggedElement;
 let currentPassbyElement;
 let previousY;
+let orderArray;
 
 //拖曳物件
 function handleDragStart(event, element) {
@@ -41,7 +42,7 @@ function handleDragEnd(event, element) {
 }
 
 function handleDragPassby(event, element) {
-    if (draggedElement !== element) {
+    if (draggedElement.parentNode === element.parentNode && draggedElement !== element) {
         const moveDown = event.pageY > previousY;
         element.style.margin = `${moveDown?"0 0px 50px":"50px 0px 8px"}`;
     }
@@ -62,22 +63,22 @@ function handleDrop(e) {
     const dropdownArea = this;
     if (draggedElementArea !== dropdownArea) return;
 
-    const moveDown =  e.pageY > currentPassbyElement.offsetTop;
-    if(moveDown){
-        console.log("down")
-        dropdownArea.insertBefore(draggedElement,currentPassbyElement.nextElementSibling)
+    const moveDown = e.pageY > currentPassbyElement.offsetTop;
+    if (moveDown) {
+        dropdownArea.insertBefore(draggedElement, currentPassbyElement.nextElementSibling)
     }
-    if(!moveDown){
-        console.log("up")
-        dropdownArea.insertBefore(draggedElement,currentPassbyElement)
+    if (!moveDown) {
+        dropdownArea.insertBefore(draggedElement, currentPassbyElement)
     }
-    // draggedElement.remove();
-    
+
+    orderArray = Array.from(document.querySelectorAll('.tasks'))
+        .map((el) => tasks[el.dataset.index]);
+    localStorage.setItem('order', JSON.stringify(orderArray));
+
 }
 
-
-function populateList(tasks = [], taskList) {
-    const taskHTMLlist = tasks.map((task, index) => {
+function populateList(tasksArray = [], taskList) {
+    const taskHTMLlist = tasksArray.map((task, index) => {
         const eachTaskHTML = `<form data-index="${index}" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragPassby(event,this)" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
@@ -237,11 +238,11 @@ function resetForm() {
     withDraw();
 }
 
-function fileNameUpdate(element) {
-    const file = element.files[0].name;
-    const fileNameElement = element.nextElementSibling;
-    fileNameElement.textContent = file;
-}
+// function fileNameUpdate(element) {
+//     const file = element.files[0].name;
+//     const fileNameElement = element.nextElementSibling;
+//     fileNameElement.textContent = file;
+// }
 
 function withDraw() {
     addTaskForm.classList.remove('click-active');
@@ -262,8 +263,12 @@ function toggleStatus(element) {
     if (task.dataset.index) {
         tasks[index][usage] = !tasks[index][usage];
     }
+    
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('order', JSON.stringify(orderArray));
     populateList(tasks, taskList);
+    const a = Array.from(taskList.querySelectorAll('.tasks'))
+    console.log(a.map(el=>el.dataset.index))
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
 
@@ -341,7 +346,11 @@ function editTask(e) {
 }
 
 function deleteTask(element) {
-    console.log(element)
+    const index = element.previousElementSibling.id.match(/\d+/);
+    tasks.splice(index,1)
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    populateList(tasks, taskList);
+
 }
 
 populateList(tasks, taskList);
@@ -352,4 +361,4 @@ addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
 editting.addEventListener("input", withDraw);
-taskList.addEventListener("click", editTask)
+taskList.addEventListener("click", editTask);
