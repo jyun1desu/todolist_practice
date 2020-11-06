@@ -12,7 +12,7 @@ const countLeft = document.querySelector('.left_tasks_numbers');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
-const orderArray = JSON.parse(localStorage.getItem('order'))
+const orderArray = JSON.parse(localStorage.getItem('order')) || [];
 //編輯任務
 
 const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
@@ -227,9 +227,9 @@ function populateList(tasksArray = [], taskList) {
         </form>`
         return eachTaskHTML
     })
-    // if(orderArray){
-    //     taskHTMLlist = orderArray.map(order => taskHTMLlist[order]);
-    // }
+    if(orderArray){
+        taskHTMLlist = orderArray.map(order => taskHTMLlist[order]);
+    }
     const sortedPrimary = taskHTMLlist.filter(el => el.includes(`tasks primary`) && !el.includes(`tasks primary done`)).join("");
     const sortedNormal = taskHTMLlist.filter(el => el.includes(`class="tasks  "`)).join("");
     const sortedDonePrimary = taskHTMLlist.filter(el => el.includes(`tasks primary done`)).join("");
@@ -292,7 +292,6 @@ function addTask(e) {
         return;
     }
 
-
     const task = {
         taskTitle,
         deadlineDate,
@@ -304,8 +303,10 @@ function addTask(e) {
     }
 
     tasks.push(task);
-    populateList(tasks, taskList);
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    orderArray.push(`${tasks.length-1}`);
+    localStorage.setItem('order', JSON.stringify(orderArray));
+    populateList(tasks, taskList);
     this.reset();
     resetForm();
 }
