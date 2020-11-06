@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-css": "sass --watch sass/:css/"
+    "build-css": "sass --watch sass/:css/",
+    "test": "jest",
+    "test-coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
