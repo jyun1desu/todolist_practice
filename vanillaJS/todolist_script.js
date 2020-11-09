@@ -90,7 +90,7 @@ function populateList(tasksArray = [], taskList) {
         <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i></label>
         
         <input id="delete${index}" class="delete_icon" type="checkbox">
-        <label for="delete${index}" onclick="deleteTask(this)" class="delete_icon"><i class="far fa-trash-alt"></i></label>
+        <label for="delete${index}" class="delete_icon"><i class="far fa-trash-alt"></i></label>
         </div>
         
         <div class="quick_detail">
@@ -155,6 +155,9 @@ function populateList(tasksArray = [], taskList) {
     donePrimaryBlock.innerHTML = sortedDonePrimary;
     doneNormalBlock.innerHTML = sortedDoneNormal;
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
+    const deleteButton = document.querySelectorAll('label.delete_icon');
+    deleteButton.forEach(button=>button.addEventListener("click",deleteTask));
+
 }
 //選取任務分類
 function select() {
@@ -337,8 +340,8 @@ function editTask(e) {
     }
 }
 
-function deleteTask(element) {
-    const dataIndex = element.previousElementSibling.id.match(/\d+/);
+function deleteTask() {
+    const dataIndex = this.previousElementSibling.id.match(/\d+/);
     const orderIndex = orderArray.findIndex(el => el == dataIndex);
     tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
