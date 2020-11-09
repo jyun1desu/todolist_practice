@@ -1,10 +1,9 @@
 const {
-    getByText,
     getByTestId,
     fireEvent
 } = require('@testing-library/dom');
 
-describe('測試新增任務',() => {
+describe('新增、刪除、修改', () => {
     // Arrange
     // Ready necessary DOM on this unit test
     document.body.innerHTML = `
@@ -70,25 +69,25 @@ describe('測試新增任務',() => {
 
     // Import test logic
     require('../todolist_script.js');
-    
+
     test('新增任務:不是重要任務、不是完成任務，增加任務名稱first,日期2020-12-20', () => {
-    // From DOM get necessary element, ex input and button
+        // From DOM get necessary element, ex input and button
 
-    const container = document.body;
-    const addTaskButton = getByTestId(container, 'newTodo');
-    const taskTitle = getByTestId(container, 'title');
-    const date = getByTestId(container, 'date');
-    const submitButton = getByTestId(container,'submit_button')
-    // Act
-    fireEvent.click(addTaskButton);
-    taskTitle.value = "first"
-    date.value = "2020-12-20"
-    fireEvent.click(submitButton);
+        const container = document.body;
+        const addTaskButton = getByTestId(container, 'newTodo');
+        const taskTitle = getByTestId(container, 'title');
+        const date = getByTestId(container, 'date');
+        const submitButton = getByTestId(container, 'submit_button')
+        // Act
+        fireEvent.click(addTaskButton);
+        taskTitle.value = "first"
+        date.value = "2020-12-20"
+        fireEvent.click(submitButton);
 
-    // Assert
-    const normalTodo = getByTestId(container,'normal_category')
-    const countLeft = getByTestId(container,'left_tasks_numbers')
-    const actualResult = `<form data-index="0" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragPassby(event,this)" class="tasks  " draggable="true">
+        // Assert
+        const normalTodo = getByTestId(container, 'normal_category')
+        const countLeft = getByTestId(container, 'left_tasks_numbers')
+        const actualResult = `<form data-index="0" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragPassby(event,this)" class="tasks  " draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
@@ -146,8 +145,8 @@ describe('測試新增任務',() => {
         <button type="button" class="save_button">+ Save</button>
         </div>
         </form>`
-    const expectedResult = normalTodo.innerHTML
-    expect(expectedResult).toBe(actualResult);
-    expect(countLeft.textContent).toBe("1 task left")
-});
+        const expectedResult = normalTodo.innerHTML
+        expect(expectedResult).toBe(actualResult);
+        expect(countLeft.textContent).toBe("1 task left")
+    });
 });

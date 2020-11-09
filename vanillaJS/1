@@ -1,0 +1,82 @@
+
+function deleteTask(element) {
+    console.log("deleteTask is running")
+    const dataIndex = element.previousElementSibling.id.match(/\d+/);
+    // const orderIndex = orderArray.findIndex(el => el == dataIndex);
+    tasks.splice(dataIndex, 1)
+    // // localStorage.setItem('tasks', JSON.stringify(tasks));
+    // orderArray.splice(orderIndex, 1);
+    // const deleted = orderArray.map(el => {
+    //     if (el > orderIndex) {
+    //         return el - 1;
+    //     } else {
+    //         return el;
+    //     }
+    // });
+    // localStorage.setItem('order', JSON.stringify(deleted));
+    // orderArray = JSON.parse(localStorage.getItem('order'));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    populateList(tasks, taskList);
+    console.log("deleteTask is finished")
+}
+
+
+function addTask(e) {
+    e.preventDefault();
+    const taskTitle = this.querySelector('[name="title"]').value;
+    const deadlineDate = this.querySelector('[name="date"]').value;
+    const deadlineTime = this.querySelector('[name="time"]').value;
+    const updateFile = this.querySelector('.file_name').textContent;
+    const memo = this.querySelector('[name="memo_content"]').value;
+    const status = this.querySelector('input#status');
+
+    if (!taskTitle.length) {
+        this.querySelector('[name="title"]').placeholder = "Please add the task title here";
+        this.querySelector('[name="title"]').style.setProperty("--c", "#D0021B")
+        return;
+    }
+
+    const task = {
+        taskTitle,
+        deadlineDate,
+        deadlineTime,
+        updateFile,
+        memo,
+        done: status.checked,
+        primary: priority.checked
+    }
+
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    // orderArray.push(`${tasks.length-1}`);
+    // localStorage.setItem('order', JSON.stringify(orderArray));
+    populateList(tasks, taskList);
+    this.reset();
+    resetForm();
+}
+
+function handleDrop(e) {
+    console.log(e);
+    const draggedElementArea = draggedElement.parentNode;
+    const dropdownArea = this;
+    if (draggedElementArea !== dropdownArea) return;
+
+    const moveDown = e.pageY > currentPassbyElement.offsetTop;
+    if (moveDown) {
+        dropdownArea.insertBefore(draggedElement, currentPassbyElement.nextElementSibling)
+    }
+    if (!moveDown) {
+        dropdownArea.insertBefore(draggedElement, currentPassbyElement)
+    }
+
+    const old_index = draggedElement.dataset.index;
+    // const current_task = tasks[old_indexold_index];
+    const new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement)
+
+    const task = tasks[old_index];
+    tasks.splice(old_index, 1)
+    tasks.splice(new_index, 0, task)
+
+    populateList(tasks, taskList);
+
+}

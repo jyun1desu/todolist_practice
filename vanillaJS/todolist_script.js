@@ -18,7 +18,6 @@ let orderArray = JSON.parse(localStorage.getItem('order')) || [];
 const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
 droppableAreas.forEach(area => {
     area.addEventListener('dragover', handleDragover);
-    // area.addEventListener('dragleave', handleDragleave);
     area.addEventListener('drop', handleDrop);
 })
 
@@ -50,7 +49,6 @@ function handleDragPassby(event, element) {
     currentPassbyElement = element;
     previousY = event.pageY;
 }
-
 //拖曳物件drop區域
 function handleDragover(e) {
     e.preventDefault();
@@ -159,21 +157,21 @@ function populateList(tasksArray = [], taskList) {
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 }
 //選取任務分類
-function select(element) {
+function select() {
     navButtons.forEach(button => button.classList.remove('focus-active'));
-    switch (element.id) {
+    switch (this.id) {
         case "selectAll":
-            element.classList.add('focus-active');
+            this.classList.add('focus-active');
             taskList.classList.remove('sort-undone');
             taskList.classList.remove('sort-done');
             break;
         case "selectUndone":
-            element.classList.add('focus-active');
+            this.classList.add('focus-active');
             taskList.classList.add('sort-undone');
             taskList.classList.remove('sort-done');
             break;
         case "selectDone":
-            element.classList.add('focus-active');
+            this.classList.add('focus-active');
             taskList.classList.add('sort-done');
             taskList.classList.remove('sort-undone');
             break;
@@ -358,6 +356,7 @@ function deleteTask(element) {
 }
 
 populateList(tasks, taskList);
+navButtons.forEach(button=>button.addEventListener("click",select));
 //新增任務
 addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
