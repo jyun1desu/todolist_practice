@@ -1,13 +1,9 @@
-const {
-    toggleShow,
-    toggleStatus,
-    deleteTask
-} = require('./toggle')
+import countLeft from "./countLeft.js"
+import handleTaskEvents from "./handleTaskEvents.js";
 
-
-function populateList(tasksArray = [], taskList) {
+export default function populateList(tasksArray = [], taskList) {
     let taskHTMLlist = tasksArray.map((task, index) => {
-        const eachTaskHTML = `<form data-index="${index}" ondragstart="handleDragStart(event,this)" ondragend="handleDragEnd(event,this)" ondragenter="handleDragPassby(event,this)" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
+        const eachTaskHTML = `<form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
@@ -87,16 +83,6 @@ function populateList(tasksArray = [], taskList) {
     donePrimaryBlock.innerHTML = sortedDonePrimary;
     doneNormalBlock.innerHTML = sortedDoneNormal;
 
-    const edit = document.querySelectorAll("input.edit_icon");
-    edit.forEach(button => button.addEventListener("click", toggleShow))
-    const completed = document.querySelectorAll("input.completed_checkbox");
-    completed.forEach(button => button.addEventListener("click", toggleStatus))
-    const marked = document.querySelectorAll("input.star_mark");
-    marked.forEach(button => button.addEventListener("click", toggleStatus))
-    const deleteButton = document.querySelectorAll("input.delete_icon");
-    deleteButton.forEach(button => button.addEventListener("click", deleteTask))
-
+    handleTaskEvents();
     countLeft();
 }
-
-export {populateList};

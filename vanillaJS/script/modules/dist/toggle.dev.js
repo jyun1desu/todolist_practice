@@ -6,6 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.toggleShow = toggleShow;
 exports.toggleStatus = toggleStatus;
 exports.deleteTask = deleteTask;
+exports.fileNameUpdate = fileNameUpdate;
+exports["default"] = void 0;
+
+var _populateList = _interopRequireDefault(require("./populateList.js"));
+
+var _endEdit = _interopRequireDefault(require("./endEdit.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function toggleShow() {
   var task = this.parentNode.parentNode;
@@ -16,6 +24,7 @@ function toggleShow() {
   var icon = label.firstChild;
   var title = task.querySelector('input[type="text"]');
   var deleteIcon = task.querySelector('label.delete_icon');
+  task.addEventListener("click", _endEdit["default"]);
 
   if (this.checked) {
     task.classList.add('noquery');
@@ -43,6 +52,8 @@ function toggleShow() {
 }
 
 function toggleStatus() {
+  var tasks = JSON.parse(localStorage.getItem('tasks'));
+  var taskList = document.querySelector('.todo_list');
   var label = this.nextElementSibling;
   var icon = label.firstChild;
   var task = this.parentNode.parentNode;
@@ -58,14 +69,29 @@ function toggleStatus() {
   }
 
   localStorage.setItem('tasks', JSON.stringify(tasks));
-  populateList(tasks, taskList);
-  countLeft();
+  if (!task.classList.contains("noquery")) (0, _populateList["default"])(tasks, taskList);
 }
 
 function deleteTask() {
+  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  var taskList = document.querySelector('.todo_list');
   var dataIndex = this.id.match(/\d+/); // const orderIndex = orderArray.findIndex(el => el == dataIndex);
 
   tasks.splice(dataIndex, 1);
   localStorage.setItem('tasks', JSON.stringify(tasks));
-  populateList(tasks, taskList);
+  (0, _populateList["default"])(tasks, taskList);
 }
+
+function fileNameUpdate() {
+  var file = this.files[0].name;
+  var fileNameElement = this.nextElementSibling;
+  fileNameElement.textContent = file;
+}
+
+var _default = {
+  toggleShow: toggleShow,
+  toggleStatus: toggleStatus,
+  deleteTask: deleteTask,
+  fileNameUpdate: fileNameUpdate
+};
+exports["default"] = _default;

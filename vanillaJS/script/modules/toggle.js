@@ -1,4 +1,7 @@
-function toggleShow() {
+import populateList from "./populateList.js";
+import editTask from './endEdit.js';
+
+export function toggleShow() {
     const task = this.parentNode.parentNode;
     const quick_detail = this.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
@@ -7,6 +10,8 @@ function toggleShow() {
     const icon = label.firstChild
     const title = task.querySelector('input[type="text"]');
     const deleteIcon = task.querySelector('label.delete_icon');
+
+    task.addEventListener("click", editTask)
 
     if (this.checked) {
         task.classList.add('noquery');
@@ -33,7 +38,9 @@ function toggleShow() {
     }
 }
 
-function toggleStatus() {
+export function toggleStatus() {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    const taskList = document.querySelector('.todo_list')
     const label = this.nextElementSibling;
     const icon = label.firstChild;
     const task = this.parentNode.parentNode;
@@ -46,13 +53,13 @@ function toggleStatus() {
     if (task.dataset.index) {
         tasks[index][usage] = !tasks[index][usage];
     }
-
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    populateList(tasks, taskList);
-    countLeft();
+    if(!task.classList.contains("noquery")) populateList(tasks, taskList);
 }
 
-function deleteTask() {
+export function deleteTask() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const taskList = document.querySelector('.todo_list');
     const dataIndex = this.id.match(/\d+/);
     // const orderIndex = orderArray.findIndex(el => el == dataIndex);
     tasks.splice(dataIndex, 1)
@@ -60,8 +67,17 @@ function deleteTask() {
     populateList(tasks, taskList);
 }
 
-export {
+export function fileNameUpdate() {
+    const file = this.files[0].name;
+    const fileNameElement = this.nextElementSibling;
+    fileNameElement.textContent = file;
+}
+
+
+
+export default {
     toggleShow,
     toggleStatus,
     deleteTask,
+    fileNameUpdate
 }
