@@ -48,7 +48,7 @@ export function handleDrop(e) {
     }
     if (!moveDown) {
         dropdownArea.insertBefore(draggedElement, currentPassbyElement)
-        new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement);
+        new_index = Number(currentPassbyElement.dataset.index);;
     }
 
     const task = tasks[old_index];

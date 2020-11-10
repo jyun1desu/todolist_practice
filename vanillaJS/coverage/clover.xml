@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605009634736" clover="3.2.0">
-  <project timestamp="1605009634737" name="All files">
-    <metrics statements="237" coveredstatements="162" conditionals="70" coveredconditionals="38" methods="43" coveredmethods="25" elements="350" coveredelements="225" complexity="0" loc="237" ncloc="237" packages="3" files="8" classes="8"/>
+<coverage generated="1605011303409" clover="3.2.0">
+  <project timestamp="1605011303409" name="All files">
+    <metrics statements="239" coveredstatements="162" conditionals="70" coveredconditionals="38" methods="43" coveredmethods="25" elements="352" coveredelements="225" complexity="0" loc="239" ncloc="239" packages="3" files="8" classes="8"/>
     <package name="__test__">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="localstorage.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/__test__/localstorage.js">
@@ -97,7 +97,7 @@
       </file>
     </package>
     <package name="script.modules">
-      <metrics statements="155" coveredstatements="102" conditionals="61" coveredconditionals="33" methods="28" coveredmethods="21"/>
+      <metrics statements="157" coveredstatements="102" conditionals="61" coveredconditionals="33" methods="28" coveredmethods="21"/>
       <file name="countLeft.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/countLeft.js">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
@@ -137,7 +137,7 @@
         <line num="39" count="1" type="stmt"/>
       </file>
       <file name="handleDragEvent.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/handleDragEvent.js">
-        <metrics statements="33" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <metrics statements="35" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -159,18 +159,20 @@
         <line num="38" count="0" type="stmt"/>
         <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="50" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
       </file>
       <file name="handleTaskEvents.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/handleTaskEvents.js">
         <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
