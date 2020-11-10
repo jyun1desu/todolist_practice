@@ -1,3 +1,6 @@
+// import populateList from "./modules/populateList.js";
+
+
 const navButtons = document.querySelectorAll('.each_task_status');
 //新增任務
 const addTaskButton = document.querySelector('.add_new_task');
@@ -7,8 +10,6 @@ const updateFile = document.querySelector('#file_update');
 const fileName = document.querySelector('.file_name');
 ///////編輯中
 const editting = addTaskForm.querySelector('#edit');
-///////剩餘任務數量
-const countLeft = document.querySelector('.left_tasks_numbers');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
@@ -83,20 +84,20 @@ function populateList(tasksArray = [], taskList) {
         <div class="drag_icon">
         </div>
         <div class="main_information">
-        <input id="status${index}" data-use="done" onclick="toggleStatus(this)" class="completed_checkbox" type="checkbox"
+        <input id="status${index}" data-use="done" class="completed_checkbox" type="checkbox"
             ${task.done?"checked":" "}>
                         <label for="status${index}" class="completed_checkbox  ${task.done?" clicked":""}"><i
             class="fas fa-check"></i></label>
         <input type="text" class="task_title" value="${task.taskTitle}" placeholder="Type Something Here..." readonly>
-        <input id="priority${index}" data-use="primary" onclick="toggleStatus(this)" class="star_mark" type="checkbox"
+        <input id="priority${index}" data-use="primary" class="star_mark" type="checkbox"
             ${task.primary?"checked":" "}>
                         <label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"><i
             class="${task.primary?"fas":"far"} fa-star"></i></label>
-        <input id="edit${index}" onclick="toggleShow(this)" class="edit_icon" type="checkbox">
+        <input id="edit${index}" class="edit_icon" type="checkbox">
         <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i></label>
         
         <input id="delete${index}" class="delete_icon" type="checkbox">
-        <label for="delete${index}" onclick="deleteTask(this)" class="delete_icon"><i class="far fa-trash-alt"></i></label>
+        <label for="delete${index}" class="delete_icon"><i class="far fa-trash-alt"></i></label>
         </div>
         
         <div class="quick_detail">
@@ -123,7 +124,7 @@ function populateList(tasksArray = [], taskList) {
             <i class="icon far fa-file"></i>
             <div class="content_block">
                 <p>File</p>
-                <input id="file_update${index}" onchange="fileNameUpdate(this)" name="update" type="file" class="update_button">
+                <input id="file_update${index}" name="update" type="file" class="update_button">
                 <span class="file_name">${task.updateFile||""}</span>
                 <label for="file_update${index}"></label>
             </div>
@@ -158,9 +159,24 @@ function populateList(tasksArray = [], taskList) {
     normalBlock.innerHTML = sortedNormal;
     donePrimaryBlock.innerHTML = sortedDonePrimary;
     doneNormalBlock.innerHTML = sortedDoneNormal;
-    countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
 
+    const edit = document.querySelectorAll("input.edit_icon");
+    edit.forEach(button=>button.addEventListener("click",toggleShow))
+    const completed = document.querySelectorAll("input.completed_checkbox");
+    completed.forEach(button=>button.addEventListener("click",toggleStatus))
+    const marked = document.querySelectorAll("input.star_mark");
+    marked.forEach(button=>button.addEventListener("click",toggleStatus))
+    const deleteButton = document.querySelectorAll("input.delete_icon");
+    deleteButton.forEach(button=>button.addEventListener("click",deleteTask))
+
+    countLeft();
 }
+
+function countLeft(){
+    const countLeft = document.querySelector('.left_tasks_numbers');
+    countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
+}
+
 //選取任務分類
 function select() {
     navButtons.forEach(button => button.classList.remove('focus-active'));
@@ -190,6 +206,10 @@ function newTask() {
     addTaskForm.querySelector('#edit').checked = true;
     addTaskForm.querySelector('label[for="edit"]').innerHTML = `<i class="fas fa-pen"></i>`;
     editting.nextElementSibling.classList.add('clicked')
+
+    addTaskForm.querySelector('#status').addEventListener("click",toggleStatus);
+    addTaskForm.querySelector('#priority').addEventListener("click",toggleStatus);
+    addTaskForm.querySelector('#file_update').addEventListener("change",fileNameUpdate);
 }
 
 function addTask(e) {
@@ -239,9 +259,9 @@ function resetForm() {
     withDraw();
 }
 
-function fileNameUpdate(element) {
-    const file = element.files[0].name;
-    const fileNameElement = element.nextElementSibling;
+function fileNameUpdate() {
+    const file = this.files[0].name;
+    const fileNameElement = this.nextElementSibling;
     fileNameElement.textContent = file;
 }
 
@@ -251,12 +271,12 @@ function withDraw() {
     setTimeout(() => addTaskButton.classList.remove('click'), 280);
 }
 
-function toggleStatus(element) {
-    const label = element.nextElementSibling;
+function toggleStatus() {
+    const label = this.nextElementSibling;
     const icon = label.firstChild;
-    const task = element.parentNode.parentNode;
+    const task = this.parentNode.parentNode;
     const index = task.dataset.index;
-    const usage = element.dataset.use;
+    const usage = this.dataset.use;
     label.classList.toggle("clicked");
     task.classList.toggle(`${usage}`);
     icon.classList.toggle('fas');
@@ -267,20 +287,20 @@ function toggleStatus(element) {
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
     populateList(tasks, taskList);
-    countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
+    countLeft();
 }
 
-function toggleShow(element) {
-    const task = element.parentNode.parentNode;
-    const quick_detail = element.parentNode.nextElementSibling;
+function toggleShow() {
+    const task = this.parentNode.parentNode;
+    const quick_detail = this.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
     const button = detail.nextElementSibling;
-    const label = element.nextElementSibling;
+    const label = this.nextElementSibling;
     const icon = label.firstChild
     const title = task.querySelector('input[type="text"]');
     const deleteIcon = task.querySelector('label.delete_icon');
 
-    if (element.checked) {
+    if (this.checked) {
         task.classList.add('noquery');
         quick_detail.style.setProperty('display', 'none');
         detail.style.setProperty('display', 'block');
@@ -342,21 +362,11 @@ function editTask(e) {
     }
 }
 
-function deleteTask(element) {
-    const dataIndex = element.previousElementSibling.id.match(/\d+/);
+function deleteTask() {
+    const dataIndex = this.id.match(/\d+/);
     // const orderIndex = orderArray.findIndex(el => el == dataIndex);
     tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    // orderArray.splice(orderIndex, 1);
-    // const deleted = orderArray.map(el => {
-    //     if (el > orderIndex) {
-    //         return el - 1;
-    //     } else {
-    //         return el;
-    //     }
-    // });
-    // localStorage.setItem('order', JSON.stringify(deleted));
-    // orderArray = JSON.parse(localStorage.getItem('order'));
     populateList(tasks, taskList);
 }
 

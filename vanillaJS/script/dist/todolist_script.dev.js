@@ -1,5 +1,6 @@
 "use strict";
 
+// import populateList from "./modules/populateList.js";
 var navButtons = document.querySelectorAll('.each_task_status'); //新增任務
 
 var addTaskButton = document.querySelector('.add_new_task');
@@ -84,7 +85,7 @@ function populateList() {
   var tasksArray = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var taskList = arguments.length > 1 ? arguments[1] : undefined;
   var taskHTMLlist = tasksArray.map(function (task, index) {
-    var eachTaskHTML = "<form data-index=\"".concat(index, "\" ondragstart=\"handleDragStart(event,this)\" ondragend=\"handleDragEnd(event,this)\" ondragenter=\"handleDragPassby(event,this)\" class=\"tasks ").concat(task.primary ? "primary" : "", " ").concat(task.done ? "done" : "", "\" draggable=\"true\">\n        <div class=\"drag_icon\">\n        </div>\n        <div class=\"main_information\">\n        <input id=\"status").concat(index, "\" data-use=\"done\" onclick=\"toggleStatus(this)\" class=\"completed_checkbox\" type=\"checkbox\"\n            ").concat(task.done ? "checked" : " ", ">\n                        <label for=\"status").concat(index, "\" class=\"completed_checkbox  ").concat(task.done ? " clicked" : "", "\"><i\n            class=\"fas fa-check\"></i></label>\n        <input type=\"text\" class=\"task_title\" value=\"").concat(task.taskTitle, "\" placeholder=\"Type Something Here...\" readonly>\n        <input id=\"priority").concat(index, "\" data-use=\"primary\" onclick=\"toggleStatus(this)\" class=\"star_mark\" type=\"checkbox\"\n            ").concat(task.primary ? "checked" : " ", ">\n                        <label for=\"priority").concat(index, "\" class=\"star_mark ").concat(task.primary ? " clicked" : "", "\"><i\n            class=\"").concat(task.primary ? "fas" : "far", " fa-star\"></i></label>\n        <input id=\"edit").concat(index, "\" onclick=\"toggleShow(this)\" class=\"edit_icon\" type=\"checkbox\">\n        <label for=\"edit").concat(index, "\" class=\"edit_icon\"><i class=\"far fa-pen\"></i></label>\n        \n        <input id=\"delete").concat(index, "\" class=\"delete_icon\" type=\"checkbox\">\n        <label for=\"delete").concat(index, "\" onclick=\"deleteTask(this)\" class=\"delete_icon\"><i class=\"far fa-trash-alt\"></i></label>\n        </div>\n        \n        <div class=\"quick_detail\">\n        ").concat(task.deadlineDate ? "<span>\n            <i class=\"far fa-calendar-alt\"></i>\n            <span>".concat(task.deadlineDate, "</span></span>") : "", "\n        ").concat(task.updateFile ? "<span><i class=\"far fa-file\"></i></span>" : "", "\n        ").concat(task.memo ? "<span><i class=\"far fa-comment-dots\"></i></span>" : "", "\n        </div>\n        \n        <div class=\"detail_area\" style=\"display:none;\">\n        <div class=\"deadline\">\n            <i class=\"icon far fa-calendar-alt\"></i>\n            <div class=\"content_block\">\n                <p>Deadline</p>\n                <div class=\"time_block\">\n                    <input name=\"date\" class=\"deadline_date\" value=\"").concat(task.deadlineDate, "\" type=\"date\"\n                        placeholder=\"yyyy/mm/dd\">\n                    <input name=\"time\" class=\"deadline_time\" value=\"").concat(task.deadlineTime, "\" type=\"time\" placeholder=\"hh:mm\">\n                </div>\n            </div>\n        </div>\n        <div class=\"file_update\">\n            <i class=\"icon far fa-file\"></i>\n            <div class=\"content_block\">\n                <p>File</p>\n                <input id=\"file_update").concat(index, "\" onchange=\"fileNameUpdate(this)\" name=\"update\" type=\"file\" class=\"update_button\">\n                <span class=\"file_name\">").concat(task.updateFile || "", "</span>\n                <label for=\"file_update").concat(index, "\"></label>\n            </div>\n        </div>\n        <div class=\"memo\">\n            <i class=\"icon far fa-comment-dots\"></i>\n            <div class=\"content_block\">\n                <p>Comment</p>\n                <textarea name=\"memo_content\" placeholder=\"Type your memo here...\">").concat(task.memo, "</textarea>\n            </div>\n        </div>\n        \n        </div>\n        <div class=\"button_area\" style=\"display:none;\">\n        <button type=\"button\" class=\"cancel_edit_button\">&times; Cancel</button>\n        <button type=\"button\" class=\"save_button\">&#43; Save</button>\n        </div>\n        </form>");
+    var eachTaskHTML = "<form data-index=\"".concat(index, "\" ondragstart=\"handleDragStart(event,this)\" ondragend=\"handleDragEnd(event,this)\" ondragenter=\"handleDragPassby(event,this)\" class=\"tasks ").concat(task.primary ? "primary" : "", " ").concat(task.done ? "done" : "", "\" draggable=\"true\">\n        <div class=\"drag_icon\">\n        </div>\n        <div class=\"main_information\">\n        <input id=\"status").concat(index, "\" data-use=\"done\" class=\"completed_checkbox\" type=\"checkbox\"\n            ").concat(task.done ? "checked" : " ", ">\n                        <label for=\"status").concat(index, "\" class=\"completed_checkbox  ").concat(task.done ? " clicked" : "", "\"><i\n            class=\"fas fa-check\"></i></label>\n        <input type=\"text\" class=\"task_title\" value=\"").concat(task.taskTitle, "\" placeholder=\"Type Something Here...\" readonly>\n        <input id=\"priority").concat(index, "\" data-use=\"primary\" class=\"star_mark\" type=\"checkbox\"\n            ").concat(task.primary ? "checked" : " ", ">\n                        <label for=\"priority").concat(index, "\" class=\"star_mark ").concat(task.primary ? " clicked" : "", "\"><i\n            class=\"").concat(task.primary ? "fas" : "far", " fa-star\"></i></label>\n        <input id=\"edit").concat(index, "\" class=\"edit_icon\" type=\"checkbox\">\n        <label for=\"edit").concat(index, "\" class=\"edit_icon\"><i class=\"far fa-pen\"></i></label>\n        \n        <input id=\"delete").concat(index, "\" class=\"delete_icon\" type=\"checkbox\">\n        <label for=\"delete").concat(index, "\" class=\"delete_icon\"><i class=\"far fa-trash-alt\"></i></label>\n        </div>\n        \n        <div class=\"quick_detail\">\n        ").concat(task.deadlineDate ? "<span>\n            <i class=\"far fa-calendar-alt\"></i>\n            <span>".concat(task.deadlineDate, "</span></span>") : "", "\n        ").concat(task.updateFile ? "<span><i class=\"far fa-file\"></i></span>" : "", "\n        ").concat(task.memo ? "<span><i class=\"far fa-comment-dots\"></i></span>" : "", "\n        </div>\n        \n        <div class=\"detail_area\" style=\"display:none;\">\n        <div class=\"deadline\">\n            <i class=\"icon far fa-calendar-alt\"></i>\n            <div class=\"content_block\">\n                <p>Deadline</p>\n                <div class=\"time_block\">\n                    <input name=\"date\" class=\"deadline_date\" value=\"").concat(task.deadlineDate, "\" type=\"date\"\n                        placeholder=\"yyyy/mm/dd\">\n                    <input name=\"time\" class=\"deadline_time\" value=\"").concat(task.deadlineTime, "\" type=\"time\" placeholder=\"hh:mm\">\n                </div>\n            </div>\n        </div>\n        <div class=\"file_update\">\n            <i class=\"icon far fa-file\"></i>\n            <div class=\"content_block\">\n                <p>File</p>\n                <input id=\"file_update").concat(index, "\" name=\"update\" type=\"file\" class=\"update_button\">\n                <span class=\"file_name\">").concat(task.updateFile || "", "</span>\n                <label for=\"file_update").concat(index, "\"></label>\n            </div>\n        </div>\n        <div class=\"memo\">\n            <i class=\"icon far fa-comment-dots\"></i>\n            <div class=\"content_block\">\n                <p>Comment</p>\n                <textarea name=\"memo_content\" placeholder=\"Type your memo here...\">").concat(task.memo, "</textarea>\n            </div>\n        </div>\n        \n        </div>\n        <div class=\"button_area\" style=\"display:none;\">\n        <button type=\"button\" class=\"cancel_edit_button\">&times; Cancel</button>\n        <button type=\"button\" class=\"save_button\">&#43; Save</button>\n        </div>\n        </form>");
     return eachTaskHTML;
   });
   var sortedPrimary = taskHTMLlist.filter(function (el) {
@@ -107,6 +108,22 @@ function populateList() {
   normalBlock.innerHTML = sortedNormal;
   donePrimaryBlock.innerHTML = sortedDonePrimary;
   doneNormalBlock.innerHTML = sortedDoneNormal;
+  var edit = document.querySelectorAll("input.edit_icon");
+  edit.forEach(function (button) {
+    return button.addEventListener("click", toggleShow);
+  });
+  var completed = document.querySelectorAll("input.completed_checkbox");
+  completed.forEach(function (button) {
+    return button.addEventListener("click", toggleStatus);
+  });
+  var marked = document.querySelectorAll("input.star_mark");
+  marked.forEach(function (button) {
+    return button.addEventListener("click", toggleStatus);
+  });
+  var deleteButton = document.querySelectorAll("input.delete_icon");
+  deleteButton.forEach(function (button) {
+    return button.addEventListener("click", deleteTask);
+  });
   countLeft();
 }
 
@@ -155,6 +172,9 @@ function newTask() {
   addTaskForm.querySelector('#edit').checked = true;
   addTaskForm.querySelector('label[for="edit"]').innerHTML = "<i class=\"fas fa-pen\"></i>";
   editting.nextElementSibling.classList.add('clicked');
+  addTaskForm.querySelector('#status').addEventListener("click", toggleStatus);
+  addTaskForm.querySelector('#priority').addEventListener("click", toggleStatus);
+  addTaskForm.querySelector('#file_update').addEventListener("change", fileNameUpdate);
 }
 
 function addTask(e) {
@@ -203,9 +223,9 @@ function resetForm() {
   withDraw();
 }
 
-function fileNameUpdate(element) {
-  var file = element.files[0].name;
-  var fileNameElement = element.nextElementSibling;
+function fileNameUpdate() {
+  var file = this.files[0].name;
+  var fileNameElement = this.nextElementSibling;
   fileNameElement.textContent = file;
 }
 
@@ -219,12 +239,12 @@ function withDraw() {
   }, 280);
 }
 
-function toggleStatus(element) {
-  var label = element.nextElementSibling;
+function toggleStatus() {
+  var label = this.nextElementSibling;
   var icon = label.firstChild;
-  var task = element.parentNode.parentNode;
+  var task = this.parentNode.parentNode;
   var index = task.dataset.index;
-  var usage = element.dataset.use;
+  var usage = this.dataset.use;
   label.classList.toggle("clicked");
   task.classList.toggle("".concat(usage));
   icon.classList.toggle('fas');
@@ -237,40 +257,42 @@ function toggleStatus(element) {
   localStorage.setItem('tasks', JSON.stringify(tasks));
   populateList(tasks, taskList);
   countLeft();
-} // function toggleShow(element) {
-//     const task = element.parentNode.parentNode;
-//     const quick_detail = element.parentNode.nextElementSibling;
-//     const detail = quick_detail.nextElementSibling;
-//     const button = detail.nextElementSibling;
-//     const label = element.nextElementSibling;
-//     const icon = label.firstChild
-//     const title = task.querySelector('input[type="text"]');
-//     const deleteIcon = task.querySelector('label.delete_icon');
-//     if (element.checked) {
-//         task.classList.add('noquery');
-//         quick_detail.style.setProperty('display', 'none');
-//         detail.style.setProperty('display', 'block');
-//         button.style.setProperty('display', 'flex');
-//         label.classList.add("clicked");
-//         deleteIcon.classList.add("editting")
-//         icon.classList.add('fas');
-//         icon.classList.remove('far');
-//         title.readOnly = false;
-//         task.setAttribute('draggable', false);
-//     } else {
-//         task.classList.remove('noquery')
-//         task.setAttribute('draggable', true);
-//         detail.style.setProperty('display', 'none');
-//         button.style.setProperty('display', 'none');
-//         quick_detail.style.setProperty('display', 'flex');
-//         label.classList.remove("clicked");
-//         icon.classList.add('far');
-//         icon.classList.remove('fas');
-//         deleteIcon.classList.remove("editting")
-//         title.readOnly = true;
-//     }
-// }
+}
 
+function toggleShow() {
+  var task = this.parentNode.parentNode;
+  var quick_detail = this.parentNode.nextElementSibling;
+  var detail = quick_detail.nextElementSibling;
+  var button = detail.nextElementSibling;
+  var label = this.nextElementSibling;
+  var icon = label.firstChild;
+  var title = task.querySelector('input[type="text"]');
+  var deleteIcon = task.querySelector('label.delete_icon');
+
+  if (this.checked) {
+    task.classList.add('noquery');
+    quick_detail.style.setProperty('display', 'none');
+    detail.style.setProperty('display', 'block');
+    button.style.setProperty('display', 'flex');
+    label.classList.add("clicked");
+    deleteIcon.classList.add("editting");
+    icon.classList.add('fas');
+    icon.classList.remove('far');
+    title.readOnly = false;
+    task.setAttribute('draggable', false);
+  } else {
+    task.classList.remove('noquery');
+    task.setAttribute('draggable', true);
+    detail.style.setProperty('display', 'none');
+    button.style.setProperty('display', 'none');
+    quick_detail.style.setProperty('display', 'flex');
+    label.classList.remove("clicked");
+    icon.classList.add('far');
+    icon.classList.remove('fas');
+    deleteIcon.classList.remove("editting");
+    title.readOnly = true;
+  }
+}
 
 function editTask(e) {
   var element = e.target;
@@ -310,8 +332,8 @@ function editTask(e) {
   }
 }
 
-function deleteTask(element) {
-  var dataIndex = element.previousElementSibling.id.match(/\d+/); // const orderIndex = orderArray.findIndex(el => el == dataIndex);
+function deleteTask() {
+  var dataIndex = this.id.match(/\d+/); // const orderIndex = orderArray.findIndex(el => el == dataIndex);
 
   tasks.splice(dataIndex, 1);
   localStorage.setItem('tasks', JSON.stringify(tasks));
