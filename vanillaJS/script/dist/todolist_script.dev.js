@@ -89,6 +89,7 @@ function addTask(e) {
     done: status.checked,
     primary: priority.checked
   };
+  var tasks = JSON.parse(localStorage.getItem('tasks'));
   tasks.push(task);
   localStorage.setItem('tasks', JSON.stringify(tasks));
   (0, _populateList["default"])(tasks, taskList);

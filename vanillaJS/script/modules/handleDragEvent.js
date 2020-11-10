@@ -1,4 +1,4 @@
-// import populateList from "./modules/populateList.js";
+import populateList from "./populateList.js";
 
 let draggedElement;
 let currentPassbyElement;
@@ -33,7 +33,7 @@ export function handleDragover(e) {
     e.preventDefault();
 }
 export function handleDrop(e) {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
     const dropdownArea = this;
     const draggedElementArea = draggedElement.parentNode;
     if (draggedElementArea !== dropdownArea) return;
@@ -52,6 +52,8 @@ export function handleDrop(e) {
     tasks.splice(old_index, 1)
     tasks.splice(new_index, 0, task)
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    const taskList = document.querySelector('.todo_list');
+    populateList(tasks, taskList);
 }
 
 export default {handleDragStart, handleDragEnd, handleDragPassby,handleDragover,handleDrop}

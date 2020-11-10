@@ -59,7 +59,6 @@ function addTask(e) {
     const memo = this.querySelector('[name="memo_content"]').value;
     const status = this.querySelector('input#status');
 
-
     if (!taskTitle.length) {
         this.querySelector('[name="title"]').placeholder = "Please add the task title here";
         this.querySelector('[name="title"]').style.setProperty("--c", "#D0021B")
@@ -75,7 +74,7 @@ function addTask(e) {
         done: status.checked,
         primary: priority.checked
     }
-
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     populateList(tasks, taskList);
