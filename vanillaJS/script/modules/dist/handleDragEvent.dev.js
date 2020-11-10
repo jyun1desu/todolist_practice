@@ -63,15 +63,13 @@ function handleDrop(e) {
   var new_index;
 
   if (moveDown) {
+    new_index = Number(currentPassbyElement.dataset.index);
     dropdownArea.insertBefore(draggedElement, currentPassbyElement.nextElementSibling);
-    new_index = Number(currentPassbyElement.nextElementSibling.dataset.index) + 1;
-    console.log(new_index);
   }
 
   if (!moveDown) {
     dropdownArea.insertBefore(draggedElement, currentPassbyElement);
     new_index = Number(currentPassbyElement.dataset.index);
-    ;
   }
 
   var task = tasks[old_index];
