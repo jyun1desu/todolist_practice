@@ -59,17 +59,20 @@ function handleDrop(e) {
   var draggedElementArea = draggedElement.parentNode;
   if (draggedElementArea !== dropdownArea) return;
   var moveDown = e.pageY > currentPassbyElement.offsetTop;
+  var old_index = draggedElement.dataset.index;
+  var new_index;
 
   if (moveDown) {
     dropdownArea.insertBefore(draggedElement, currentPassbyElement.nextElementSibling);
+    new_index = Number(currentPassbyElement.nextElementSibling.dataset.index) + 1;
+    console.log(new_index);
   }
 
   if (!moveDown) {
     dropdownArea.insertBefore(draggedElement, currentPassbyElement);
+    new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement);
   }
 
-  var old_index = draggedElement.dataset.index;
-  var new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement);
   var task = tasks[old_index];
   tasks.splice(old_index, 1);
   tasks.splice(new_index, 0, task);

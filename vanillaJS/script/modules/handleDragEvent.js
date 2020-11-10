@@ -39,15 +39,18 @@ export function handleDrop(e) {
     if (draggedElementArea !== dropdownArea) return;
 
     const moveDown = e.pageY > currentPassbyElement.offsetTop;
+    const old_index = draggedElement.dataset.index;
+    let new_index;
     if (moveDown) {
         dropdownArea.insertBefore(draggedElement, currentPassbyElement.nextElementSibling)
+        new_index = Number(currentPassbyElement.nextElementSibling.dataset.index)+1;
+        console.log(new_index)
     }
     if (!moveDown) {
         dropdownArea.insertBefore(draggedElement, currentPassbyElement)
+        new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement);
     }
 
-    const old_index = draggedElement.dataset.index;
-    const new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement)
     const task = tasks[old_index];
     tasks.splice(old_index, 1)
     tasks.splice(new_index, 0, task)
