@@ -69,8 +69,8 @@ function handleDrop(e) {
         dropdownArea.insertBefore(draggedElement, currentPassbyElement)
     }
 
-    const old_index = draggedElement.dataset.index;
     // const current_task = tasks[old_indexold_index];
+    const old_index = draggedElement.dataset.index;
     const new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement)
 
     const task = tasks[old_index];

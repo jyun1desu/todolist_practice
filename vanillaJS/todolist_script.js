@@ -12,7 +12,7 @@ const countLeft = document.querySelector('.left_tasks_numbers');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
-let orderArray = JSON.parse(localStorage.getItem('order')) || [];
+// let orderArray = JSON.parse(localStorage.getItem('order')) || [];
 //編輯任務
 
 const droppableAreas = Array.from(document.querySelectorAll('.droppable_area'));
@@ -35,8 +35,7 @@ function handleDragStart(event, element) {
 function handleDragEnd(event, element) {
     element.style.opacity = "1";
     element.style.transform = "scale(1) translateY(0)";
-    currentPassbyElement.style.margin = "0 0 8px"
-    element.parentNode.classList.remove('pop');
+    currentPassbyElement.style.margin = "0 0 8px";
 }
 function handleDragPassby(event, element) {
     if (draggedElement.parentNode === element.parentNode && draggedElement !== element) {
@@ -56,6 +55,7 @@ function handleDragover(e) {
 function handleDrop(e) {
     const draggedElementArea = draggedElement.parentNode;
     const dropdownArea = this;
+    dropdownArea.classList.remove('pop');
     if (draggedElementArea !== dropdownArea) return;
 
     const moveDown = e.pageY > currentPassbyElement.offsetTop;
@@ -66,9 +66,15 @@ function handleDrop(e) {
         dropdownArea.insertBefore(draggedElement, currentPassbyElement)
     }
 
-    const orderArray = Array.from(document.querySelectorAll('.tasks'))
-        .map((el) => el.dataset.index);
-    localStorage.setItem('order', JSON.stringify(orderArray));
+    const old_index = draggedElement.dataset.index;
+    const new_index = Array.from(document.querySelectorAll('.tasks')).indexOf(draggedElement)
+    const task = tasks[old_index];
+    tasks.splice(old_index, 1)
+    tasks.splice(new_index, 0, task)
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    populateList(tasks, taskList);
+
 }
 //印出列表
 function populateList(tasksArray = [], taskList) {
@@ -90,7 +96,7 @@ function populateList(tasksArray = [], taskList) {
         <label for="edit${index}" class="edit_icon"><i class="far fa-pen"></i></label>
         
         <input id="delete${index}" class="delete_icon" type="checkbox">
-        <label for="delete${index}" class="delete_icon"><i class="far fa-trash-alt"></i></label>
+        <label for="delete${index}" onclick="deleteTask(this)" class="delete_icon"><i class="far fa-trash-alt"></i></label>
         </div>
         
         <div class="quick_detail">
@@ -138,9 +144,7 @@ function populateList(tasksArray = [], taskList) {
         </form>`
         return eachTaskHTML
     })
-    if (orderArray) {
-        taskHTMLlist = orderArray.map(order => taskHTMLlist[order]);
-    }
+
     const sortedPrimary = taskHTMLlist.filter(el => el.includes(`tasks primary`) && !el.includes(`tasks primary done`)).join("");
     const sortedNormal = taskHTMLlist.filter(el => el.includes(`class="tasks  "`)).join("");
     const sortedDonePrimary = taskHTMLlist.filter(el => el.includes(`tasks primary done`)).join("");
@@ -155,8 +159,6 @@ function populateList(tasksArray = [], taskList) {
     donePrimaryBlock.innerHTML = sortedDonePrimary;
     doneNormalBlock.innerHTML = sortedDoneNormal;
     countLeft.textContent = `${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`
-    const deleteButton = document.querySelectorAll('label.delete_icon');
-    deleteButton.forEach(button=>button.addEventListener("click",deleteTask));
 
 }
 //選取任務分類
@@ -217,8 +219,8 @@ function addTask(e) {
 
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    orderArray.push(`${tasks.length-1}`);
-    localStorage.setItem('order', JSON.stringify(orderArray));
+    // orderArray.push(`${tasks.length-1}`);
+    // localStorage.setItem('order', JSON.stringify(orderArray));
     populateList(tasks, taskList);
     this.reset();
     resetForm();
@@ -340,21 +342,21 @@ function editTask(e) {
     }
 }
 
-function deleteTask() {
-    const dataIndex = this.previousElementSibling.id.match(/\d+/);
-    const orderIndex = orderArray.findIndex(el => el == dataIndex);
+function deleteTask(element) {
+    const dataIndex = element.previousElementSibling.id.match(/\d+/);
+    // const orderIndex = orderArray.findIndex(el => el == dataIndex);
     tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    orderArray.splice(orderIndex, 1);
-    const deleted = orderArray.map(el => {
-        if (el > orderIndex) {
-            return el - 1;
-        } else {
-            return el;
-        }
-    });
-    localStorage.setItem('order', JSON.stringify(deleted));
-    orderArray = JSON.parse(localStorage.getItem('order'));
+    // orderArray.splice(orderIndex, 1);
+    // const deleted = orderArray.map(el => {
+    //     if (el > orderIndex) {
+    //         return el - 1;
+    //     } else {
+    //         return el;
+    //     }
+    // });
+    // localStorage.setItem('order', JSON.stringify(deleted));
+    // orderArray = JSON.parse(localStorage.getItem('order'));
     populateList(tasks, taskList);
 }
 
