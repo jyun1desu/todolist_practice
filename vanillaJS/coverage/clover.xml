@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1604998786300" clover="3.2.0">
-  <project timestamp="1604998786300" name="All files">
-    <metrics statements="226" coveredstatements="158" conditionals="70" coveredconditionals="36" methods="42" coveredmethods="25" elements="338" coveredelements="219" complexity="0" loc="226" ncloc="226" packages="3" files="8" classes="8"/>
+<coverage generated="1605009634736" clover="3.2.0">
+  <project timestamp="1605009634737" name="All files">
+    <metrics statements="237" coveredstatements="162" conditionals="70" coveredconditionals="38" methods="43" coveredmethods="25" elements="350" coveredelements="225" complexity="0" loc="237" ncloc="237" packages="3" files="8" classes="8"/>
     <package name="__test__">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="localstorage.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/__test__/localstorage.js">
@@ -15,9 +15,9 @@
       </file>
     </package>
     <package name="script">
-      <metrics statements="67" coveredstatements="50" conditionals="7" coveredconditionals="3" methods="10" coveredmethods="4"/>
+      <metrics statements="76" coveredstatements="54" conditionals="9" coveredconditionals="5" methods="11" coveredmethods="4"/>
       <file name="todolist_script.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/todolist_script.js">
-        <metrics statements="67" coveredstatements="50" conditionals="7" coveredconditionals="3" methods="10" coveredmethods="4"/>
+        <metrics statements="76" coveredstatements="54" conditionals="9" coveredconditionals="5" methods="11" coveredmethods="4"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -49,46 +49,55 @@
         <line num="48" count="1" type="stmt"/>
         <line num="49" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="73" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
         <line num="79" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
+        <line num="88" count="1" type="cond" truecount="2" falsecount="0"/>
         <line num="89" count="1" type="stmt"/>
         <line num="90" count="1" type="stmt"/>
         <line num="91" count="1" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
         <line num="100" count="1" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
         <line num="102" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
         <line num="106" count="1" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="109" count="1" type="stmt"/>
         <line num="110" count="1" type="stmt"/>
         <line num="111" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
       </file>
     </package>
     <package name="script.modules">
-      <metrics statements="153" coveredstatements="102" conditionals="63" coveredconditionals="33" methods="28" coveredmethods="21"/>
+      <metrics statements="155" coveredstatements="102" conditionals="61" coveredconditionals="33" methods="28" coveredmethods="21"/>
       <file name="countLeft.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/countLeft.js">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
@@ -128,7 +137,7 @@
         <line num="39" count="1" type="stmt"/>
       </file>
       <file name="handleDragEvent.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/handleDragEvent.js">
-        <metrics statements="31" coveredstatements="0" conditionals="18" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <metrics statements="33" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -145,7 +154,7 @@
         <line num="28" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
         <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -160,6 +169,8 @@
         <line num="52" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
       </file>
       <file name="handleTaskEvents.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/handleTaskEvents.js">
         <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>

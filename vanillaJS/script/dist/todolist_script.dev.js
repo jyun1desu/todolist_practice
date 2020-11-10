@@ -60,9 +60,20 @@ function newTask() {
   addTaskForm.querySelector('#edit').checked = true;
   addTaskForm.querySelector('label[for="edit"]').innerHTML = "<i class=\"fas fa-pen\"></i>";
   editting.nextElementSibling.classList.add('clicked');
-  addTaskForm.querySelector('#status').addEventListener("click", _toggle["default"]);
-  addTaskForm.querySelector('#priority').addEventListener("click", _toggle["default"]);
+  var doneCheck = addTaskForm.querySelector('#status');
+  var primaryCheck = addTaskForm.querySelector('#priority');
+  ;
+  doneCheck.addEventListener("click", toggle);
+  primaryCheck.addEventListener("click", toggle);
   addTaskForm.querySelector('#file_update').addEventListener("change", _toggle.fileNameUpdate);
+}
+
+function toggle() {
+  var label = this.nextElementSibling;
+  var icon = this.nextElementSibling.querySelector('i');
+  icon.classList.toggle('fas');
+  icon.classList.toggle('far');
+  label.classList.toggle("clicked");
 }
 
 function addTask(e) {
@@ -73,6 +84,7 @@ function addTask(e) {
   var updateFile = this.querySelector('.file_name').textContent;
   var memo = this.querySelector('[name="memo_content"]').value;
   var status = this.querySelector('input#status');
+  var priority = this.querySelector('input#priority');
 
   if (!taskTitle.length) {
     this.querySelector('[name="title"]').placeholder = "Please add the task title here";
@@ -89,7 +101,7 @@ function addTask(e) {
     done: status.checked,
     primary: priority.checked
   };
-  var tasks = JSON.parse(localStorage.getItem('tasks'));
+  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.push(task);
   localStorage.setItem('tasks', JSON.stringify(tasks));
   (0, _populateList["default"])(tasks, taskList);
