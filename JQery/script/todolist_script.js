@@ -1,19 +1,8 @@
-//render latest localstorage
-//click to add new task
-//edit new task and submit(done,primary,task data like title,deadline,memo...)
-//if cancel, reset the form
-//edit old task is same with edit new tasks
-//render and at the same time add event listener to some element
-//listen to toggle(done/primary),delete,drag event
-//save to localstorage
-
-// const navButtons = document.querySelectorAll('.each_task_status');
-
 import fileNameUpdate from './modules/fileNameUpdate.js';
 import populateList from "./modules/populateList.js";
 
 const addTaskForm = document.querySelector('.add_task_form');
-const fileName = document.querySelector('.file_name');
+// const fileName = document.querySelector('.file_name');
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const $taskList = $('.todo_list');
 
@@ -84,7 +73,7 @@ function addTask(e) {
     const tasks = JSON.parse(localStorage.getItem('tasks'))||[];
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    populateList(tasks, taskList);
+    populateList(tasks, $taskList);
     this.reset();
     resetForm();
 }
@@ -94,7 +83,8 @@ function resetForm() {
     $('.add_task_form input[name="title"]').get(0).style.setProperty("--c", "#c8c8c8")
     $('.add_task_form').removeClass('primary');
     $('.add_task_form').removeClass('done');
-    fileName.textContent = "";
+    console.log
+    $('.add_task_form .file_name').text("");
     $('#priority').addClass('far');
     $('#status').addClass('far');
     $('#priority').removeClass('clicked');
@@ -115,4 +105,5 @@ populateList(tasks, $taskList);
 $(".each_task_status").on("click", select);
 $(".add_new_task").on("click", newTask);
 $('.add_task_form').on("submit", addTask);
+$('.add_task_form .cancel_button').on("click",resetForm)
 $('#edit').on("click", withDraw);

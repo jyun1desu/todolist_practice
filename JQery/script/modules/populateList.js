@@ -31,7 +31,7 @@ export default function populateList(tasksArray = [], $taskList) {
                 </div>
             </div>
             <div class="file_update">
-                / <i class="icon far fa-file"></i>
+                <i class="icon far fa-file"></i>
                 <div class="content_block">
                     <p>File</p>
                     <input id="file_update${index}" name="update" type="file" class="update_button">
