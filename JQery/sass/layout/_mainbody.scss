@@ -223,13 +223,13 @@ main {
             max-height: 500px;
         }
 
-        &.priority {
+        &.primary {
             .title_area {
                 background-color: color.$highlight_color;
             }
         }
 
-        &.status {
+        &.done {
             .task_title {
                 text-decoration: line-through;
             }
@@ -313,13 +313,13 @@ main {
 
             overflow: hidden;
 
-            &.priority {
+            &.primary {
                 background-color: color.$highlight_color;
             }
 
         }
 
-        .status .task_title {
+        .done .task_title {
             text-decoration: line-through;
         }
 

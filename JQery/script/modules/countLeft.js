@@ -1,0 +1,5 @@
+export function countLeft(){
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+    $('.left_tasks_numbers').text(`${tasks.filter(task=>task.done===false).length} task${tasks.filter(task=>task.done===false).length>1?"s":""} left`);
+}
+export default countLeft;

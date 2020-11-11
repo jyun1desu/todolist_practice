@@ -336,10 +336,10 @@ main .add_task_form.click-active {
   opacity: 1;
   max-height: 500px;
 }
-main .add_task_form.priority .title_area {
+main .add_task_form.primary .title_area {
   background-color: #FFF2DC;
 }
-main .add_task_form.status .task_title {
+main .add_task_form.done .task_title {
   text-decoration: line-through;
 }
 main .add_task_form .title_area.done {
@@ -392,10 +392,10 @@ main .todo_list .tasks {
   user-select: none;
   overflow: hidden;
 }
-main .todo_list .tasks.priority {
+main .todo_list .tasks.primary {
   background-color: #FFF2DC;
 }
-main .todo_list .status .task_title {
+main .todo_list .done .task_title {
   text-decoration: line-through;
 }
 main .todo_list .main_information {
