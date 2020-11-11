@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.55% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/55</span>
+                <span class='fraction'>36/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.93% </span>
+                <span class="strong">76.6% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/54</span>
+                <span class='fraction'>36/47</span>
             </div>
         
             
@@ -130,16 +130,7 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,12 +142,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -174,8 +163,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,10 +177,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,7 +185,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -229,33 +211,29 @@ export function toggleShow() {
     const quick_detail = this.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
     const button = detail.nextElementSibling;
-    const label = this.nextElementSibling;
-    const icon = label.firstChild
     const title = task.querySelector('input[type="text"]');
-    const deleteIcon = task.querySelector('label.delete_icon');
+    const deleteIcon = task.querySelector('.delete_icon');
+    this.classList.toggle('clicked');
+    this.classList.toggle('fas');
+    this.classList.toggle('far');
 &nbsp;
     task.addEventListener("click", editTask)
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.checked) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.classList.contains('fas')) {
         task.classList.add('noquery');
         quick_detail.style.setProperty('display', 'none');
         detail.style.setProperty('display', 'block');
         button.style.setProperty('display', 'flex');
-        label.classList.add("clicked");
         deleteIcon.classList.add("editting")
-        icon.classList.add('fas');
-        icon.classList.remove('far');
         title.readOnly = false;
         task.setAttribute('draggable', false);
     } else {
+<span class="cstat-no" title="statement not covered" >        console.log("withdraw")</span>
 <span class="cstat-no" title="statement not covered" >        task.classList.remove('noquery')</span>
 <span class="cstat-no" title="statement not covered" >        task.setAttribute('draggable', true);</span>
 <span class="cstat-no" title="statement not covered" >        detail.style.setProperty('display', 'none');</span>
 <span class="cstat-no" title="statement not covered" >        button.style.setProperty('display', 'none');</span>
 <span class="cstat-no" title="statement not covered" >        quick_detail.style.setProperty('display', 'flex');</span>
-<span class="cstat-no" title="statement not covered" >        label.classList.remove("clicked");</span>
-<span class="cstat-no" title="statement not covered" >        icon.classList.add('far');</span>
-<span class="cstat-no" title="statement not covered" >        icon.classList.remove('fas');</span>
 <span class="cstat-no" title="statement not covered" >        deleteIcon.classList.remove("editting")</span>
 <span class="cstat-no" title="statement not covered" >        title.readOnly = true;</span>
     }
@@ -263,28 +241,23 @@ export function toggleShow() {
 &nbsp;
 export function toggleStatus() {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
-    const taskList = document.querySelector('.todo_list')
-    const label = this.nextElementSibling;
-    const icon = label.firstChild;
+    const taskList = document.querySelector('.todo_list');
     const task = this.parentNode.parentNode;
     const index = task.dataset.index;
     const usage = this.dataset.use;
-    label.classList.toggle("clicked");
+    this.classList.toggle("clicked");
     task.classList.toggle(`${usage}`);
-    icon.classList.toggle('fas');
-    icon.classList.toggle('far');
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (task.dataset.index) {
-        tasks[index][usage] = !tasks[index][usage];
-    }
+    this.classList.toggle('fas');
+    this.classList.toggle('far');
+    tasks[index][usage] = !tasks[index][usage];
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    <span class="missing-if-branch" title="if path not taken" >I</span>if(!task.classList.contains("noquery")) <span class="cstat-no" title="statement not covered" >populateList(tasks, taskList);</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(!task.classList.contains("noquery")) <span class="cstat-no" title="statement not covered" >populateList(tasks,taskList);</span>
 }
 &nbsp;
 export function deleteTask() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
     const taskList = document.querySelector('.todo_list');
     const dataIndex = this.id.match(/\d+/);
-    // const orderIndex = orderArray.findIndex(el =&gt; el == dataIndex);
     tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
     populateList(tasks, taskList);
@@ -310,7 +283,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 10 2020 20:28:23 GMT+0800 (GMT+08:00)
+                at Wed Nov 11 2020 11:39:51 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>

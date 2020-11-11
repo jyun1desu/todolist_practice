@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">80.95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/25</span>
+                <span class='fraction'>17/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -131,23 +131,11 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,21 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -235,77 +209,64 @@
 import handleTaskEvents from "./handleTaskEvents.js";
 &nbsp;
 export default function populateList(tasksArray = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> taskList) {
+    console.log(tasksArray)
     let taskHTMLlist = tasksArray.map((task, index) =&gt; {
-        const eachTaskHTML = `&lt;form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true"&gt;
+        const eachTaskHTML = `&lt;form data-index="${index}" class="tasks ${task.primary?"priority":""} ${task.done?"status":""}" draggable="true"&gt;
         &lt;div class="drag_icon"&gt;
         &lt;/div&gt;
         &lt;div class="main_information"&gt;
-        &lt;input id="status${index}" data-use="done" class="completed_checkbox" type="checkbox"
-            ${task.done?"checked":" "}&gt;
-                        &lt;label for="status${index}" class="completed_checkbox  ${task.done?" clicked":""}"&gt;&lt;i
-            class="fas fa-check"&gt;&lt;/i&gt;&lt;/label&gt;
-        &lt;input type="text" class="task_title" value="${task.taskTitle}" placeholder="Type Something Here..." readonly&gt;
-        &lt;input id="priority${index}" data-use="primary" class="star_mark" type="checkbox"
-            ${task.primary?"checked":" "}&gt;
-                        &lt;label for="priority${index}" class="star_mark ${task.primary?" clicked":""}"&gt;&lt;i
-            class="${task.primary?"fas":"far"} fa-star"&gt;&lt;/i&gt;&lt;/label&gt;
-        &lt;input id="edit${index}" class="edit_icon" type="checkbox"&gt;
-        &lt;label for="edit${index}" class="edit_icon"&gt;&lt;i class="far fa-pen"&gt;&lt;/i&gt;&lt;/label&gt;
-        
-        &lt;input id="delete${index}" class="delete_icon" type="checkbox"&gt;
-        &lt;label for="delete${index}" class="delete_icon"&gt;&lt;i class="far fa-trash-alt"&gt;&lt;/i&gt;&lt;/label&gt;
+            &lt;i id="status${index}" data-use="done" class="fas fa-check completed_checkbox ${task.done?" clicked":""}"&gt;&lt;/i&gt;
+            &lt;input type="text" class="task_title" value="${task.taskTitle}" placeholder="Type Something Here..." readonly&gt;
+            &lt;i id="priority${index}" data-use="primary" class="${task.primary?" clicked":""} ${task.primary?" fas":"far"}
+                fa-star star_mark"&gt;&lt;/i&gt;
+            &lt;i id="edit${index}" class="far fa-pen edit_icon"&gt;&lt;/i&gt;
+            &lt;i id="delete${index}" class="far fa-trash-alt delete_icon"&gt;&lt;/i&gt;
         &lt;/div&gt;
-        
+    
         &lt;div class="quick_detail"&gt;
-        ${task.deadlineDate?`&lt;span&gt;
-            &lt;i class="far fa-calendar-alt"&gt;&lt;/i&gt;
-            &lt;span&gt;${task.deadlineDate}&lt;/span&gt;&lt;/span&gt;`:<span class="branch-1 cbranch-no" title="branch not covered" >""}</span>
-        ${task.updateFile?<span class="branch-0 cbranch-no" title="branch not covered" >`&lt;span&gt;&lt;i class="far fa-file"&gt;&lt;/i&gt;&lt;/span&gt;`:</span>""}
-        ${task.memo?<span class="branch-0 cbranch-no" title="branch not covered" >`&lt;span&gt;&lt;i class="far fa-comment-dots"&gt;&lt;/i&gt;&lt;/span&gt;`:</span>""}
-        &lt;/div&gt;
-        
+            ${task.deadlineDate?`&lt;span&gt;
+                &lt;i class="far fa-calendar-alt"&gt;&lt;/i&gt;
+                &lt;span&gt;${task.deadlineDate}&lt;/span&gt;&lt;/span&gt;`:<span class="branch-1 cbranch-no" title="branch not covered" >""}</span>
+            ${task.updateFile?<span class="branch-0 cbranch-no" title="branch not covered" >`&lt;span&gt;&lt;i class="far fa-file"&gt;&lt;/i&gt;&lt;/span&gt;`:</span>""}
+            ${task.memo?<span class="branch-0 cbranch-no" title="branch not covered" >`&lt;span&gt;&lt;i class="far fa-comment-dots"&gt;&lt;/i&gt;&lt;/span&gt;`:</span>""} &lt;/div&gt;
         &lt;div class="detail_area" style="display:none;"&gt;
-        &lt;div class="deadline"&gt;
-            &lt;i class="icon far fa-calendar-alt"&gt;&lt;/i&gt;
-            &lt;div class="content_block"&gt;
-                &lt;p&gt;Deadline&lt;/p&gt;
-                &lt;div class="time_block"&gt;
-                    &lt;input name="date" class="deadline_date" value="${task.deadlineDate}" type="date"
-                        placeholder="yyyy/mm/dd"&gt;
-                    &lt;input name="time" class="deadline_time" value="${task.deadlineTime}" type="time" placeholder="hh:mm"&gt;
+            &lt;div class="deadline"&gt; &lt;i class="icon far fa-calendar-alt"&gt;&lt;/i&gt;
+                &lt;div class="content_block"&gt;
+                    &lt;p&gt;Deadline&lt;/p&gt;
+                    &lt;div class="time_block"&gt; &lt;input name="date" class="deadline_date" value="${task.deadlineDate}"
+                            type="date" placeholder="yyyy/mm/dd"&gt; &lt;input name="time" class="deadline_time"
+                            value="${task.deadlineTime}" type="time" placeholder="hh:mm"&gt; &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="file_update"&gt;
-            &lt;i class="icon far fa-file"&gt;&lt;/i&gt;
-            &lt;div class="content_block"&gt;
-                &lt;p&gt;File&lt;/p&gt;
-                &lt;input id="file_update${index}" name="update" type="file" class="update_button"&gt;
-                &lt;span class="file_name"&gt;${task.updateFile||""}&lt;/span&gt;
-                &lt;label for="file_update${index}"&gt;&lt;/label&gt;
+            &lt;div class="file_update"&gt;
+                / &lt;i class="icon far fa-file"&gt;&lt;/i&gt;
+                &lt;div class="content_block"&gt;
+                    &lt;p&gt;File&lt;/p&gt;
+                    &lt;input id="file_update${index}" name="update" type="file" class="update_button"&gt;
+                    &lt;span class="file_name"&gt;${task.updateFile||""}&lt;/span&gt;
+                    &lt;label for="file_update${index}"&gt;&lt;/label&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="memo"&gt;
-            &lt;i class="icon far fa-comment-dots"&gt;&lt;/i&gt;
-            &lt;div class="content_block"&gt;
-                &lt;p&gt;Comment&lt;/p&gt;
-                &lt;textarea name="memo_content" placeholder="Type your memo here..."&gt;${task.memo}&lt;/textarea&gt;
+            &lt;div class="memo"&gt;
+                &lt;i class="icon far fa-comment-dots"&gt;&lt;/i&gt;
+                &lt;div class="content_block"&gt;
+                    &lt;p&gt;Comment&lt;/p&gt;
+                    &lt;textarea name="memo_content" placeholder="Type your memo here..."&gt;${task.memo}&lt;/textarea&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-        
+    
         &lt;/div&gt;
         &lt;div class="button_area" style="display:none;"&gt;
-        &lt;button type="button" class="cancel_edit_button"&gt;&amp;times; Cancel&lt;/button&gt;
-        &lt;button type="button" class="save_button"&gt;&amp;#43; Save&lt;/button&gt;
+            &lt;button type="button" class="cancel_edit_button"&gt;&amp;times; Cancel&lt;/button&gt;
+            &lt;button type="button" class="save_button"&gt;&amp;#43; Save&lt;/button&gt;
         &lt;/div&gt;
-        &lt;/form&gt;`
+    &lt;/form&gt;`
         return eachTaskHTML
     })
-&nbsp;
-    const sortedPrimary = taskHTMLlist.filter(el =&gt; el.includes(`tasks primary`) &amp;&amp; !el.includes(`tasks primary done`)).join("");
+    const sortedPrimary = taskHTMLlist.filter(el =&gt; el.includes(`tasks priority `) &amp;&amp; !el.includes(`class="tasks priority status"`)).join("");
     const sortedNormal = taskHTMLlist.filter(el =&gt; el.includes(`class="tasks  "`)).join("");
-    const sortedDonePrimary = taskHTMLlist.filter(el =&gt; el.includes(`tasks primary done`)).join("");
-    const sortedDoneNormal = taskHTMLlist.filter(el =&gt; el.includes(`tasks  done`)).join("");
+    const sortedDonePrimary = taskHTMLlist.filter(el =&gt; el.includes(`tasks priority status`)).join("");
+    const sortedDoneNormal = taskHTMLlist.filter(el =&gt; el.includes(`tasks  status`)).join("");
     const primaryBlock = taskList.querySelector('#primary_category');
     const normalBlock = taskList.querySelector('#normal_category');
     const donePrimaryBlock = taskList.querySelector('#done_primary_category');
@@ -325,7 +286,7 @@ export default function populateList(tasksArray = <span class="branch-0 cbranch-
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 10 2020 20:28:23 GMT+0800 (GMT+08:00)
+                at Wed Nov 11 2020 11:39:51 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>

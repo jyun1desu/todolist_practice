@@ -18,51 +18,49 @@ describe('新增', () => {
         document.body.innerHTML = `
         <div class="add_new_task" data-testid="newTodo">+ Add Task</div>
         <form class="add_task_form">
-                <div class="title_area">
-                    <input data-testid="status" id="status" data-use="done" class="completed_checkbox" type="checkbox">
-                    <label for="status" class="completed_checkbox"><i class="fas fa-check"></i></label>
-                    <input data-testid="title" name="title" class="task_title" type="text" placeholder="Type Something Here...">
-                    <input data-testid="priority" id="priority" data-use="primary" class="star_mark" type="checkbox">
-                    <label for="priority" class="star_mark"><i class="far fa-star"></i></label>
-                    <input data-testid="edit" id="edit" class="edit_icon" type="checkbox" checked="">
-                    <label for="edit" class="edit_icon"><i class="fas fa-pen"></i><label>
-                </label></label></div>
-    
-                <div class="detail_area">
-                    <div class="deadline">
-                        <i class="icon far fa-calendar-alt"></i>
-                        <div class="content_block">
-                            <p>Deadline</p>
-                            <div class="time_block">
-                                <input data-testid="date" name="date" class="deadline_date" type="date" placeholder="yyyy/mm/dd">
-                                <input data-testid="time" name="time" class="deadline_time" type="time" placeholder="hh:mm">
-                            </div>
+            <div class="title_area">
+                <i id="status" class="fas fa-check completed_checkbox"></i>
+                <input data-testid="title" name="title" class="task_title" type="text" placeholder="Type Something Here...">
+                <i id="priority" class="far fa-star star_mark"></i>
+                <i id="edit" class="fas fa-pen edit_icon"></i>
+            </div>
+
+            <div class="detail_area">
+                <div class="deadline">
+                    <i class="icon far fa-calendar-alt"></i>
+                    <div class="content_block">
+                        <p>Deadline</p>
+                        <div class="time_block">
+                            <input data-testid="date" name="date" class="deadline_date" type="date" placeholder="yyyy/mm/dd">
+                            <input name="time" class="deadline_time" type="time" placeholder="hh:mm">
                         </div>
                     </div>
-                    <div class="file_update">
-                        <i class="icon far fa-file"></i>
-                        <div class="content_block">
-                            <p>File</p>
-                            <input data-testid="file_update" id="file_update" name="update" type="file" class="update_button" value="">
-                            <span class="file_name"></span><label for="file_update"></label>
-                        </div>
-    
-                    </div>
-                    <div class="memo">
-                        <i class="icon far fa-comment-dots"></i>
-                        <div class="content_block">
-                            <p>Comment</p>
-                            <textarea data-testid="memo_content" name="memo_content" placeholder="Type your memo here..."></textarea>
-                        </div>
-                    </div>
-    
                 </div>
-    
-                <div class="button_area">
-                    <button data-testid="cancel_button" type="reset" class="cancel_button">× Cancel</button>
-                    <button data-testid="submit_button" type="submit" class="submit_button">+ Add Task</button>
+                <div class="file_update">
+                    <i class="icon far fa-file"></i>
+                    <div class="content_block">
+                        <p>File</p>
+                        <input id="file_update" name="update" type="file" class="update_button" value="">
+                        <span class="file_name"></span><label for="file_update"></label>
+                    </div>
+
                 </div>
-            </form>
+                <div class="memo">
+                    <i class="icon far fa-comment-dots"></i>
+                    <div class="content_block">
+                        <p>Comment</p>
+                        <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button_area">
+                <button type="reset" class="cancel_button">× Cancel</button>
+                <button data-testid="submit_button" type="submit" class="submit_button">+ Add Task</button>
+            </div>
+
+        </form>
     
             <div class="todo_list" droppable="">
                 <div id="primary_category" class="droppable_area"></div>
@@ -97,60 +95,50 @@ describe('新增', () => {
         <div class="drag_icon">
         </div>
         <div class="main_information">
-        <input id="status0" data-use="done" class="completed_checkbox" type="checkbox">
-                        <label for="status0" class="completed_checkbox  "><i class="fas fa-check"></i></label>
-        <input type="text" class="task_title" value="first" placeholder="Type Something Here..." readonly="">
-        <input id="priority0" data-use="primary" class="star_mark" type="checkbox">
-                        <label for="priority0" class="star_mark "><i class="far fa-star"></i></label>
-        <input id="edit0" class="edit_icon" type="checkbox">
-        <label for="edit0" class="edit_icon"><i class="far fa-pen"></i></label>
-        
-        <input id="delete0" class="delete_icon" type="checkbox">
-        <label for="delete0" class="delete_icon"><i class="far fa-trash-alt"></i></label>
+            <i id="status0" data-use="done" class="fas fa-check completed_checkbox "></i>
+            <input type="text" class="task_title" value="first" placeholder="Type Something Here..." readonly="">
+            <i id="priority0" data-use="primary" class=" far
+                fa-star star_mark"></i>
+            <i id="edit0" class="far fa-pen edit_icon"></i>
+            <i id="delete0" class="far fa-trash-alt delete_icon"></i>
         </div>
-        
+    
         <div class="quick_detail">
-        <span>
-            <i class="far fa-calendar-alt"></i>
-            <span>2020-12-20</span></span>
-        
-        
-        </div>
-        
+            <span>
+                <i class="far fa-calendar-alt"></i>
+                <span>2020-12-20</span></span>
+            
+             </div>
         <div class="detail_area" style="display:none;">
-        <div class="deadline">
-            <i class="icon far fa-calendar-alt"></i>
-            <div class="content_block">
-                <p>Deadline</p>
-                <div class="time_block">
-                    <input name="date" class="deadline_date" value="2020-12-20" type="date" placeholder="yyyy/mm/dd">
-                    <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm">
+            <div class="deadline"> <i class="icon far fa-calendar-alt"></i>
+                <div class="content_block">
+                    <p>Deadline</p>
+                    <div class="time_block"> <input name="date" class="deadline_date" value="2020-12-20" type="date" placeholder="yyyy/mm/dd"> <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm"> </div>
                 </div>
             </div>
-        </div>
-        <div class="file_update">
-            <i class="icon far fa-file"></i>
-            <div class="content_block">
-                <p>File</p>
-                <input id="file_update0" name="update" type="file" class="update_button">
-                <span class="file_name"></span>
-                <label for="file_update0"></label>
+            <div class="file_update">
+                / <i class="icon far fa-file"></i>
+                <div class="content_block">
+                    <p>File</p>
+                    <input id="file_update0" name="update" type="file" class="update_button">
+                    <span class="file_name"></span>
+                    <label for="file_update0"></label>
+                </div>
             </div>
-        </div>
-        <div class="memo">
-            <i class="icon far fa-comment-dots"></i>
-            <div class="content_block">
-                <p>Comment</p>
-                <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+            <div class="memo">
+                <i class="icon far fa-comment-dots"></i>
+                <div class="content_block">
+                    <p>Comment</p>
+                    <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+                </div>
             </div>
-        </div>
-        
+    
         </div>
         <div class="button_area" style="display:none;">
-        <button type="button" class="cancel_edit_button">× Cancel</button>
-        <button type="button" class="save_button">+ Save</button>
+            <button type="button" class="cancel_edit_button">× Cancel</button>
+            <button type="button" class="save_button">+ Save</button>
         </div>
-        </form>`
+    </form>`
         const actualResult = normalTodo.innerHTML
         expect(actualResult).toBe(expectedResult);
         expect(countLeft.textContent).toBe("1 task left")
@@ -170,62 +158,54 @@ describe('修改', () => {
         
         document.body.innerHTML = `<div class="todo_list" droppable="">
         <div id="primary_category" class="droppable_area"></div>
-        <div id="normal_category" class="droppable_area"><form data-index="0" class="tasks noquery" draggable="false">
+        <div id="normal_category" class="droppable_area"><form data-index="0" class="tasks  " draggable="true">
     <div class="drag_icon">
     </div>
     <div class="main_information">
-    <input data-testid="donemark" id="status0" data-use="done" class="completed_checkbox" type="checkbox">
-                    <label for="status0" class="completed_checkbox  "><i class="fas fa-check"></i></label>
-    <input type="text" class="task_title" value="1" placeholder="Type Something Here...">
-    <input data-testid="mark_star" id="priority0" data-use="primary" class="star_mark" type="checkbox">
-                    <label for="priority0" class="star_mark "><i class="far fa-star"></i></label>
-    <input data-testid="edit_icon" id="edit0" class="edit_icon" type="checkbox">
-    <label for="edit0" class="edit_icon clicked"><i class="fa-pen fas"></i></label>
-    
-    <input id="delete0" class="delete_icon" type="checkbox">
-    <label for="delete0" class="delete_icon editting"><i class="far fa-trash-alt"></i></label>
+        <i data-testid="donemark" id="status0" data-use="done" class="fas fa-check completed_checkbox "></i>
+        <input type="text" class="task_title" value="first" placeholder="Type Something Here..." readonly="">
+        <i data-testid="mark_star" id="priority0" data-use="primary" class=" far
+            fa-star star_mark"></i>
+        <i data-testid="edit_icon" id="edit0" class="far fa-pen edit_icon"></i>
+        <i id="delete0" class="far fa-trash-alt delete_icon"></i>
     </div>
-    
-    <div class="quick_detail" style="display: none;">
-    
-    
-    
-    </div>
-    
-    <div class="detail_area" style="display: block;">
-    <div class="deadline">
-        <i class="icon far fa-calendar-alt"></i>
-        <div class="content_block">
-            <p>Deadline</p>
-            <div class="time_block">
-                <input data-testid="datestamp" name="date" class="deadline_date" value="" type="date" placeholder="yyyy/mm/dd">
-                <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm">
+
+    <div class="quick_detail">
+        <span>
+            <i class="far fa-calendar-alt"></i>
+            <span>2020-12-20</span></span>
+        
+         </div>
+    <div class="detail_area" style="display:none;">
+        <div class="deadline"> <i class="icon far fa-calendar-alt"></i>
+            <div class="content_block">
+                <p>Deadline</p>
+                <div class="time_block"> <input data-testid="datestamp" name="date" class="deadline_date" value="2020-12-20" type="date" placeholder="yyyy/mm/dd"> <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm"> </div>
             </div>
         </div>
-    </div>
-    <div class="file_update">
-        <i class="icon far fa-file"></i>
-        <div class="content_block">
-            <p>File</p>
-            <input id="file_update0" name="update" type="file" class="update_button">
-            <span class="file_name"></span>
-            <label for="file_update0"></label>
+        <div class="file_update">
+            / <i class="icon far fa-file"></i>
+            <div class="content_block">
+                <p>File</p>
+                <input id="file_update0" name="update" type="file" class="update_button">
+                <span class="file_name"></span>
+                <label for="file_update0"></label>
+            </div>
         </div>
-    </div>
-    <div class="memo">
-        <i class="icon far fa-comment-dots"></i>
-        <div class="content_block">
-            <p>Comment</p>
-            <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+        <div class="memo">
+            <i class="icon far fa-comment-dots"></i>
+            <div class="content_block">
+                <p>Comment</p>
+                <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+            </div>
         </div>
+
     </div>
-    
+    <div class="button_area" style="display:none;">
+        <button type="button" class="cancel_edit_button">× Cancel</button>
+        <button data-testid="save_button" type="button" class="save_button">+ Save</button>
     </div>
-    <div class="button_area" style="display: flex;">
-    <button type="button" class="cancel_edit_button">× Cancel</button>
-    <button data-testid="save_button" type="button" class="save_button">+ Save</button>
-    </div>
-    </form></div>
+</form></div>
         <div id="done_category">
             <div id="done_primary_category" class="droppable_area"></div>
             <div id="done_normal_category" class="droppable_area"></div>
@@ -255,64 +235,54 @@ describe('修改', () => {
         fireEvent.click(saveButton);
 
         //Assert
-        const expectedResult = `<form data-index="0" class="tasks primary done" draggable="true">
+        const expectedResult = `<form data-index="0" class="tasks priority status" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
-        <input id="status0" data-use="done" class="completed_checkbox" type="checkbox" checked="">
-                        <label for="status0" class="completed_checkbox   clicked"><i class="fas fa-check"></i></label>
-        <input type="text" class="task_title" value="1" placeholder="Type Something Here..." readonly="">
-        <input id="priority0" data-use="primary" class="star_mark" type="checkbox" checked="">
-                        <label for="priority0" class="star_mark  clicked"><i class="fas fa-star"></i></label>
-        <input id="edit0" class="edit_icon" type="checkbox">
-        <label for="edit0" class="edit_icon"><i class="far fa-pen"></i></label>
-        
-        <input id="delete0" class="delete_icon" type="checkbox">
-        <label for="delete0" class="delete_icon"><i class="far fa-trash-alt"></i></label>
+            <i id="status0" data-use="done" class="fas fa-check completed_checkbox  clicked"></i>
+            <input type="text" class="task_title" value="first" placeholder="Type Something Here..." readonly="">
+            <i id="priority0" data-use="primary" class=" clicked  fas
+                fa-star star_mark"></i>
+            <i id="edit0" class="far fa-pen edit_icon"></i>
+            <i id="delete0" class="far fa-trash-alt delete_icon"></i>
         </div>
-        
+    
         <div class="quick_detail">
-        <span>
-            <i class="far fa-calendar-alt"></i>
-            <span>2020-12-30</span></span>
-        
-        
-        </div>
-        
+            <span>
+                <i class="far fa-calendar-alt"></i>
+                <span>2020-12-30</span></span>
+            
+             </div>
         <div class="detail_area" style="display:none;">
-        <div class="deadline">
-            <i class="icon far fa-calendar-alt"></i>
-            <div class="content_block">
-                <p>Deadline</p>
-                <div class="time_block">
-                    <input name="date" class="deadline_date" value="2020-12-30" type="date" placeholder="yyyy/mm/dd">
-                    <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm">
+            <div class="deadline"> <i class="icon far fa-calendar-alt"></i>
+                <div class="content_block">
+                    <p>Deadline</p>
+                    <div class="time_block"> <input name="date" class="deadline_date" value="2020-12-30" type="date" placeholder="yyyy/mm/dd"> <input name="time" class="deadline_time" value="" type="time" placeholder="hh:mm"> </div>
                 </div>
             </div>
-        </div>
-        <div class="file_update">
-            <i class="icon far fa-file"></i>
-            <div class="content_block">
-                <p>File</p>
-                <input id="file_update0" name="update" type="file" class="update_button">
-                <span class="file_name"></span>
-                <label for="file_update0"></label>
+            <div class="file_update">
+                / <i class="icon far fa-file"></i>
+                <div class="content_block">
+                    <p>File</p>
+                    <input id="file_update0" name="update" type="file" class="update_button">
+                    <span class="file_name"></span>
+                    <label for="file_update0"></label>
+                </div>
             </div>
-        </div>
-        <div class="memo">
-            <i class="icon far fa-comment-dots"></i>
-            <div class="content_block">
-                <p>Comment</p>
-                <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+            <div class="memo">
+                <i class="icon far fa-comment-dots"></i>
+                <div class="content_block">
+                    <p>Comment</p>
+                    <textarea name="memo_content" placeholder="Type your memo here..."></textarea>
+                </div>
             </div>
-        </div>
-        
+    
         </div>
         <div class="button_area" style="display:none;">
-        <button type="button" class="cancel_edit_button">× Cancel</button>
-        <button type="button" class="save_button">+ Save</button>
+            <button type="button" class="cancel_edit_button">× Cancel</button>
+            <button type="button" class="save_button">+ Save</button>
         </div>
-        </form>`
+    </form>`
         const actualResult = container.querySelector(".tasks").outerHTML
         expect(actualResult).toBe(expectedResult);
     });
