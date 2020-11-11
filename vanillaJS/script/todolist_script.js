@@ -11,6 +11,8 @@ const cancelButton = document.querySelector('.cancel_button');
 const fileName = document.querySelector('.file_name');
 ///////編輯中
 const editting = addTaskForm.querySelector('#edit');
+const status = addTaskForm.querySelector('#status');
+const priority = addTaskForm.querySelector('#priority');
 //任務清單
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskList = document.querySelector('.todo_list');
@@ -41,9 +43,7 @@ function newTask() {
     this.classList.add('click');
     addTaskForm.classList.add('click');
     setTimeout(() => addTaskForm.classList.add('click-active'), 5)
-    addTaskForm.querySelector('#edit').checked = true;
-    addTaskForm.querySelector('label[for="edit"]').innerHTML = `<i class="fas fa-pen"></i>`;
-    editting.nextElementSibling.classList.add('clicked')
+    editting.classList.add('clicked')
 
     const doneCheck = addTaskForm.querySelector('#status');
     const primaryCheck = addTaskForm.querySelector('#priority');;
@@ -53,11 +53,10 @@ function newTask() {
 }
 
 function toggle(){
-    const label = this.nextElementSibling;
-    const icon = this.nextElementSibling.querySelector('i');
-    icon.classList.toggle('fas');
-    icon.classList.toggle('far');
-    label.classList.toggle("clicked");
+    addTaskForm.classList.toggle(this.id);
+    this.classList.toggle('fas');
+    this.classList.toggle('far');
+    this.classList.toggle("clicked");
 }
 
 function addTask(e) {
@@ -67,8 +66,6 @@ function addTask(e) {
     const deadlineTime = this.querySelector('[name="time"]').value;
     const updateFile = this.querySelector('.file_name').textContent;
     const memo = this.querySelector('[name="memo_content"]').value;
-    const status = this.querySelector('input#status');
-    const priority = this.querySelector('input#priority');
 
     if (!taskTitle.length) {
         this.querySelector('[name="title"]').placeholder = "Please add the task title here";
@@ -82,9 +79,10 @@ function addTask(e) {
         deadlineTime,
         updateFile,
         memo,
-        done: status.checked,
-        primary: priority.checked
+        done: status.classList.contains('clicked'),
+        primary: priority.classList.contains('clicked')
     }
+
     const tasks = JSON.parse(localStorage.getItem('tasks'))||[];
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -96,13 +94,14 @@ function addTask(e) {
 function resetForm() {
     addTaskForm.querySelector('[name="title"]').placeholder = "Type Something Here...";
     addTaskForm.querySelector('[name="title"]').style.setProperty("--c", "#c8c8c8");
-    addTaskForm.classList.remove('primary');
-    addTaskForm.classList.remove('done');
-    addTaskForm.querySelector('label[for="priority"]').innerHTML = `<i class="far fa-star">`;
+    addTaskForm.classList.remove('priority');
+    addTaskForm.classList.remove('status');
     fileName.textContent = "";
+    priority.classList.add('far')
+    status.classList.add('far')
+    priority.classList.remove('clicked','fas')
+    status.classList.remove('clicked','fas')
     addTaskForm.reset();
-    addTaskForm.querySelector('label[for="status"]').classList.remove('clicked')
-    addTaskForm.querySelector('label[for="priority"]').classList.remove('clicked')
     withDraw();
 }
 
@@ -118,4 +117,4 @@ navButtons.forEach(button => button.addEventListener("click", select));
 addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
-editting.addEventListener("input", withDraw);
+editting.addEventListener("click", withDraw);

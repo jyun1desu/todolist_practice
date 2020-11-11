@@ -20,32 +20,28 @@ function toggleShow() {
   var quick_detail = this.parentNode.nextElementSibling;
   var detail = quick_detail.nextElementSibling;
   var button = detail.nextElementSibling;
-  var label = this.nextElementSibling;
-  var icon = label.firstChild;
   var title = task.querySelector('input[type="text"]');
-  var deleteIcon = task.querySelector('label.delete_icon');
+  var deleteIcon = task.querySelector('.delete_icon');
+  this.classList.toggle('clicked');
+  this.classList.toggle('fas');
+  this.classList.toggle('far');
   task.addEventListener("click", _endEdit["default"]);
 
-  if (this.checked) {
+  if (this.classList.contains('fas')) {
     task.classList.add('noquery');
     quick_detail.style.setProperty('display', 'none');
     detail.style.setProperty('display', 'block');
     button.style.setProperty('display', 'flex');
-    label.classList.add("clicked");
     deleteIcon.classList.add("editting");
-    icon.classList.add('fas');
-    icon.classList.remove('far');
     title.readOnly = false;
     task.setAttribute('draggable', false);
   } else {
+    console.log("withdraw");
     task.classList.remove('noquery');
     task.setAttribute('draggable', true);
     detail.style.setProperty('display', 'none');
     button.style.setProperty('display', 'none');
     quick_detail.style.setProperty('display', 'flex');
-    label.classList.remove("clicked");
-    icon.classList.add('far');
-    icon.classList.remove('fas');
     deleteIcon.classList.remove("editting");
     title.readOnly = true;
   }
@@ -54,29 +50,22 @@ function toggleShow() {
 function toggleStatus() {
   var tasks = JSON.parse(localStorage.getItem('tasks'));
   var taskList = document.querySelector('.todo_list');
-  var label = this.nextElementSibling;
-  var icon = label.firstChild;
   var task = this.parentNode.parentNode;
   var index = task.dataset.index;
   var usage = this.dataset.use;
-  label.classList.toggle("clicked");
+  this.classList.toggle("clicked");
   task.classList.toggle("".concat(usage));
-  icon.classList.toggle('fas');
-  icon.classList.toggle('far');
-
-  if (task.dataset.index) {
-    tasks[index][usage] = !tasks[index][usage];
-  }
-
+  this.classList.toggle('fas');
+  this.classList.toggle('far');
+  tasks[index][usage] = !tasks[index][usage];
   localStorage.setItem('tasks', JSON.stringify(tasks));
   if (!task.classList.contains("noquery")) (0, _populateList["default"])(tasks, taskList);
 }
 
 function deleteTask() {
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  var tasks = JSON.parse(localStorage.getItem('tasks'));
   var taskList = document.querySelector('.todo_list');
-  var dataIndex = this.id.match(/\d+/); // const orderIndex = orderArray.findIndex(el => el == dataIndex);
-
+  var dataIndex = this.id.match(/\d+/);
   tasks.splice(dataIndex, 1);
   localStorage.setItem('tasks', JSON.stringify(tasks));
   (0, _populateList["default"])(tasks, taskList);

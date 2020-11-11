@@ -6,33 +6,29 @@ export function toggleShow() {
     const quick_detail = this.parentNode.nextElementSibling;
     const detail = quick_detail.nextElementSibling;
     const button = detail.nextElementSibling;
-    const label = this.nextElementSibling;
-    const icon = label.firstChild
     const title = task.querySelector('input[type="text"]');
-    const deleteIcon = task.querySelector('label.delete_icon');
+    const deleteIcon = task.querySelector('.delete_icon');
+    this.classList.toggle('clicked');
+    this.classList.toggle('fas');
+    this.classList.toggle('far');
 
     task.addEventListener("click", editTask)
 
-    if (this.checked) {
+    if (this.classList.contains('fas')) {
         task.classList.add('noquery');
         quick_detail.style.setProperty('display', 'none');
         detail.style.setProperty('display', 'block');
         button.style.setProperty('display', 'flex');
-        label.classList.add("clicked");
         deleteIcon.classList.add("editting")
-        icon.classList.add('fas');
-        icon.classList.remove('far');
         title.readOnly = false;
         task.setAttribute('draggable', false);
     } else {
+        console.log("withdraw")
         task.classList.remove('noquery')
         task.setAttribute('draggable', true);
         detail.style.setProperty('display', 'none');
         button.style.setProperty('display', 'none');
         quick_detail.style.setProperty('display', 'flex');
-        label.classList.remove("clicked");
-        icon.classList.add('far');
-        icon.classList.remove('fas');
         deleteIcon.classList.remove("editting")
         title.readOnly = true;
     }
@@ -40,28 +36,23 @@ export function toggleShow() {
 
 export function toggleStatus() {
     const tasks = JSON.parse(localStorage.getItem('tasks'));
-    const taskList = document.querySelector('.todo_list')
-    const label = this.nextElementSibling;
-    const icon = label.firstChild;
+    const taskList = document.querySelector('.todo_list');
     const task = this.parentNode.parentNode;
     const index = task.dataset.index;
     const usage = this.dataset.use;
-    label.classList.toggle("clicked");
+    this.classList.toggle("clicked");
     task.classList.toggle(`${usage}`);
-    icon.classList.toggle('fas');
-    icon.classList.toggle('far');
-    if (task.dataset.index) {
-        tasks[index][usage] = !tasks[index][usage];
-    }
+    this.classList.toggle('fas');
+    this.classList.toggle('far');
+    tasks[index][usage] = !tasks[index][usage];
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    if(!task.classList.contains("noquery")) populateList(tasks, taskList);
+    if(!task.classList.contains("noquery")) populateList(tasks,taskList);
 }
 
 export function deleteTask() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
     const taskList = document.querySelector('.todo_list');
     const dataIndex = this.id.match(/\d+/);
-    // const orderIndex = orderArray.findIndex(el => el == dataIndex);
     tasks.splice(dataIndex, 1)
     localStorage.setItem('tasks', JSON.stringify(tasks));
     populateList(tasks, taskList);

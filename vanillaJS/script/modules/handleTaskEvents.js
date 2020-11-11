@@ -29,11 +29,11 @@ import {
 export default function handleTaskEvents() {
     const tasks = document.querySelectorAll("form.tasks");
     tasks.forEach(task => {
-        const edit = task.querySelectorAll("input.edit_icon");
-        const completed = task.querySelectorAll("input.completed_checkbox");
-        const marked = task.querySelectorAll("input.star_mark");
-        const updateButton = task.querySelectorAll("input.update_button")
-        const deleteButton = task.querySelectorAll("input.delete_icon");
+        const edit = task.querySelectorAll(".edit_icon");
+        const completed = task.querySelectorAll(".completed_checkbox");
+        const marked = task.querySelectorAll(".star_mark");
+        const updateButton = task.querySelectorAll(".update_button")
+        const deleteButton = task.querySelectorAll(".delete_icon");
 
         edit.forEach(button => button.addEventListener("click", toggleShow))
         completed.forEach(button => button.addEventListener("click", toggleStatus));

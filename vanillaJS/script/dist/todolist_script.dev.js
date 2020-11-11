@@ -19,7 +19,9 @@ var addTaskForm = document.querySelector('.add_task_form');
 var cancelButton = document.querySelector('.cancel_button');
 var fileName = document.querySelector('.file_name'); ///////編輯中
 
-var editting = addTaskForm.querySelector('#edit'); //任務清單
+var editting = addTaskForm.querySelector('#edit');
+var status = addTaskForm.querySelector('#status');
+var priority = addTaskForm.querySelector('#priority'); //任務清單
 
 var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 var taskList = document.querySelector('.todo_list'); //選取任務分類
@@ -57,9 +59,7 @@ function newTask() {
   setTimeout(function () {
     return addTaskForm.classList.add('click-active');
   }, 5);
-  addTaskForm.querySelector('#edit').checked = true;
-  addTaskForm.querySelector('label[for="edit"]').innerHTML = "<i class=\"fas fa-pen\"></i>";
-  editting.nextElementSibling.classList.add('clicked');
+  editting.classList.add('clicked');
   var doneCheck = addTaskForm.querySelector('#status');
   var primaryCheck = addTaskForm.querySelector('#priority');
   ;
@@ -69,11 +69,10 @@ function newTask() {
 }
 
 function toggle() {
-  var label = this.nextElementSibling;
-  var icon = this.nextElementSibling.querySelector('i');
-  icon.classList.toggle('fas');
-  icon.classList.toggle('far');
-  label.classList.toggle("clicked");
+  addTaskForm.classList.toggle(this.id);
+  this.classList.toggle('fas');
+  this.classList.toggle('far');
+  this.classList.toggle("clicked");
 }
 
 function addTask(e) {
@@ -83,8 +82,6 @@ function addTask(e) {
   var deadlineTime = this.querySelector('[name="time"]').value;
   var updateFile = this.querySelector('.file_name').textContent;
   var memo = this.querySelector('[name="memo_content"]').value;
-  var status = this.querySelector('input#status');
-  var priority = this.querySelector('input#priority');
 
   if (!taskTitle.length) {
     this.querySelector('[name="title"]').placeholder = "Please add the task title here";
@@ -98,8 +95,8 @@ function addTask(e) {
     deadlineTime: deadlineTime,
     updateFile: updateFile,
     memo: memo,
-    done: status.checked,
-    primary: priority.checked
+    done: status.classList.contains('clicked'),
+    primary: priority.classList.contains('clicked')
   };
   var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.push(task);
@@ -112,13 +109,14 @@ function addTask(e) {
 function resetForm() {
   addTaskForm.querySelector('[name="title"]').placeholder = "Type Something Here...";
   addTaskForm.querySelector('[name="title"]').style.setProperty("--c", "#c8c8c8");
-  addTaskForm.classList.remove('primary');
-  addTaskForm.classList.remove('done');
-  addTaskForm.querySelector('label[for="priority"]').innerHTML = "<i class=\"far fa-star\">";
+  addTaskForm.classList.remove('priority');
+  addTaskForm.classList.remove('status');
   fileName.textContent = "";
+  priority.classList.add('far');
+  status.classList.add('far');
+  priority.classList.remove('clicked', 'fas');
+  status.classList.remove('clicked', 'fas');
   addTaskForm.reset();
-  addTaskForm.querySelector('label[for="status"]').classList.remove('clicked');
-  addTaskForm.querySelector('label[for="priority"]').classList.remove('clicked');
   withDraw();
 }
 
@@ -140,4 +138,4 @@ navButtons.forEach(function (button) {
 addTaskButton.addEventListener("click", newTask);
 addTaskForm.addEventListener("submit", addTask);
 cancelButton.addEventListener("click", resetForm);
-editting.addEventListener("input", withDraw);
+editting.addEventListener("click", withDraw);
