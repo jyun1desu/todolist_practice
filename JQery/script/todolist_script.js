@@ -83,7 +83,6 @@ function resetForm() {
     $('.add_task_form input[name="title"]').get(0).style.setProperty("--c", "#c8c8c8")
     $('.add_task_form').removeClass('primary');
     $('.add_task_form').removeClass('done');
-    console.log
     $('.add_task_form .file_name').text("");
     $('#priority').addClass('far');
     $('#status').addClass('far');
