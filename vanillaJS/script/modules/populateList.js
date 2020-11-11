@@ -2,9 +2,8 @@ import countLeft from "./countLeft.js"
 import handleTaskEvents from "./handleTaskEvents.js";
 
 export default function populateList(tasksArray = [], taskList) {
-    console.log(tasksArray)
     let taskHTMLlist = tasksArray.map((task, index) => {
-        const eachTaskHTML = `<form data-index="${index}" class="tasks ${task.primary?"priority":""} ${task.done?"status":""}" draggable="true">
+        const eachTaskHTML = `<form data-index="${index}" class="tasks ${task.primary?"primary":""} ${task.done?"done":""}" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">
@@ -56,10 +55,10 @@ export default function populateList(tasksArray = [], taskList) {
     </form>`
         return eachTaskHTML
     })
-    const sortedPrimary = taskHTMLlist.filter(el => el.includes(`tasks priority `) && !el.includes(`class="tasks priority status"`)).join("");
+    const sortedPrimary = taskHTMLlist.filter(el => el.includes(`tasks primary `) && !el.includes(`class="tasks primary done"`)).join("");
     const sortedNormal = taskHTMLlist.filter(el => el.includes(`class="tasks  "`)).join("");
-    const sortedDonePrimary = taskHTMLlist.filter(el => el.includes(`tasks priority status`)).join("");
-    const sortedDoneNormal = taskHTMLlist.filter(el => el.includes(`tasks  status`)).join("");
+    const sortedDonePrimary = taskHTMLlist.filter(el => el.includes(`tasks primary done`)).join("");
+    const sortedDoneNormal = taskHTMLlist.filter(el => el.includes(`tasks  done`)).join("");
     const primaryBlock = taskList.querySelector('#primary_category');
     const normalBlock = taskList.querySelector('#normal_category');
     const donePrimaryBlock = taskList.querySelector('#done_primary_category');

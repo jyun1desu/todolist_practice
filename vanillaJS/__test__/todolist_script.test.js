@@ -235,7 +235,7 @@ describe('修改', () => {
         fireEvent.click(saveButton);
 
         //Assert
-        const expectedResult = `<form data-index="0" class="tasks priority status" draggable="true">
+        const expectedResult = `<form data-index="0" class="tasks primary done" draggable="true">
         <div class="drag_icon">
         </div>
         <div class="main_information">

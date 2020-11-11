@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605065991258" clover="3.2.0">
-  <project timestamp="1605065991258" name="All files">
-    <metrics statements="230" coveredstatements="157" conditionals="62" coveredconditionals="32" methods="43" coveredmethods="25" elements="335" coveredelements="214" complexity="0" loc="230" ncloc="230" packages="3" files="8" classes="8"/>
+<coverage generated="1605080525222" clover="3.2.0">
+  <project timestamp="1605080525223" name="All files">
+    <metrics statements="229" coveredstatements="156" conditionals="62" coveredconditionals="32" methods="43" coveredmethods="25" elements="334" coveredelements="213" complexity="0" loc="229" ncloc="229" packages="3" files="8" classes="8"/>
     <package name="__test__">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="localstorage.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/__test__/localstorage.js">
@@ -95,7 +95,7 @@
       </file>
     </package>
     <package name="script.modules">
-      <metrics statements="150" coveredstatements="98" conditionals="53" coveredconditionals="27" methods="28" coveredmethods="21"/>
+      <metrics statements="149" coveredstatements="97" conditionals="53" coveredconditionals="27" methods="28" coveredmethods="21"/>
       <file name="countLeft.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/countLeft.js">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
@@ -194,25 +194,24 @@
         <line num="53" count="24" type="stmt"/>
       </file>
       <file name="populateList.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/populateList.js">
-        <metrics statements="18" coveredstatements="18" conditionals="21" coveredconditionals="17" methods="6" coveredmethods="6"/>
+        <metrics statements="17" coveredstatements="17" conditionals="21" coveredconditionals="17" methods="6" coveredmethods="6"/>
         <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="2" type="cond" truecount="4" falsecount="0"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="59" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="4" type="stmt"/>
         <line num="60" count="4" type="stmt"/>
         <line num="61" count="4" type="stmt"/>
         <line num="62" count="4" type="stmt"/>
         <line num="63" count="4" type="stmt"/>
         <line num="64" count="4" type="stmt"/>
         <line num="65" count="4" type="stmt"/>
-        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
         <line num="68" count="4" type="stmt"/>
         <line num="69" count="4" type="stmt"/>
         <line num="70" count="4" type="stmt"/>
-        <line num="71" count="4" type="stmt"/>
+        <line num="72" count="4" type="stmt"/>
         <line num="73" count="4" type="stmt"/>
-        <line num="74" count="4" type="stmt"/>
       </file>
       <file name="toggle.js" path="/Users/yuny12345/Desktop/todolist_practice/vanillaJS/script/modules/toggle.js">
         <metrics statements="47" coveredstatements="36" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="3"/>

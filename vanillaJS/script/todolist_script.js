@@ -53,7 +53,7 @@ function newTask() {
 }
 
 function toggle(){
-    addTaskForm.classList.toggle(this.id);
+    addTaskForm.classList.toggle(this.dataset.use);
     this.classList.toggle('fas');
     this.classList.toggle('far');
     this.classList.toggle("clicked");
