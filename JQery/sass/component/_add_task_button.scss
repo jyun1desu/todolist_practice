@@ -1,0 +1,16 @@
+@use '../theme/color';
+
+.add_new_task {
+    background-color: white;
+    border: 2px solid #c8c8c8;
+    border-radius: 5px;
+
+    padding: 10px;
+
+    font-size: 18px;
+    color: color.$secondary_font_color;
+}
+
+.add_new_task.click {
+    display: none;
+}

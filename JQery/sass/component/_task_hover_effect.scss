@@ -1,0 +1,60 @@
+@use '../theme/color';
+
+.tasks {
+    position: relative;
+    transition: all 0.4s;
+
+    &:hover{
+        transform: scale(1.01) translateY(-5px);
+                box-shadow: 0px 0px 5px 3px #c8c8c8;
+        .drag_icon {
+            opacity: 1;
+        }
+        .delete_icon{
+            transform: scale(1);
+            max-width: 20px;
+        }
+    }
+
+    &.noquery:hover {
+        transform: scale(1) translateY(0);
+        box-shadow: none;
+
+        .drag_icon{
+            display: none;
+        }
+    }
+
+    .drag_icon {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.1s;
+        left: 8px;
+        background-color: color.$primary_background_color;
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            width: inherit; 
+            height: inherit ;
+            background-color: inherit;
+            border-radius: inherit;
+
+        }
+
+        &:before {
+            top: -9px;
+        }
+
+
+        &:after {
+            top: 9px;
+        }
+    }
+}
