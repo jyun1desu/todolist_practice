@@ -94,8 +94,8 @@ function addTask(e) {
 function resetForm() {
     addTaskForm.querySelector('[name="title"]').placeholder = "Type Something Here...";
     addTaskForm.querySelector('[name="title"]').style.setProperty("--c", "#c8c8c8");
-    addTaskForm.classList.remove('priority');
-    addTaskForm.classList.remove('status');
+    addTaskForm.classList.remove('primary');
+    addTaskForm.classList.remove('done');
     fileName.textContent = "";
     priority.classList.add('far')
     status.classList.add('far')
