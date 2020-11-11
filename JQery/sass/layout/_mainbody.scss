@@ -204,7 +204,7 @@ main {
 
     .add_task_form {
         @extend %task_detail;
-        display: block;
+        display: none;
         background-color: color.$secondary_background_color;
         border-radius: 5px;
         box-shadow: 0px 3px 4px #c8c8c8;
@@ -223,13 +223,13 @@ main {
             max-height: 500px;
         }
 
-        &.primary {
+        &.priority {
             .title_area {
                 background-color: color.$highlight_color;
             }
         }
 
-        &.done {
+        &.status {
             .task_title {
                 text-decoration: line-through;
             }
@@ -313,13 +313,13 @@ main {
 
             overflow: hidden;
 
-            &.primary {
+            &.priority {
                 background-color: color.$highlight_color;
             }
 
         }
 
-        .done .task_title {
+        .status .task_title {
             text-decoration: line-through;
         }
 

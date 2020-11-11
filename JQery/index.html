@@ -8,13 +8,15 @@
     <!-- viewport語法 -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- 設定ie相容模式 -->
-    <title>jyuny1 todolist</title>
+    <title>jyuny1 todolist JQery</title>
     <!-- 網頁名稱 -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <!-- include fontawesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- include bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- include jqery -->
     <link rel="stylesheet" href="./css/main.css">
     <!-- include style.css -->
 </head>
@@ -33,10 +35,10 @@
 
         <form class="add_task_form">
             <div class="title_area">
-                <i class="fas fa-check completed_checkbox"></i>
+                <i id="status" class="fas fa-check completed_checkbox"></i>
                 <input name="title" class="task_title" type="text" placeholder="Type Something Here...">
-                <i class="far fa-star star_mark"></i>
-                <i class="fas fa-pen edit_icon"></i>
+                <i id="priority" class="far fa-star star_mark"></i>
+                <i id="edit" class="fas fa-pen edit_icon"></i>
             </div>
 
             <div class="detail_area">
@@ -54,8 +56,7 @@
                     <i class="icon far fa-file"></i>
                     <div class="content_block">
                         <p>File</p>
-                        <input id="file_update" name="update" type="file"
-                            class="update_button" value="">
+                        <input id="file_update" name="update" type="file" class="update_button" value="">
                         <span class="file_name"></span><label for="file_update"></label>
                     </div>
 

@@ -13,6 +13,12 @@ $position_left: 28px;
     }
 }
 
+input {
+    &[type="checkbox"] {
+        display: none;
+    }
+}
+
 i {
     margin-bottom: 0;
 
