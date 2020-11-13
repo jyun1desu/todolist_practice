@@ -1,50 +1,84 @@
-const selectButtons = [{
-    title: 'My tasks',
-    sort: 'all'
-},
-{
-    title: 'In progress',
-    sort: 'undone'
-},
-{
-    title: 'Completed',
-    sort: 'done'
-}];
-const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
 const vm = new Vue({
     el: '#app',
     data: {
-        selectButtons,
+        edit: {
+            isClick: false,
+            isOpen: false,
+            emptyTitle: false,
+        },
         nowSelector: 'all',
-        tasks,
+        edittingTask: {
+            taskTitle: '',
+            deadlineDate: '',
+            deadlineTime: '',
+            updateFile: '',
+            memo: '',
+            done: false,
+            primary: false,
+        },
+        selectButtons: [{
+                title: 'My tasks',
+                sort: 'all'
+            },
+            {
+                title: 'In progress',
+                sort: 'undone'
+            },
+            {
+                title: 'Completed',
+                sort: 'done'
+            }
+        ],
+        tasks: JSON.parse(localStorage.getItem('tasks')) || [],
     },
-    methods:{
-        swithSelector:function(e){
-            const element = e.target;
-            this.nowSelector = element.dataset.selector;
+    methods: {
+        addNewTaskForm() {
+            this.edit.isClick = true;
+            setTimeout(() => {
+                this.edit.isOpen = true
+            }, 5);
         },
-        addNewTask : function(){
-            const addButton = document.querySelector('.add_new_task');
-            const addForm = document.querySelector('.add_task_form');  
-            addButton.classList.add('click');
-            addForm.classList.add('click');
-            setTimeout(() => addForm.classList.add('click-active'), 5);
+        withDraw() {
+            this.edit.isOpen = false;
+            setTimeout(() => this.edit.isClick = false, 280);
         },
-        withDraw: function(){
-            const addButton = document.querySelector('.add_new_task');
-            const addForm = document.querySelector('.add_task_form');  
-            addForm.classList.remove('click-active');
-            setTimeout(() => addForm.classList.remove('click'), 280);
-            setTimeout(() => addButton.classList.remove('click'), 280);
+        toggle(e) {
+            // addForm.classList.toggle(usage);
+            // element.classList.toggle("clicked");
         },
-        toggle: function(e){
-            const element = e.target
-            const addForm = document.querySelector('.add_task_form');
-            addForm.classList.toggle(element.dataset.use);
-            element.classList.toggle('fas');
-            element.classList.toggle('far');
-            element.classList.toggle("clicked");
+        submitNewTask(e) {
+            const title = this.edittingTask.taskTitle;
+            if (!title.length) {
+
+                this.edit.emptyTitle = true;
+                return;
+            }
+            const task = this.edittingTask;
+            this.tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
+            this.withDraw();
+        },
+        reset() {
+            this.edittingTask = {
+                taskTitle: '',
+                deadlineDate: '',
+                deadlineTime: '',
+                updateFile: '',
+                memo: '',
+                done: false,
+                primary: false,
+            }
+            this.edit.emptyTitle = false;
+            this.withDraw();
+        },
+        fileNameUpdate(e) {
+            const file = e.target.files[0].name;
+            this.edittingTask.updateFile = file;
         }
-    }
+    },
+    computed: {
+        placeholder() {
+            return this.edit.emptyTitle ? "Type something here" : "Please add task title here"
+        },
+    },
 })

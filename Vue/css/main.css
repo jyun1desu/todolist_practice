@@ -358,8 +358,11 @@ main .add_task_form .title_area .task_title {
 }
 main .add_task_form .title_area .task_title::placeholder {
   font-size: 18px;
-  color: var(--c, #c8c8c8);
+  color: #c8c8c8;
   font-weight: bold;
+}
+main .add_task_form .title_area .task_title.warning::placeholder {
+  color: #D0021B;
 }
 main .todo_list {
   list-style: none;

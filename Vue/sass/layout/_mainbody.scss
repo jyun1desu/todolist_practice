@@ -256,8 +256,12 @@ main {
 
                 &::placeholder {
                     font-size: 18px;
-                    color: var(--c, color.$secondary_font_color);
+                    color: color.$secondary_font_color;
                     font-weight: bold;
+                }
+
+                &.warning::placeholder{
+                    color: color.$warning_color;
                 }
             }
 
