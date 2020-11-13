@@ -80,5 +80,12 @@ const vm = new Vue({
         placeholder() {
             return this.edit.emptyTitle ? "Type something here" : "Please add task title here"
         },
+        countTasks(){
+            const undoneleft = this.tasks.filter(task=>task.done===false).length;
+            const leftText = `${undoneleft} task${undoneleft>1?"s":""} left`;
+            const doneCount = this.tasks.filter(task=>task.done===true).length;
+            const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
+            return this.nowSelector==="done"?doneText:leftText;
+        }
     },
 })

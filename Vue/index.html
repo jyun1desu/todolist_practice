@@ -106,16 +106,16 @@
             </form>
 
             <div class="todo_list">
-                <button v-for="task in tasks">
-                </button>
-                <!-- <div id="primary_category" class="droppable_area"></div>
-                <div id="normal_category" class="droppable_area"></div>
-                <div id="done_category">
-                    <div id="done_primary_category" class="droppable_area"></div>
-                    <div id="done_normal_category" class="droppable_area"></div>
-                </div> -->
+                <div v-show="nowSelector!=='done'" id="undone_category">
+                    <div id="primary_category" class="droppable_area">a</div>
+                    <div id="normal_category" class="droppable_area">b</div>
+                </div>
+                <div v-show="nowSelector!=='undone'" id="done_category">
+                    <div id="done_primary_category" class="droppable_area">c</div>
+                    <div id="done_normal_category" class="droppable_area">d</div>
+                </div>
             </div>
-            <p class="left_tasks_numbers">0 tasks left</p>
+            <p class="left_tasks_numbers">{{countTasks}}</p>
         </main>
     </div>
 
