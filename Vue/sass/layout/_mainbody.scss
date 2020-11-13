@@ -1,0 +1,395 @@
+@use '../theme/color';
+@use '../utilities/breakpoint';
+
+@use '../component/checkbox';
+@use '../component/add_task_button';
+@use '../component/task_hover_effect';
+
+main {
+    margin-top: 15px;
+
+    %input_style {
+        width: 100%;
+        border: none;
+        border-radius: 2px;
+
+        font-size: 14px;
+
+        &::placeholder {
+            color: color.$secondary_font_color;
+            font-size: 14px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    %task_overview {
+        display: flex;
+        align-items: center;
+        padding: 10px 16px 10px 60px;
+
+        @include breakpoint.RWD(breakpoint.$pad_horizontal) {
+            padding: 15px 16px 15px 70px;
+        }
+
+        border-bottom: 2px solid #c8c8c8;
+
+        position: relative;
+
+        .star_mark {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+    }
+
+    %task_detail {
+        .detail_area {
+            padding: 20px 45px;
+            background-color: color.$secondary_background_color;
+
+            @include breakpoint.RWD(breakpoint.$pad_horizontal) {
+                padding-left: 60px;
+            }
+
+            >div {
+                display: flex;
+                align-items: flex-start;
+
+                &+div {
+                    margin-top: 15px;
+                }
+
+                .icon,
+                .content_block p {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+
+                .icon {
+                    flex: 0 0 15px;
+                    margin-right: 10px;
+
+                }
+
+                .content_block {
+                    width: 100%;
+
+                    p {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+
+            .deadline {
+
+                .time_block {
+                    display: flex;
+                }
+
+                input {
+                    @extend %input_style;
+                    flex: 0 1 50%;
+                    padding-left: 10px;
+
+                    &.deadline_date {
+                        margin-right: 10px;
+                    }
+                }
+
+            }
+
+            .file_update {
+                label {
+                    width: 32px;
+                    height: 32px;
+                    margin-bottom: 0;
+
+                    border: none;
+                    border-radius: 2px;
+                    background-color: #c8c8c8;
+
+                    position: relative;
+                    vertical-align: middle;
+
+                    &:before {
+                        content: "";
+                        display: block;
+                        width: 12px;
+                        height: 2px;
+                        background-color: white;
+
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    &:after {
+                        content: "";
+                        display: block;
+                        width: 2px;
+                        height: 12px;
+                        background-color: white;
+
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    &:hover {
+                        background-color: color.$main_color;
+                    }
+
+                }
+
+                input {
+                    display: none;
+                }
+
+                .file_name {
+                    vertical-align: middle;
+                    margin-right: 10px;
+                }
+            }
+
+            textarea {
+                @extend %input_style;
+                padding-left: 10px;
+                height: 100px;
+                resize: none;
+            }
+
+        }
+
+        .button_area {
+            display: flex;
+
+
+            button {
+                flex: 1 1 50%;
+                border: none;
+                padding: 10px 0;
+
+                font-size: 18px;
+                letter-spacing: 1px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .cancel_button,
+            .cancel_edit_button {
+                background-color: #fdfdfd;
+                color: color.$warning_color;
+            }
+
+            .submit_button,
+            .save_button {
+                background-color: color.$main_color;
+                color: white;
+            }
+        }
+    }
+
+    .add_task_form {
+        @extend %task_detail;
+        display: none;
+        background-color: color.$secondary_background_color;
+        border-radius: 5px;
+        box-shadow: 0px 3px 4px #c8c8c8;
+        overflow: hidden;
+        margin-top: 10px;
+
+        &.click {
+            display: block;
+            max-height: 10px;
+            transition: 0.5s;
+        }
+
+        &.click-active {
+            display: block;
+            opacity: 1;
+            max-height: 500px;
+        }
+
+        &.primary {
+            .title_area {
+                background-color: color.$highlight_color;
+            }
+        }
+
+        &.done {
+            .task_title {
+                text-decoration: line-through;
+            }
+        }
+
+
+        .title_area {
+            @extend %task_overview;
+
+            &.done {
+                background-color: transparent;
+
+            }
+
+            .task_title {
+                @extend %input_style;
+                background-color: transparent;
+
+                flex: 0 1 100%;
+                margin-right: 10px;
+
+                font-size: 18px;
+                font-weight: bold;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: var(--c, color.$secondary_font_color);
+                    font-weight: bold;
+                }
+            }
+
+        }
+
+
+    }
+
+    .todo_list {
+        @extend %task_detail;
+        list-style: none;
+
+        margin-top: 20px;
+        margin-bottom: 0;
+        padding-left: 0;
+
+        .droppable_area{
+            border: 1px solid transparent;
+
+            &.pop{
+                border-top: 1px solid color.$secondary_font_color;
+                border-bottom: 1px solid color.$secondary_font_color;
+                transition: 0.5s;
+                padding: 15px 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        &.sort-undone{
+            #primary_category,#normal_category{
+                display: block;
+            }
+            #done_category{
+                display: none;
+            }
+        }
+
+        &.sort-done{
+            #primary_category,#normal_category{
+                display: none;
+            }
+            #done_category{
+                display: block;
+            }
+        }
+
+
+        .tasks {
+            background-color: color.$secondary_background_color;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            user-select: none;
+
+            overflow: hidden;
+
+            &.primary {
+                background-color: color.$highlight_color;
+            }
+
+        }
+
+        .done .task_title {
+            text-decoration: line-through;
+        }
+
+        .main_information {
+            @extend %task_overview;
+            border-bottom: none;
+
+            .task_title {
+                @extend %input_style;
+                margin-right: 10px;
+                margin-bottom: 0;
+                flex: 0 1 100%;
+                font-size: 18px;
+                font-weight: bold;
+                background-color: transparent;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: var(--c, color.$secondary_font_color);
+                    font-weight: bold;
+                }
+            }
+
+        }
+
+        .quick_detail {
+            padding: 0 0 0 60px;
+            display: flex;
+            align-items: center;
+
+            @include breakpoint.RWD(breakpoint.$pad_horizontal) {
+                padding-left: 60px;
+            }
+
+            >span {
+                display: flex;
+                align-items: center;
+                font-size: 0;
+                margin-bottom: 10px;
+
+                &+span {
+                    margin-left: 12px;
+                }
+
+                >span {
+                    margin-left: 3px;
+                }
+
+                i,
+                span {
+                    font-size: 12px;
+                    color: color.$secondary_icon_color;
+                }
+            }
+        }
+
+        .detail_area {
+            border-top: 2px solid color.$secondary_font_color;
+        }
+    }
+
+    .left_tasks_numbers {
+        padding-left: checkbox.$position_left;
+
+        @include breakpoint.RWD(breakpoint.$pad_horizontal) {
+            padding-left: 25px;
+        }
+
+        font-style: italic;
+        color: color.$secondary_font_color;
+    }
+
+}

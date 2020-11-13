@@ -1,0 +1,15 @@
+{
+  "name": "Vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "sass --watch sass/:css/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.29.0"
+  }
+}

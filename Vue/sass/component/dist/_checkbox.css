@@ -1,0 +1,56 @@
+i.completed_checkbox {
+  position: absolute;
+  left: 28px;
+}
+@media (min-width: 992px) {
+  i.completed_checkbox {
+    left: 25px;
+  }
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+i {
+  margin-bottom: 0;
+}
+i.completed_checkbox {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 20px;
+  background-color: white;
+  color: white;
+}
+i.completed_checkbox.clicked {
+  background-color: #4A90E2;
+  color: white;
+}
+i.star_mark {
+  margin-bottom: 0;
+  color: #000000;
+}
+i.star_mark.clicked {
+  color: #F5A623;
+}
+i.edit_icon {
+  margin-right: 10px;
+}
+i.edit_icon.clicked {
+  color: #4A90E2;
+}
+i.delete_icon {
+  transform: scale(0);
+  max-width: 0px;
+  transition: transform 0.8s, max-width 1s;
+  transform-origin: right;
+}
+i.delete_icon:hover {
+  color: #D0021B;
+}
+i.delete_icon.editting {
+  transform: scale(1);
+  max-width: 20px;
+}
