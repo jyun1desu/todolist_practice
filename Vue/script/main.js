@@ -1,3 +1,5 @@
+import todoItem from './component/todoItem.js'
+
 const vm = new Vue({
     el: '#app',
     data: {
@@ -31,6 +33,9 @@ const vm = new Vue({
         ],
         tasks: JSON.parse(localStorage.getItem('tasks')) || [],
     },
+    components:{
+        'todo-item': todoItem,
+    },
     methods: {
         addNewTaskForm() {
             this.edit.isClick = true;
@@ -42,11 +47,7 @@ const vm = new Vue({
             this.edit.isOpen = false;
             setTimeout(() => this.edit.isClick = false, 280);
         },
-        toggle(e) {
-            // addForm.classList.toggle(usage);
-            // element.classList.toggle("clicked");
-        },
-        submitNewTask(e) {
+        submitNewTask() {
             const title = this.edittingTask.taskTitle;
             if (!title.length) {
 
@@ -56,7 +57,11 @@ const vm = new Vue({
             const task = this.edittingTask;
             this.tasks.push(task);
             localStorage.setItem('tasks', JSON.stringify(this.tasks));
-            this.withDraw();
+            this.reset();
+        },
+        fileNameUpdate(e) {
+            const file = e.target.files[0].name;
+            this.edittingTask.updateFile = file;
         },
         reset() {
             this.edittingTask = {
@@ -71,10 +76,6 @@ const vm = new Vue({
             this.edit.emptyTitle = false;
             this.withDraw();
         },
-        fileNameUpdate(e) {
-            const file = e.target.files[0].name;
-            this.edittingTask.updateFile = file;
-        }
     },
     computed: {
         placeholder() {

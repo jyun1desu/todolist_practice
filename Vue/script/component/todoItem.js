@@ -1,16 +1,15 @@
-// const template =`
-// `
-
-{/* <form class="tasks" draggable="true">
+const template = `
+<form class="tasks" :class="{noquery: editMode}">
     <div class="drag_icon">
     </div>
     <div class="main_information">
-        <i id="status1" data-use="done" class="fas fa-check completed_checkbox  clicked"></i>
-        <input type="text" class="task_title" value="hello" placeholder="Type Something Here..." readonly="">
-        <i id="priority1" data-use="primary" class=" clicked  fas
-                fa-star star_mark"></i>
-        <i id="edit1" class="far fa-pen edit_icon"></i>
-        <i id="delete1" class="far fa-trash-alt delete_icon"></i>
+        <i class="fas fa-check completed_checkbox"></i>
+        <input type="text" class="task_title" placeholder="Type Something Here..." :readonly="!editMode">
+        <i class="far fa-star star_mark"></i>
+        <i 
+        @click="toggleEdit"
+        class="far fa-pen edit_icon"></i>
+        <i class="far fa-trash-alt delete_icon"></i>
     </div>
 
     <div class="quick_detail">
@@ -18,8 +17,9 @@
             <i class="far fa-calendar-alt"></i>
             <span>2020-11-12</span></span>
         <span><i class="far fa-file"></i></span>
-        <span><i class="far fa-comment-dots"></i></span> </div>
-    <div class="detail_area" style="display:none;">
+        <span><i class="far fa-comment-dots"></i></span>
+    </div>
+    <div class="detail_area">
         <div class="deadline"> <i class="icon far fa-calendar-alt"></i>
             <div class="content_block">
                 <p>Deadline</p>
@@ -46,12 +46,24 @@
         </div>
 
     </div>
-    <div class="button_area" style="display:none;">
+    <div class="button_area">
         <button type="button" class="cancel_edit_button">× Cancel</button>
         <button type="button" class="save_button">+ Save</button>
     </div>
-</form>  */}
+</form>
+`
 
 export default {
+    data: function () {
+        return {
+            editMode: false,
+        }
+    },
     template,
+    props: ['task-list'],
+    methods: {
+        toggleEdit(){
+            this.editMode = !this.editMode;
+        }
+    }
 }

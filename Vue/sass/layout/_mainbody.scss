@@ -321,6 +321,18 @@ main {
                 background-color: color.$highlight_color;
             }
 
+            &.noquery{
+                .quick_detail{
+                    display: none;
+                }
+                .detail_area{
+                    display: block;
+                }
+                .button_area{
+                    display: flex;
+                }
+            }
+
         }
 
         .done .task_title {
@@ -381,7 +393,12 @@ main {
         }
 
         .detail_area {
+            display: none;
             border-top: 2px solid color.$secondary_font_color;
+        }
+
+        .button_area{
+            display: none;
         }
     }
 
