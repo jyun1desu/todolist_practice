@@ -36,6 +36,14 @@ const vm = new Vue({
     components:{
         'todo-item': todoItem,
     },
+    watch:{
+        tasks:{
+            handler:function(value){
+                window.localStorage.setItem('tasks', JSON.stringify(value));
+            },
+            deep: true,
+        },
+    },
     methods: {
         addNewTaskForm() {
             this.edit.isClick = true;

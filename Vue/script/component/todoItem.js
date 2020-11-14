@@ -1,14 +1,25 @@
 const template = `
-<form class="tasks" :class="{noquery: editMode}">
+<form 
+class="tasks" 
+:class="{noquery: editMode,primary:taskList.primary,done:taskList.done}">
     <div class="drag_icon">
     </div>
     <div class="main_information">
-        <i class="fas fa-check completed_checkbox"></i>
+        <i 
+        class="fas fa-check completed_checkbox"
+        :class="{far:!taskList.done,clicked:taskList.done,fas:taskList.done}"
+        @click = "taskList.done=!taskList.done">
+        </i>
         <input type="text" class="task_title" placeholder="Type Something Here..." :readonly="!editMode">
-        <i class="far fa-star star_mark"></i>
+        <i 
+        @click = "taskList.primary=!taskList.primary"
+        class="fa-star star_mark"
+        :class="{far:!taskList.primary,clicked:taskList.primary,fas:taskList.primary}"></i>
         <i 
         @click="toggleEdit"
-        class="far fa-pen edit_icon"></i>
+        class="fa-pen edit_icon"
+        :class="{far:!editMode,clicked:editMode,fas:editMode}">
+        </i>
         <i class="far fa-trash-alt delete_icon"></i>
     </div>
 
