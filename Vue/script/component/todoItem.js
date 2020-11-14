@@ -5,12 +5,16 @@ class="tasks"
     <div class="drag_icon">
     </div>
     <div class="main_information">
-        <i 
-        class="fas fa-check completed_checkbox"
+        <i class="fas fa-check completed_checkbox"
         :class="{far:!taskList.done,clicked:taskList.done,fas:taskList.done}"
         @click = "taskList.done=!taskList.done">
         </i>
-        <input type="text" class="task_title" placeholder="Type Something Here..." :readonly="!editMode">
+        <input 
+        type="text"
+        class="task_title"
+        v-model="edittingTask.taskTitle"
+        placeholder="Type Something Here..."
+        :readonly="!editMode">
         <i 
         @click = "taskList.primary=!taskList.primary"
         class="fa-star star_mark"
@@ -24,35 +28,56 @@ class="tasks"
     </div>
 
     <div class="quick_detail">
-        <span>
+        <span v-if="taskList.deadlineDate">
             <i class="far fa-calendar-alt"></i>
-            <span>2020-11-12</span></span>
-        <span><i class="far fa-file"></i></span>
-        <span><i class="far fa-comment-dots"></i></span>
+            <span>{{taskList.deadlineDate}}</span>
+        </span>
+        <span v-if="taskList.updateFile">
+            <i class="far fa-file"></i>
+        </span>
+        <span v-if="taskList.memo">
+            <i class="far fa-comment-dots">
+            </i>
+        </span>
     </div>
     <div class="detail_area">
-        <div class="deadline"> <i class="icon far fa-calendar-alt"></i>
+        <div class="deadline">
+            <i class="icon far fa-calendar-alt"></i>
             <div class="content_block">
                 <p>Deadline</p>
-                <div class="time_block"> <input name="date" class="deadline_date" value="2020-11-12" type="date"
-                        placeholder="yyyy/mm/dd"> <input name="time" class="deadline_time" value="13:53" type="time"
-                        placeholder="hh:mm"> </div>
+                <div class="time_block">
+                    <input 
+                    class="deadline_date"
+                    v-model="edittingTask.deadlineDate"
+                    type="date">
+                    <input 
+                    class="deadline_time"
+                    v-model="edittingTask.deadlineTime"
+                    type="time">
+                </div>
             </div>
         </div>
         <div class="file_update">
-            / <i class="icon far fa-file"></i>
+            <i class="icon far fa-file"></i>
             <div class="content_block">
                 <p>File</p>
-                <input id="file_update1" name="update" type="file" class="update_button">
-                <span class="file_name">200x200f.jpg</span>
-                <label for="file_update1"></label>
+                <input :id="'update'+index" 
+                @change="fileNameUpdate"
+                type="file" 
+                class="update_button">
+                <span 
+                v-if="taskList.updateFile"
+                class="file_name"
+                v-text="edittingTask.updateFile">
+                </span>
+                <label :for="'update'+index"></label>
             </div>
         </div>
         <div class="memo">
             <i class="icon far fa-comment-dots"></i>
             <div class="content_block">
                 <p>Comment</p>
-                <textarea name="memo_content" placeholder="Type your memo here...">1</textarea>
+                <textarea v-model="edittingTask.memo" placeholder="Type your memo here...">1</textarea>
             </div>
         </div>
 
@@ -68,13 +93,25 @@ export default {
     data: function () {
         return {
             editMode: false,
+            edittingTask:{
+                taskTitle: this.taskList.taskTitle,
+                deadlineDate: this.taskList.deadlineDate,
+                deadlineTime: this.taskList.deadlineTime,
+                updateFile: this.taskList.updateFile,
+                memo: this.taskList.memo,
+            },
         }
     },
     template,
-    props: ['task-list'],
+    props: ['task-list','index'],
     methods: {
         toggleEdit(){
             this.editMode = !this.editMode;
+        },
+        fileNameUpdate(e){
+            const file = e.target.files[0].name;
+            console.log(file)
+            this.taskList.updateFile = file;
         }
     }
 }

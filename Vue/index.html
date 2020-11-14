@@ -109,7 +109,8 @@
                 <div v-show="nowSelector!=='done'" id="undone_category">
                     <div id="primary_category" class="droppable_area">
                         <todo-item 
-                        v-for="task in tasks"
+                        v-for="(task,index) in tasks"
+                        :index="index"
                         :task-list="task"
                         :key="task.taskTitle"
                         @click="count++"
