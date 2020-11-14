@@ -107,8 +107,6 @@ export default {
                 deadlineTime: this.taskList.deadlineTime,
                 updateFile: this.taskList.updateFile,
                 memo: this.taskList.memo,
-                primary: this.taskList.primary,
-                done: this.taskList.done
             },
             statusClass:{
                 far:!this.taskList.done,
@@ -132,14 +130,13 @@ export default {
             const file = e.target.files[0].name;
             this.edittingTask.updateFile = file;
         },
-        togglePrimary(){
+        toggle(usage){
             if(this.editMode){
-                this.edittingTask['primary'] = !this.edittingTask.primary;
-                console.log(this.edittingTask.primary)
+                this[`${usage}`] = !this[`${usage}`];
             }
-            else{
-                this.taskList.primary = !this.taskList.primary;
-            }
+            // else{
+            //     this.taskList.primary = !this.taskList.primary;
+            // }
         },
         saveChange(){
             this.replace(this.edittingTask,this.taskList);

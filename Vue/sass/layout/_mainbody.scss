@@ -322,6 +322,11 @@ main {
             }
 
             &.noquery{
+                .delete_icon{
+                    transform: scale(1);
+                    max-width: 20px;
+                }
+                
                 .quick_detail{
                     display: none;
                 }

@@ -402,6 +402,10 @@ main .todo_list .tasks {
 main .todo_list .tasks.primary {
   background-color: #FFF2DC;
 }
+main .todo_list .tasks.noquery .delete_icon {
+  transform: scale(1);
+  max-width: 20px;
+}
 main .todo_list .tasks.noquery .quick_detail {
   display: none;
 }
