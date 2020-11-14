@@ -5,8 +5,8 @@ class="tasks"
     <div class="drag_icon">
     </div>
     <div class="main_information">
-        <i class="fas fa-check completed_checkbox"
-        :class="{far:!taskList.done,clicked:taskList.done,fas:taskList.done}"
+        <i class="fa-check completed_checkbox"
+        :class="statusClass"
         @click = "taskList.done=!taskList.done">
         </i>
         <input 
@@ -18,7 +18,7 @@ class="tasks"
         <i 
         @click = "taskList.primary=!taskList.primary"
         class="fa-star star_mark"
-        :class="{far:!taskList.primary,clicked:taskList.primary,fas:taskList.primary}"></i>
+        :class="MarkClass"></i>
         <i 
         @click="toggleEdit"
         class="fa-pen edit_icon"
@@ -83,8 +83,16 @@ class="tasks"
 
     </div>
     <div class="button_area">
-        <button type="button" class="cancel_edit_button">× Cancel</button>
-        <button type="button" class="save_button">+ Save</button>
+        <button
+        @click="cancelChange"
+        type="button"
+        class="cancel_edit_button">× Cancel
+        </button>
+        <button 
+        @click="saveChange"
+        type="button"
+        class="save_button">+ Save
+        </button>
     </div>
 </form>
 `
@@ -99,6 +107,18 @@ export default {
                 deadlineTime: this.taskList.deadlineTime,
                 updateFile: this.taskList.updateFile,
                 memo: this.taskList.memo,
+                primary: this.taskList.primary,
+                done: this.taskList.done
+            },
+            statusClass:{
+                far:!this.taskList.done,
+                fas:this.taskList.done,
+                clicked:this.taskList.done,
+            },
+            MarkClass:{
+                far:!this.taskList.primary,
+                fas:this.taskList.primary,
+                clicked:this.taskList.primary,
             },
         }
     },
@@ -110,8 +130,30 @@ export default {
         },
         fileNameUpdate(e){
             const file = e.target.files[0].name;
-            console.log(file)
-            this.taskList.updateFile = file;
-        }
+            this.edittingTask.updateFile = file;
+        },
+        togglePrimary(){
+            if(this.editMode){
+                this.edittingTask['primary'] = !this.edittingTask.primary;
+                console.log(this.edittingTask.primary)
+            }
+            else{
+                this.taskList.primary = !this.taskList.primary;
+            }
+        },
+        saveChange(){
+            this.replace(this.edittingTask,this.taskList);
+            this.toggleEdit();
+        },
+        cancelChange(){
+            this.replace(this.taskList,this.edittingTask);
+        },
+        replace(newData,oldData){
+            for(let prop in newData){
+                if(oldData.hasOwnProperty(prop)){
+                    oldData[prop] = newData[prop]
+                }
+            }
+        },
     }
 }

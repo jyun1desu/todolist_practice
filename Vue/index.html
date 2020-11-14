@@ -109,24 +109,42 @@
                 <div v-show="nowSelector!=='done'" id="undone_category">
                     <div id="primary_category" class="droppable_area">
                         <todo-item 
-                        v-for="(task,index) in tasks"
+                        v-for="(task,index) in primayTasks"
                         :index="index"
                         :task-list="task"
-                        :key="task.taskTitle"
-                        @click="count++"
+                        :key="task.taskTitle+index"
                         >
                         </todo-item>
                     </div>
                     <div id="normal_category" class="droppable_area">
-
+                        <div id="primary_category" class="droppable_area">
+                            <todo-item 
+                            v-for="(task,index) in normalTasks"
+                            :index="index"
+                            :task-list="task"
+                            :key="task.taskTitle+index"
+                            >
+                            </todo-item>
                     </div>
                 </div>
                 <div v-show="nowSelector!=='undone'" id="done_category">
                     <div id="done_primary_category" class="droppable_area">
-
+                        <todo-item 
+                        v-for="(task,index) in donePrimaryTasks"
+                        :index="index"
+                        :task-list="task"
+                        :key="task.taskTitle+index"
+                        >
+                        </todo-item>
                     </div>
                     <div id="done_normal_category" class="droppable_area">
-
+                        <todo-item 
+                        v-for="(task,index) in doneNormalTasks"
+                        :index="index"
+                        :task-list="task"
+                        :key="task.taskTitle+index"
+                        >
+                        </todo-item>
                     </div>
                 </div>
             </div>
