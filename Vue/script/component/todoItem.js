@@ -1,11 +1,14 @@
 const template = `
 <form 
 class="tasks" 
-:class="{
-    noquery: editMode,
-    primary:editMode?edittingTask.primary:taskList.primary,
-    done:editMode?edittingTask.done:
-    taskList.done}">
+:class="{noquery: editMode,
+        primary:editMode?edittingTask.primary:taskList.primary,
+        done:editMode?edittingTask.done:taskList.done}"
+:draggable="!editMode"
+@dragstart="handleDragStart"
+@dragenter="handleDragPassby"
+@dragend="handleDragEnd"
+>
     <div class="drag_icon">
     </div>
     <div class="main_information">
@@ -38,7 +41,7 @@ class="tasks"
         :class="{far:!editMode,clicked:editMode,fas:editMode}">
         </i>
         <i 
-        @click="deleteItem"
+        @click="$emit('give-item-index', taskList)"
         class="far fa-trash-alt delete_icon"></i>
     </div>
 
@@ -81,7 +84,7 @@ class="tasks"
                 type="file" 
                 class="update_button">
                 <span 
-                v-if="taskList.updateFile"
+                v-if="edittingTask.updateFile"
                 class="file_name"
                 v-text="edittingTask.updateFile">
                 </span>
@@ -123,18 +126,19 @@ export default {
                 updateFile: this.taskList.updateFile,
                 memo: this.taskList.memo,
                 primary: this.taskList.primary,
-                done: this.taskList.done
+                done: this.taskList.done,
             },
         }
     },
     template,
-    props: ['task-list','index'],
+    props: ['task-list', 'index'],
     methods: {
         fileNameUpdate(e) {
             const file = e.target.files[0].name;
             this.edittingTask.updateFile = file;
         },
         saveChange() {
+            if (!this.edittingTask.taskTitle) return;
             this.replace(this.edittingTask, this.taskList);
             this.taskList['primary'] = this.edittingTask['primary'];
             this.taskList['done'] = this.edittingTask['done'];
@@ -148,32 +152,46 @@ export default {
         },
         replace(newData, oldData) {
             for (let prop in newData) {
-                if (prop!=='primary' && prop!== 'done') {
+                if (prop !== 'primary' && prop !== 'done') {
                     oldData[prop] = newData[prop]
                 }
             }
         },
-        toggle(usage){
-            if(this.editMode){
+        toggle(usage) {
+            if (this.editMode) {
                 this.edittingTask[usage] = !this.edittingTask[usage]
-            }else{
+            } else {
                 this.taskList[usage] = !this.taskList[usage];
                 this.edittingTask[usage] = this.taskList[usage];
             }
         },
-        deleteItem(){
-            this.$emit('give-item-index', this.taskList);
+        handleDragStart() {
+            // this.dragEventData.beingDragged = true;
+            this.$emit('start-dragging',this.taskList)
+            // this.dragEvent.isDragged = true;
+            // this.dragEventData.nowDraggingElement = this.taskList
+        },
+        handleDragPassby(e) {
+            this.$emit('drag-pass-by',this.taskList)
+            // this.dragEvent.isPassed = true;
+            // this.dragEventData.beingPassedby = true;
+        },
+        handleDragEnd() {
+            this.taskList.isDragged = false;
         }
     },
-    watch:{
-        'edittingTask.done': function(){
-        },
-        'edittingTask.primary': function(){
-        },
+    watch: {
+        'edittingTask.done': function () {},
+        'edittingTask.primary': function () {},
+        dragEvent:{
+            handler(){
+            },
+            deep: true
+        }
     },
-    computed:{
+    computed: {
         placeholder() {
-            return this.edittingTask.taskTitle ? "Please type something here" : "Please add task title here"
+            return this.edittingTask.taskTitle ? "" : "Please add task title here"
         },
     }
 }

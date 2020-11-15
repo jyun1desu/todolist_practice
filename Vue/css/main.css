@@ -182,14 +182,6 @@ main .todo_list .main_information .task_title, main .add_task_form .title_area .
   border-radius: 2px;
   font-size: 14px;
 }
-main .todo_list .main_information .task_title::placeholder, main .add_task_form .title_area .task_title::placeholder, main .todo_list .detail_area textarea::placeholder, main .add_task_form .detail_area textarea::placeholder, main .todo_list .detail_area .deadline input::placeholder, main .add_task_form .detail_area .deadline input::placeholder {
-  font-size: 18px;
-  color: #c8c8c8;
-  font-weight: bold;
-}
-main .todo_list .main_information .warning.task_title::placeholder, main .add_task_form .title_area .warning.task_title::placeholder, main .todo_list .detail_area textarea.warning::placeholder, main .add_task_form .detail_area textarea.warning::placeholder, main .todo_list .detail_area .deadline input.warning::placeholder, main .add_task_form .detail_area .deadline input.warning::placeholder {
-  color: #D0021B;
-}
 main .todo_list .main_information .task_title:focus, main .add_task_form .title_area .task_title:focus, main .todo_list .detail_area textarea:focus, main .add_task_form .detail_area textarea:focus, main .todo_list .detail_area .deadline input:focus, main .add_task_form .detail_area .deadline input:focus {
   outline: none;
 }
@@ -360,6 +352,14 @@ main .add_task_form .title_area .task_title {
   font-size: 18px;
   font-weight: bold;
 }
+main .add_task_form .title_area .task_title::placeholder {
+  font-size: 18px;
+  color: #c8c8c8;
+  font-weight: bold;
+}
+main .add_task_form .title_area .task_title.warning::placeholder {
+  color: #D0021B;
+}
 main .todo_list {
   list-style: none;
   margin-top: 20px;
@@ -426,6 +426,14 @@ main .todo_list .main_information .task_title {
   font-size: 18px;
   font-weight: bold;
   background-color: transparent;
+}
+main .todo_list .main_information .task_title::placeholder {
+  font-size: 18px;
+  color: #c8c8c8;
+  font-weight: bold;
+}
+main .todo_list .main_information .task_title.warning::placeholder {
+  color: #D0021B;
 }
 main .todo_list .quick_detail {
   padding: 0 0 0 60px;

@@ -34,33 +34,22 @@
         </header>
 
         <main class="container">
-            <button 
-            class="add_new_task" 
-            :class="{click: edit.isClick,'click-active':edit.isOpen}"
-            @click="addNewTaskForm">+ Add Task
+            <button class="add_new_task" :class="{click: edit.isClick,'click-active':edit.isOpen}"
+                @click="addNewTaskForm">+ Add Task
             </button>
-            <form 
-            class="add_task_form"
-            :class="{click: edit.isClick,'click-active':edit.isOpen,done:edittingTask.done,primary:edittingTask.primary}"
-            @submit.prevent="submitNewTask">
+            <form class="add_task_form"
+                :class="{click: edit.isClick,'click-active':edit.isOpen,done:edittingTask.done,primary:edittingTask.primary}"
+                @submit.prevent="submitNewTask">
                 <div class="title_area">
-                    <i 
-                    @click="edittingTask.done=!edittingTask.done"
-                    data-use="done"
-                    class="fa-check completed_checkbox"
-                    :class="{far:!edittingTask.done,clicked:edittingTask.done,fas:edittingTask.done}">
+                    <i @click="edittingTask.done=!edittingTask.done" data-use="done" class="fa-check completed_checkbox"
+                        :class="{far:!edittingTask.done,clicked:edittingTask.done,fas:edittingTask.done}">
                     </i>
                     <input v-model="edittingTask.taskTitle" name="title" class="task_title"
                         :class="{warning:edit.emptyTitle}" type="text" :placeholder="placeholder">
-                    <i
-                    @click="edittingTask.primary=!edittingTask.primary"
-                    data-use="primary"
-                    class="fa-star star_mark"
-                    :class="{far:!edittingTask.primary,clicked:edittingTask.primary,fas:edittingTask.primary}">
+                    <i @click="edittingTask.primary=!edittingTask.primary" data-use="primary" class="fa-star star_mark"
+                        :class="{far:!edittingTask.primary,clicked:edittingTask.primary,fas:edittingTask.primary}">
                     </i>
-                    <i 
-                    @click="withDraw"
-                    class="fas fa-pen edit_icon clicked">
+                    <i @click="withDraw" class="fas fa-pen edit_icon clicked">
                     </i>
                 </div>
 
@@ -107,52 +96,76 @@
 
             <div class="todo_list">
                 <div v-show="nowSelector!=='done'" id="undone_category">
-                    <div id="primary_category" class="droppable_area">
-                        <todo-item 
+                    <div id="primary_category" 
+                    class="droppable_area" 
+                    :class="{pop:dragEventData.droppableNow==='primary'}"
+                    @dragenter.prevent
+                    @dragover.prevent
+                    @drop="handleDrop">
+                        <todo-item
                         v-for="(task,index) in primayTasks"
                         @give-item-index="deleteCertainTask"
+                        @start-dragging="getDraggedElement"
+                        @drag-pass-by="getPassedElement"
                         :index="index"
                         :task-list="task"
-                        :key="task.taskTitle+index"
-                        >
+                        :key="task.taskTitle+index">
                         </todo-item>
                     </div>
-                    <div id="normal_category" class="droppable_area">
-                        <div id="primary_category" class="droppable_area">
-                            <todo-item 
-                            v-for="(task,index) in normalTasks"
-                            @give-item-index="deleteCertainTask"
-                            :index="index"
-                            :task-list="task"
-                            :key="task.taskTitle+index"
-                            >
-                            </todo-item>
+                    <div id="normal_category" 
+                    class="droppable_area" 
+                    @dragenter.prevent
+                    @dragover.prevent
+                    @drop="handleDrop"
+                    :class="{pop:dragEventData.droppableNow==='normal'}">
+                        <todo-item 
+                        v-for="(task,index) in normalTasks" 
+                        @give-item-index="deleteCertainTask"
+                        @start-dragging="getDraggedElement"
+                        @drag-pass-by="getPassedElement"
+                        :index="index"
+                        :task-list="task"
+                        :key="task.taskTitle+index">
+                        </todo-item>
                     </div>
                 </div>
                 <div v-show="nowSelector!=='undone'" id="done_category">
-                    <div id="done_primary_category" class="droppable_area">
-                        <todo-item 
-                        v-for="(task,index) in donePrimaryTasks"
-                        @give-item-index="deleteCertainTask"
-                        :index="index"
-                        :task-list="task"
-                        :key="task.taskTitle+index"
-                        >
-                        </todo-item>
-                    </div>
-                    <div id="done_normal_category" class="droppable_area">
-                        <todo-item 
-                        v-for="(task,index) in doneNormalTasks"
-                        :index="index"
-                        :task-list="task"
-                        :key="task.taskTitle+index"
-                        >
-                        </todo-item>
-                    </div>
+                <div id="done_primary_category" 
+                class="droppable_area"
+                :class="{pop:dragEventData.droppableNow==='done_primary'}"
+                @dragenter.prevent
+                @dragover.prevent
+                @drop="handleDrop">
+                    <todo-item 
+                    v-for="(task,index) in donePrimaryTasks" 
+                    @give-item-index="deleteCertainTask"
+                    @start-dragging="getDraggedElement"
+                    @drag-pass-by="getPassedElement"
+                    :index="index"
+                    :task-list="task"
+                    :key="task.taskTitle+index">
+                    </todo-item>
+                </div>
+                <div id="done_normal_category" 
+                class="droppable_area"
+                :class="{pop:dragEventData.droppableNow==='done_normal'}"
+                @dragenter.prevent
+                @dragover.prevent
+                @drop="handleDrop">
+                    <todo-item 
+                    v-for="(task,index) in doneNormalTasks" 
+                    @give-item-index="deleteCertainTask"
+                    @start-dragging="getDraggedElement"
+                    @drag-pass-by="getPassedElement"
+                    :index="index"
+                    :task-list="task"
+                    :key="task.taskTitle+index">
+                    </todo-item>
                 </div>
             </div>
-            <p class="left_tasks_numbers">{{countTasks}}</p>
-        </main>
+    </div>
+    <p class="left_tasks_numbers">{{countTasks}}</p>
+    </main>
     </div>
 
     <script type="module" src="./script/main.js"></script>

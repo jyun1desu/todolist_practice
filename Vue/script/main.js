@@ -8,6 +8,11 @@ const vm = new Vue({
             isOpen: false,
             emptyTitle: false,
         },
+        dragEventData:{
+            droppableNow: null,
+            draggedNow: null,
+            currentPassby: null,
+        },
         nowSelector: 'all',
         edittingTask: {
             taskTitle: '',
@@ -17,6 +22,12 @@ const vm = new Vue({
             memo: '',
             done: false,
             primary: false,
+            isDragged : false,
+            isPassed :  false,
+        },
+        dragEventData:{
+            beingDragged : null,
+            beingPassedby : null,
         },
         selectButtons: [{
                 title: 'My tasks',
@@ -43,6 +54,10 @@ const vm = new Vue({
             },
             deep: true,
         },
+        'dragEventData':{
+            handler: function(){},
+            deep: true
+        }
     },
     methods: {
         addNewTaskForm() {
@@ -53,6 +68,7 @@ const vm = new Vue({
         },
         withDraw() {
             this.edit.isOpen = false;
+            this.edit.emptyTitle = false;
             setTimeout(() => this.edit.isClick = false, 280);
         },
         submitNewTask() {
@@ -78,6 +94,8 @@ const vm = new Vue({
                 memo: '',
                 done: false,
                 primary: false,
+                isDragged : false,
+                isPassed :  false,
             }
             this.edit.emptyTitle = false;
             this.withDraw();
@@ -85,7 +103,27 @@ const vm = new Vue({
         deleteCertainTask(task){
             const index = this.tasks.indexOf(task);
             this.tasks.splice(index,1)
-        }
+        },
+        getDraggedElement(draggedtask){
+            this.dragEventData.draggedNow = draggedtask;
+            draggedtask.isDragged = true;
+        },
+        getPassedElement(passbytask){
+            const dragged = this.dragEventData.draggedNow;
+            const passed = this.dragEventData.currentPassby;
+            const sameType = (dragged.primary==passbytask.primary) && (dragged.done==passbytask.done);
+            if(sameType && dragged!==passbytask){
+                passbytask.isPassed = true;
+            }
+            if(passed&&passed!==passbytask){
+                passed.isPassed=false;
+            }
+            this.dragEventData.currentPassby = passbytask;
+        },
+        handleDrop(){
+            // console.log(this.tasks.indexOf(this.dragEventData.beingDragged))
+            // console.log(this.tasks.indexOf(this.dragEventData.beingPassedby))
+        },
     },
     computed: {
         placeholder() {

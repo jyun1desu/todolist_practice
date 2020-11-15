@@ -15,16 +15,6 @@ main {
 
         font-size: 14px;
 
-        &::placeholder {
-            font-size: 18px;
-            color: color.$secondary_font_color;
-            font-weight: bold;
-        }
-
-        &.warning::placeholder {
-            color: color.$warning_color;
-        }
-
         &:focus {
             outline: none;
         }
@@ -258,6 +248,16 @@ main {
 
                 font-size: 18px;
                 font-weight: bold;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: color.$secondary_font_color;
+                    font-weight: bold;
+                }
+        
+                &.warning::placeholder {
+                    color: color.$warning_color;
+                }
             }
         }
     }
@@ -356,6 +356,16 @@ main {
                 font-size: 18px;
                 font-weight: bold;
                 background-color: transparent;
+
+                &::placeholder {
+                    font-size: 18px;
+                    color: color.$secondary_font_color;
+                    font-weight: bold;
+                }
+        
+                &.warning::placeholder {
+                    color: color.$warning_color;
+                }
             }
 
         }
