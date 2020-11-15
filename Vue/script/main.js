@@ -85,7 +85,7 @@ const vm = new Vue({
     },
     computed: {
         placeholder() {
-            return this.edit.emptyTitle ? "Type something here" : "Please add task title here"
+            return this.edit.emptyTitle ? "Please type something here" : "Please add task title here"
         },
         countTasks() {
             const undoneleft = this.tasks.filter(task => task.done === false).length;

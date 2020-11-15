@@ -1,13 +1,21 @@
 const template = `
 <form 
 class="tasks" 
-:class="{noquery: editMode,primary:taskList.primary,done:taskList.done}">
+:class="{
+    noquery: editMode,
+    primary:editMode?edittingTask.primary:taskList.primary,
+    done:editMode?edittingTask.done:
+    taskList.done}">
     <div class="drag_icon">
     </div>
     <div class="main_information">
         <i class="fa-check completed_checkbox"
-        :class="statusClass"
-        @click = "taskList.done=!taskList.done">
+        :class="{
+            far: editMode?!edittingTask.done:!taskList.done,
+            fas: editMode?edittingTask.done:taskList.done,
+            clicked: editMode?edittingTask.done:taskList.done,
+        }"
+        @click = "toggle('done')">
         </i>
         <input 
         type="text"
@@ -16,15 +24,21 @@ class="tasks"
         placeholder="Type Something Here..."
         :readonly="!editMode">
         <i 
-        @click = "taskList.primary=!taskList.primary"
+        @click = "toggle('primary')"
         class="fa-star star_mark"
-        :class="MarkClass"></i>
+        :class="{
+            far: editMode?!edittingTask.primary:!taskList.primary,
+            fas: editMode?edittingTask.primary:taskList.primary,
+            clicked: editMode?edittingTask.primary:taskList.primary
+        }"></i>
         <i 
-        @click="toggleEdit"
+        @click="editMode = !editMode"
         class="fa-pen edit_icon"
         :class="{far:!editMode,clicked:editMode,fas:editMode}">
         </i>
-        <i class="far fa-trash-alt delete_icon"></i>
+        <i 
+        @click="deleteItem"
+        class="far fa-trash-alt delete_icon"></i>
     </div>
 
     <div class="quick_detail">
@@ -101,56 +115,58 @@ export default {
     data: function () {
         return {
             editMode: false,
-            edittingTask:{
+            edittingTask: {
                 taskTitle: this.taskList.taskTitle,
                 deadlineDate: this.taskList.deadlineDate,
                 deadlineTime: this.taskList.deadlineTime,
                 updateFile: this.taskList.updateFile,
                 memo: this.taskList.memo,
-            },
-            statusClass:{
-                far:!this.taskList.done,
-                fas:this.taskList.done,
-                clicked:this.taskList.done,
-            },
-            MarkClass:{
-                far:!this.taskList.primary,
-                fas:this.taskList.primary,
-                clicked:this.taskList.primary,
+                primary: this.taskList.primary,
+                done: this.taskList.done
             },
         }
     },
     template,
     props: ['task-list','index'],
     methods: {
-        toggleEdit(){
-            this.editMode = !this.editMode;
-        },
-        fileNameUpdate(e){
+        fileNameUpdate(e) {
             const file = e.target.files[0].name;
             this.edittingTask.updateFile = file;
         },
-        toggle(usage){
-            if(this.editMode){
-                this[`${usage}`] = !this[`${usage}`];
-            }
-            // else{
-            //     this.taskList.primary = !this.taskList.primary;
-            // }
+        saveChange() {
+            this.replace(this.edittingTask, this.taskList);
+            this.taskList['primary'] = this.edittingTask['primary'];
+            this.taskList['done'] = this.edittingTask['done'];
+            this.editMode = !this.editMode;
         },
-        saveChange(){
-            this.replace(this.edittingTask,this.taskList);
-            this.toggleEdit();
+        cancelChange() {
+            this.replace(this.taskList, this.edittingTask);
+            this.taskList['primary'] = this.edittingTask['primary'];
+            this.taskList['done'] = this.edittingTask['done'];
+            this.editMode = !this.editMode;
         },
-        cancelChange(){
-            this.replace(this.taskList,this.edittingTask);
-        },
-        replace(newData,oldData){
-            for(let prop in newData){
-                if(oldData.hasOwnProperty(prop)){
+        replace(newData, oldData) {
+            for (let prop in newData) {
+                if (prop!=='primary' && prop!== 'done') {
                     oldData[prop] = newData[prop]
                 }
             }
+        },
+        toggle(usage){
+            if(this.editMode){
+                this.edittingTask[usage] = !this.edittingTask[usage]
+            }else{
+                this.taskList[usage] = !this.taskList[usage];
+                this.edittingTask[usage] = this.taskList[usage];
+            }
+        },
+        deleteItem(){
+        }
+    },
+    watch:{
+        'edittingTask.done': function(){
+        },
+        'edittingTask.primary': function(){
         },
     }
 }
