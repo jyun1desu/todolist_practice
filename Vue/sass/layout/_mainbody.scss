@@ -16,8 +16,13 @@ main {
         font-size: 14px;
 
         &::placeholder {
+            font-size: 18px;
             color: color.$secondary_font_color;
-            font-size: 14px;
+            font-weight: bold;
+        }
+
+        &.warning::placeholder {
+            color: color.$warning_color;
         }
 
         &:focus {
@@ -253,21 +258,8 @@ main {
 
                 font-size: 18px;
                 font-weight: bold;
-
-                &::placeholder {
-                    font-size: 18px;
-                    color: color.$secondary_font_color;
-                    font-weight: bold;
-                }
-
-                &.warning::placeholder{
-                    color: color.$warning_color;
-                }
             }
-
         }
-
-
     }
 
     .todo_list {
@@ -278,10 +270,10 @@ main {
         margin-bottom: 0;
         padding-left: 0;
 
-        .droppable_area{
+        .droppable_area {
             border: 1px solid transparent;
 
-            &.pop{
+            &.pop {
                 border-top: 1px solid color.$secondary_font_color;
                 border-bottom: 1px solid color.$secondary_font_color;
                 transition: 0.5s;
@@ -290,20 +282,26 @@ main {
             }
         }
 
-        &.sort-undone{
-            #primary_category,#normal_category{
+        &.sort-undone {
+
+            #primary_category,
+            #normal_category {
                 display: block;
             }
-            #done_category{
+
+            #done_category {
                 display: none;
             }
         }
 
-        &.sort-done{
-            #primary_category,#normal_category{
+        &.sort-done {
+
+            #primary_category,
+            #normal_category {
                 display: none;
             }
-            #done_category{
+
+            #done_category {
                 display: block;
             }
         }
@@ -321,19 +319,21 @@ main {
                 background-color: color.$highlight_color;
             }
 
-            &.noquery{
-                .delete_icon{
+            &.noquery {
+                .delete_icon {
                     transform: scale(1);
                     max-width: 20px;
                 }
-                
-                .quick_detail{
+
+                .quick_detail {
                     display: none;
                 }
-                .detail_area{
+
+                .detail_area {
                     display: block;
                 }
-                .button_area{
+
+                .button_area {
                     display: flex;
                 }
             }
@@ -356,12 +356,6 @@ main {
                 font-size: 18px;
                 font-weight: bold;
                 background-color: transparent;
-
-                &::placeholder {
-                    font-size: 18px;
-                    color: var(--c, color.$secondary_font_color);
-                    font-weight: bold;
-                }
             }
 
         }
@@ -402,7 +396,7 @@ main {
             border-top: 2px solid color.$secondary_font_color;
         }
 
-        .button_area{
+        .button_area {
             display: none;
         }
     }

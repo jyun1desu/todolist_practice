@@ -20,8 +20,9 @@ class="tasks"
         <input 
         type="text"
         class="task_title"
+        :class="{warning: edittingTask.taskTitle.length==0?true:false}"
         v-model="edittingTask.taskTitle"
-        placeholder="Type Something Here..."
+        :placeholder="placeholder"
         :readonly="!editMode">
         <i 
         @click = "toggle('primary')"
@@ -161,12 +162,18 @@ export default {
             }
         },
         deleteItem(){
+            this.$emit('give-item-index', this.taskList);
         }
     },
     watch:{
         'edittingTask.done': function(){
         },
         'edittingTask.primary': function(){
+        },
+    },
+    computed:{
+        placeholder() {
+            return this.edittingTask.taskTitle ? "Please type something here" : "Please add task title here"
         },
     }
 }

@@ -82,6 +82,10 @@ const vm = new Vue({
             this.edit.emptyTitle = false;
             this.withDraw();
         },
+        deleteCertainTask(task){
+            const index = this.tasks.indexOf(task);
+            this.tasks.splice(index,1)
+        }
     },
     computed: {
         placeholder() {

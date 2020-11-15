@@ -109,7 +109,8 @@
                 <div v-show="nowSelector!=='done'" id="undone_category">
                     <div id="primary_category" class="droppable_area">
                         <todo-item 
-                        v-for="(task,index) in tasks"
+                        v-for="(task,index) in primayTasks"
+                        @give-item-index="deleteCertainTask"
                         :index="index"
                         :task-list="task"
                         :key="task.taskTitle+index"
@@ -118,33 +119,34 @@
                     </div>
                     <div id="normal_category" class="droppable_area">
                         <div id="primary_category" class="droppable_area">
-                            <!-- <todo-item 
+                            <todo-item 
                             v-for="(task,index) in normalTasks"
+                            @give-item-index="deleteCertainTask"
                             :index="index"
                             :task-list="task"
                             :key="task.taskTitle+index"
                             >
-                            </todo-item> -->
+                            </todo-item>
                     </div>
                 </div>
                 <div v-show="nowSelector!=='undone'" id="done_category">
                     <div id="done_primary_category" class="droppable_area">
-                        <!-- <todo-item 
+                        <todo-item 
                         v-for="(task,index) in donePrimaryTasks"
+                        @give-item-index="deleteCertainTask"
                         :index="index"
-        
                         :task-list="task"
                         :key="task.taskTitle+index"
                         >
-                        </todo-item> -->
+                        </todo-item>
                     </div>
                     <div id="done_normal_category" class="droppable_area">
-                        <!-- <todo-item 
+                        <todo-item 
                         v-for="(task,index) in doneNormalTasks"
                         :index="index"
                         :task-list="task"
                         :key="task.taskTitle+index"
-                        > -->
+                        >
                         </todo-item>
                     </div>
                 </div>
