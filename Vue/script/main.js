@@ -122,8 +122,8 @@ const vm = new Vue({
             this.dragEventData.previousY = position;
         },
         initialData() {
-            this.dragEventData.beingDragged.isDragged = false;
-            this.dragEventData.beingPassedby.isPassed = false;
+            this.dragEventData.beingDragged && (this.dragEventData.beingDragged.isDragged = false);
+            this.dragEventData.beingDragged && (this.dragEventData.beingPassedby.isPassed = false);
             this.dragEventData = {
                 beingDragged: null,
                 beingPassedby: null,
@@ -150,6 +150,7 @@ const vm = new Vue({
         },
         handleDragEnd(){
             if(!this.dragEventData.dropTriggered) this.initialData();
+            
         }
     },
     computed: {
