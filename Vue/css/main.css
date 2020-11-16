@@ -395,7 +395,18 @@ main .todo_list .tasks {
   border-radius: 5px;
   margin-bottom: 8px;
   user-select: none;
+  opacity: 1;
+  transition: all 0.5s;
   overflow: hidden;
+}
+main .todo_list .tasks.dragged {
+  opacity: 0.3;
+}
+main .todo_list .tasks.passedfromtop {
+  margin: 0 0 50px;
+}
+main .todo_list .tasks.passedfrombottom {
+  margin: 50px 0 8px;
 }
 main .todo_list .tasks.primary {
   background-color: #FFF2DC;

@@ -3,7 +3,10 @@ const template = `
 class="tasks" 
 :class="{noquery: editMode,
         primary:editMode?edittingTask.primary:taskList.primary,
-        done:editMode?edittingTask.done:taskList.done}"
+        done:editMode?edittingTask.done:taskList.done,
+        dragged:taskList.isDragged,
+        passedfromtop:taskList.isPassed&&dragDirection,
+        passedfrombottom:taskList.isPassed&&!dragDirection}"
 :draggable="!editMode"
 @dragstart="handleDragStart"
 @dragenter="handleDragPassby"
@@ -131,7 +134,7 @@ export default {
         }
     },
     template,
-    props: ['task-list', 'index'],
+    props: ['task-list', 'index','drag-direction'],
     methods: {
         fileNameUpdate(e) {
             const file = e.target.files[0].name;
@@ -166,18 +169,13 @@ export default {
             }
         },
         handleDragStart() {
-            // this.dragEventData.beingDragged = true;
             this.$emit('start-dragging',this.taskList)
-            // this.dragEvent.isDragged = true;
-            // this.dragEventData.nowDraggingElement = this.taskList
         },
         handleDragPassby(e) {
-            this.$emit('drag-pass-by',this.taskList)
-            // this.dragEvent.isPassed = true;
-            // this.dragEventData.beingPassedby = true;
+            this.$emit('drag-pass-by',this.taskList,e.pageY)
         },
         handleDragEnd() {
-            this.taskList.isDragged = false;
+            this.$emit('drag-is-end')
         }
     },
     watch: {

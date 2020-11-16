@@ -312,6 +312,18 @@ main {
             border-radius: 5px;
             margin-bottom: 8px;
             user-select: none;
+            opacity: 1;
+            transition: all 0.5s;
+
+            &.dragged{
+                opacity: 0.3;
+            }
+            &.passedfromtop{
+                margin: 0 0 50px;
+            }
+            &.passedfrombottom{
+                margin: 50px 0 8px;
+            }
 
             overflow: hidden;
 

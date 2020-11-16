@@ -8,11 +8,6 @@ const vm = new Vue({
             isOpen: false,
             emptyTitle: false,
         },
-        dragEventData:{
-            droppableNow: null,
-            draggedNow: null,
-            currentPassby: null,
-        },
         nowSelector: 'all',
         edittingTask: {
             taskTitle: '',
@@ -22,12 +17,14 @@ const vm = new Vue({
             memo: '',
             done: false,
             primary: false,
-            isDragged : false,
-            isPassed :  false,
+            isDragged: false,
+            isPassed: false,
         },
-        dragEventData:{
-            beingDragged : null,
-            beingPassedby : null,
+        dragEventData: {
+            beingDragged: null,
+            beingPassedby: null,
+            previousY: null,
+            isMoveDown: null,
         },
         selectButtons: [{
                 title: 'My tasks',
@@ -54,8 +51,8 @@ const vm = new Vue({
             },
             deep: true,
         },
-        'dragEventData':{
-            handler: function(){},
+        'dragEventData': {
+            handler: function () {},
             deep: true
         }
     },
@@ -94,35 +91,48 @@ const vm = new Vue({
                 memo: '',
                 done: false,
                 primary: false,
-                isDragged : false,
-                isPassed :  false,
+                isDragged: false,
+                isPassed: false,
             }
             this.edit.emptyTitle = false;
             this.withDraw();
         },
-        deleteCertainTask(task){
+        deleteCertainTask(task) {
             const index = this.tasks.indexOf(task);
-            this.tasks.splice(index,1)
+            this.tasks.splice(index, 1)
         },
-        getDraggedElement(draggedtask){
-            this.dragEventData.draggedNow = draggedtask;
+        getDraggedElement(draggedtask) {
+            this.dragEventData.beingDragged = draggedtask;
             draggedtask.isDragged = true;
         },
-        getPassedElement(passbytask){
-            const dragged = this.dragEventData.draggedNow;
-            const passed = this.dragEventData.currentPassby;
-            const sameType = (dragged.primary==passbytask.primary) && (dragged.done==passbytask.done);
-            if(sameType && dragged!==passbytask){
+        getPassedElement(passbytask, position) {
+            const dragged = this.dragEventData.beingDragged;
+            const passed = this.dragEventData.beingPassedby;
+            const sameType = (dragged.primary == passbytask.primary) && (dragged.done == passbytask.done);
+            if (sameType && dragged !== passbytask) {
+                const moveDown = position > this.dragEventData.previousY;
+                this.dragEventData.isMoveDown = moveDown
                 passbytask.isPassed = true;
             }
-            if(passed&&passed!==passbytask){
-                passed.isPassed=false;
+            if (passed && passed !== passbytask) {
+                passed.isPassed = false;
             }
-            this.dragEventData.currentPassby = passbytask;
+            this.dragEventData.beingPassedby = passbytask;
+            this.dragEventData.previousY = position;
         },
-        handleDrop(){
+        handleDrop() {
             // console.log(this.tasks.indexOf(this.dragEventData.beingDragged))
             // console.log(this.tasks.indexOf(this.dragEventData.beingPassedby))
+        },
+        initialData() {
+            this.dragEventData.beingDragged.isDragged = false;
+            this.dragEventData.beingPassedby.isPassed = false;
+            this.dragEventData = {
+                beingDragged: null,
+                beingPassedby: null,
+                previousY: null,
+                isMoveDown: null,
+            }
         },
     },
     computed: {
@@ -136,10 +146,10 @@ const vm = new Vue({
             const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
             return this.nowSelector === "done" ? doneText : leftText;
         },
-        sortedTasks(){
-            const sorted = this.tasks.sort((a,b)=>{
-                const orderA = (a.primary?-2:0)+(a.done?1:-2)
-                const orderB = (b.primary?-2:0)+(b.done?1:-2)
+        sortedTasks() {
+            const sorted = this.tasks.sort((a, b) => {
+                const orderA = (a.primary ? -2 : 0) + (a.done ? 1 : -2)
+                const orderB = (b.primary ? -2 : 0) + (b.done ? 1 : -2)
                 return orderA - orderB
             })
             return sorted
