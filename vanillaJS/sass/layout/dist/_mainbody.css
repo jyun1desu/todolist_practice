@@ -142,7 +142,7 @@ main .todo_list .main_information, main .add_task_form .title_area {
 }
 @media (min-width: 992px) {
   main .todo_list .main_information, main .add_task_form .title_area {
-    padding: 15px 16px 15px 70px;
+    padding: 15px 16px 15px 60px;
   }
 }
 main .todo_list .main_information .star_mark, main .add_task_form .title_area .star_mark {
