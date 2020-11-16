@@ -25,6 +25,7 @@ const vm = new Vue({
             beingPassedby: null,
             previousY: null,
             isMoveDown: null,
+            dropTriggered: null,
         },
         selectButtons: [{
                 title: 'My tasks',
@@ -120,10 +121,6 @@ const vm = new Vue({
             this.dragEventData.beingPassedby = passbytask;
             this.dragEventData.previousY = position;
         },
-        handleDrop() {
-            // console.log(this.tasks.indexOf(this.dragEventData.beingDragged))
-            // console.log(this.tasks.indexOf(this.dragEventData.beingPassedby))
-        },
         initialData() {
             this.dragEventData.beingDragged.isDragged = false;
             this.dragEventData.beingPassedby.isPassed = false;
@@ -132,8 +129,28 @@ const vm = new Vue({
                 beingPassedby: null,
                 previousY: null,
                 isMoveDown: null,
+                dropTriggered: null,
             }
         },
+        handleDrop() {
+            const dragged = this.dragEventData.beingDragged;
+            const draggedIndex = this.tasks.indexOf(dragged)
+            const passed = this.dragEventData.beingPassedby;
+            const sameType = (dragged.primary == passed.primary) && (dragged.done == passed.done);
+            if (!sameType) return;
+            if (this.dragEventData.isMoveDown) {
+                this.tasks.splice(this.tasks.indexOf(passed) + 1, 0, dragged)
+                this.tasks.splice(draggedIndex, 1)
+            } else {
+                this.tasks.splice(this.tasks.indexOf(passed), 0, dragged)
+                this.tasks.splice(draggedIndex + 1, 1)
+            }
+            this.dragEventData.dropTriggered = true;
+            this.initialData();
+        },
+        handleDragEnd(){
+            if(!this.dragEventData.dropTriggered) this.initialData();
+        }
     },
     computed: {
         placeholder() {
@@ -153,6 +170,19 @@ const vm = new Vue({
                 return orderA - orderB
             })
             return sorted
+        },
+        selectedTasks(){
+            switch(this.nowSelector) {
+                case 'all':
+                    return this.sortedTasks;
+                    break;
+                case 'done':
+                    return this.sortedTasks.filter(task=>task.done===true)
+                    break;
+                case 'undone':
+                    return this.sortedTasks.filter(task=>task.done===false)
+                    break;
+            }
         }
     },
 })

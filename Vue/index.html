@@ -99,11 +99,11 @@
             @dragover.prevent
             @drop="handleDrop">
                         <todo-item
-                        v-for="(task,index) in sortedTasks"
+                        v-for="(task,index) in selectedTasks"
                         @give-item-index="deleteCertainTask"
                         @start-dragging="getDraggedElement"
                         @drag-pass-by="getPassedElement"
-                        @drag-is-end="initialData"
+                        @drag-is-end="handleDragEnd"
                         :index="index"
                         :task-list="task"
                         :drag-direction="dragEventData.isMoveDown"
