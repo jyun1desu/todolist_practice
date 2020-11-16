@@ -5,6 +5,6 @@
 | -----|:-----: | 
 | Vue.js | [demo](https://jyun1desu.github.io/todolist_practice/Vue/) | 
 | VanillaJs | [demo](https://jyun1desu.github.io/todolist_practice/vanillaJS) | 
-| jQquery | [demo](https://jyun1desu.github.io/todolist_practice/JQuery) | 
+| jQuery | [demo](https://jyun1desu.github.io/todolist_practice/jQuery) | 
 
 ![demo](https://imgur.com/2UMQ8Jn.jpg)
