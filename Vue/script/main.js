@@ -136,17 +136,13 @@ const vm = new Vue({
             const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
             return this.nowSelector === "done" ? doneText : leftText;
         },
-        primayTasks() {
-            return this.tasks.filter(task => task.primary === true && task.done === false)
-        },
-        normalTasks() {
-            return this.tasks.filter(task => task.primary === false && task.done === false)
-        },
-        doneNormalTasks(){
-            return this.tasks.filter(task => task.primary === false && task.done === true)
-        },
-        donePrimaryTasks(){
-            return this.tasks.filter(task => task.primary === true && task.done === true)
-        },
+        sortedTasks(){
+            const sorted = this.tasks.sort((a,b)=>{
+                const orderA = (a.primary?-2:0)+(a.done?1:-2)
+                const orderB = (b.primary?-2:0)+(b.done?1:-2)
+                return orderA - orderB
+            })
+            return sorted
+        }
     },
 })

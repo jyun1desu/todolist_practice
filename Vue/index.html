@@ -94,77 +94,21 @@
                 </div>
             </form>
 
-            <div class="todo_list">
-                <div v-show="nowSelector!=='done'" id="undone_category">
-                    <div id="primary_category" 
-                    class="droppable_area" 
-                    :class="{pop:dragEventData.droppableNow==='primary'}"
-                    @dragenter.prevent
-                    @dragover.prevent
-                    @drop="handleDrop">
+            <div class="todo_list"
+            @dragenter.prevent
+            @dragover.prevent
+            @drop="handleDrop">
                         <todo-item
-                        v-for="(task,index) in primayTasks"
+                        v-for="(task,index) in sortedTasks"
                         @give-item-index="deleteCertainTask"
                         @start-dragging="getDraggedElement"
                         @drag-pass-by="getPassedElement"
                         :index="index"
                         :task-list="task"
                         :key="task.taskTitle+index">
-                        </todo-item>
-                    </div>
-                    <div id="normal_category" 
-                    class="droppable_area" 
-                    @dragenter.prevent
-                    @dragover.prevent
-                    @drop="handleDrop"
-                    :class="{pop:dragEventData.droppableNow==='normal'}">
-                        <todo-item 
-                        v-for="(task,index) in normalTasks" 
-                        @give-item-index="deleteCertainTask"
-                        @start-dragging="getDraggedElement"
-                        @drag-pass-by="getPassedElement"
-                        :index="index"
-                        :task-list="task"
-                        :key="task.taskTitle+index">
-                        </todo-item>
-                    </div>
-                </div>
-                <div v-show="nowSelector!=='undone'" id="done_category">
-                <div id="done_primary_category" 
-                class="droppable_area"
-                :class="{pop:dragEventData.droppableNow==='done_primary'}"
-                @dragenter.prevent
-                @dragover.prevent
-                @drop="handleDrop">
-                    <todo-item 
-                    v-for="(task,index) in donePrimaryTasks" 
-                    @give-item-index="deleteCertainTask"
-                    @start-dragging="getDraggedElement"
-                    @drag-pass-by="getPassedElement"
-                    :index="index"
-                    :task-list="task"
-                    :key="task.taskTitle+index">
-                    </todo-item>
-                </div>
-                <div id="done_normal_category" 
-                class="droppable_area"
-                :class="{pop:dragEventData.droppableNow==='done_normal'}"
-                @dragenter.prevent
-                @dragover.prevent
-                @drop="handleDrop">
-                    <todo-item 
-                    v-for="(task,index) in doneNormalTasks" 
-                    @give-item-index="deleteCertainTask"
-                    @start-dragging="getDraggedElement"
-                    @drag-pass-by="getPassedElement"
-                    :index="index"
-                    :task-list="task"
-                    :key="task.taskTitle+index">
-                    </todo-item>
-                </div>
+                        </todo-item>           
             </div>
-    </div>
-    <p class="left_tasks_numbers">{{countTasks}}</p>
+            <p class="left_tasks_numbers">{{countTasks}}</p>
     </main>
     </div>
 
