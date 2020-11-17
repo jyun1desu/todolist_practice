@@ -39,7 +39,7 @@ class="tasks"
             clicked: editMode?edittingTask.primary:taskList.primary
         }"></i>
         <i 
-        @click="editMode = !editMode"
+        @click="editModeHandler"
         class="fa-pen edit_icon"
         :class="{far:!editMode,clicked:editMode,fas:editMode}">
         </i>
@@ -160,12 +160,21 @@ export default {
                 }
             }
         },
+        editModeHandler(){
+            this.editMode = !this.editMode;
+            this.taskList['primary'] = this.edittingTask['primary'];
+            this.taskList['done'] = this.edittingTask['done'];
+
+        },
         toggle(usage) {
             if (this.editMode) {
                 this.edittingTask[usage] = !this.edittingTask[usage]
             } else {
                 this.taskList[usage] = !this.taskList[usage];
                 this.edittingTask[usage] = this.taskList[usage];
+            }
+            this.edittingTask = {
+                ...this.edittingTask
             }
         },
         handleDragStart() {
@@ -176,15 +185,6 @@ export default {
         },
         handleDragEnd() {
             this.$emit('drag-is-end')
-        }
-    },
-    watch: {
-        'edittingTask.done': function () {},
-        'edittingTask.primary': function () {},
-        dragEvent:{
-            handler(){
-            },
-            deep: true
         }
     },
     computed: {
