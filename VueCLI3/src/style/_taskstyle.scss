@@ -1,0 +1,252 @@
+$checkbox_size: 20px;
+$position_left: 28px;
+
+%icon_position {
+    position: absolute;
+    left: $position_left;
+
+    @include RWD($pad_horizontal) {
+        left: 25px;
+    }
+}
+
+input {
+    &[type="checkbox"] {
+        display: none;
+    }
+}
+
+
+@mixin input_style {
+    width: 100%;
+    border: none;
+    border-radius: 2px;
+
+    font-size: 14px;
+
+    &[type="checkbox"] {
+        display: none;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin task_overview {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px 10px 60px;
+
+    @include RWD($pad_horizontal) {
+        padding: 15px 16px 15px 60px;
+    }
+
+    border-bottom: 2px solid #c8c8c8;
+
+    position: relative;
+
+    .star_mark {
+        margin-left: auto;
+        margin-right: 10px;
+    }
+}
+
+@mixin task_detail {
+    .detail_area {
+        padding: 20px 45px;
+        background-color: $secondary_background_color;
+
+        @include RWD($pad_horizontal) {
+        padding-left: 60px;
+        }
+
+        > div {
+        display: flex;
+        align-items: flex-start;
+
+        & + div {
+            margin-top: 15px;
+        }
+
+        .icon,
+        .content_block p {
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .icon {
+            flex: 0 0 15px;
+            margin-right: 10px;
+        }
+
+        .content_block {
+            width: 100%;
+
+            p {
+            margin-bottom: 10px;
+            }
+        }
+        }
+
+        .deadline {
+        .time_block {
+            display: flex;
+        }
+
+        input {
+            @include input_style;
+            flex: 0 1 50%;
+            padding-left: 10px;
+
+            &.deadline_date {
+            margin-right: 10px;
+            }
+        }
+        }
+
+        .file_update {
+        label {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 0;
+
+            border: none;
+            border-radius: 2px;
+            background-color: #c8c8c8;
+
+            position: relative;
+            vertical-align: middle;
+
+            &:before {
+            content: "";
+            display: block;
+            width: 12px;
+            height: 2px;
+            background-color: white;
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            }
+
+            &:after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 12px;
+            background-color: white;
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            }
+
+            &:focus {
+            outline: none;
+            }
+
+            &:hover {
+            background-color: $main_color;
+            }
+        }
+
+        input {
+            display: none;
+        }
+
+        .file_name {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        }
+
+        textarea {
+        @include input_style;
+        padding-left: 10px;
+        height: 100px;
+        resize: none;
+        }
+    }
+
+    .button_area {
+        display: flex;
+
+        button {
+        flex: 1 1 50%;
+        border: none;
+        padding: 10px 0;
+
+        font-size: 18px;
+        letter-spacing: 1px;
+
+        &:focus {
+            outline: none;
+        }
+        }
+
+        .cancel_button,
+        .cancel_edit_button {
+        background-color: #fdfdfd;
+        color: $warning_color;
+        }
+
+        .submit_button,
+        .save_button {
+        background-color: $main_color;
+        color: white;
+        }
+    }
+}
+
+@mixin icons{
+        margin-bottom: 0;
+        &.completed_checkbox {
+            @extend %icon_position;
+            width: $checkbox_size;
+            height: $checkbox_size;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20px;
+            background-color: white;
+            color: white;
+    
+            &.clicked{
+                background-color: $main_color;
+                color: white;
+            }
+        }
+    
+        &.star_mark{
+            margin-bottom: 0;
+            color: $primary_font_color;
+            &.clicked{
+                color: $highlight_icon_color;
+            }
+        }
+        &.edit_icon {
+            margin-right: 10px;
+            &.clicked{
+                color: $main_color;
+            }
+        }
+    
+        &.delete_icon{
+            transform: scale(0);
+            max-width: 0px;
+            transition: transform 0.8s,
+            max-width 1s;
+            transform-origin: right;
+    
+            &:hover{
+                color: $warning_color;
+            }
+    
+            &.editting{
+                transform: scale(1);
+                max-width: 20px;
+            }
+        }
+}
