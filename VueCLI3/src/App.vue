@@ -1,6 +1,7 @@
 <template>
   <header>
     <SelectorBar
+      :now-selector="nowSelector"
       @updateSelector="selectTasks"
     />
   </header>
@@ -15,7 +16,7 @@
     />
     <div class="todo_list">
       <TodoItem
-        v-for="(task,index) in sortedTasks"
+        v-for="(task,index) in selectedTasks"
         :index="index"
         :task="task"
         :key="task.taskTitle+index"
@@ -23,7 +24,7 @@
         @delete="deleteTask"
       />
     </div>
-    <p class="left_tasks_numbers">2 tasks left</p>
+    <p class="left_tasks_numbers">{{countTasks}}</p>
   </main>
 </template>
 
@@ -85,7 +86,7 @@ export default {
     }
   },
   computed:{
-    sortedTasks() {
+    sortedTasks(){
       const sorted = this.tasks.slice().sort((a, b) => {
           const orderA = (a.primary ? -2 : 0) + (a.done ? 1 : -2)
           const orderB = (b.primary ? -2 : 0) + (b.done ? 1 : -2)
@@ -93,19 +94,28 @@ export default {
       })
       return sorted
     },
-    // selectedTasks(){
-    // switch(this.nowSelector) {
-    //     case 'all':
-    //         return this.sortedTasks;
-    //         break;
-    //     case 'done':
-    //         return this.sortedTasks.filter(task=>task.done===true)
-    //         break;
-    //     case 'undone':
-    //         return this.sortedTasks.filter(task=>task.done===false)
-    //         break;
-    //         }
-    //     }
+    selectedTasks(){
+      let selected;
+      switch(this.nowSelector) {
+          case 'all':
+              selected = this.sortedTasks.slice();
+              break;
+          case 'done':
+              selected = this.sortedTasks.slice().filter(task=>task.done===true)
+              break;
+          case 'undone':
+              selected = this.sortedTasks.slice().filter(task=>task.done===false)
+              break;
+          }
+      return selected;
+    },
+    countTasks() {
+    const undoneleft = this.tasks.filter(task => task.done === false).length;
+    const leftText = `${undoneleft} task${undoneleft>1?"s":""} left`;
+    const doneCount = this.tasks.filter(task => task.done === true).length;
+    const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
+    return this.nowSelector === "done" ? doneText : leftText;
+    },
   }
 };
 </script>

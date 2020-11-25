@@ -15,9 +15,9 @@
 <script>
 export default {
     name: "SelectorBar",
+    props:['now-selector'],
     data() {
         return {
-        nowSelector: 'all',
         selectButtons: [
             {
             title: "My tasks",
@@ -36,8 +36,7 @@ export default {
     },
     methods:{
         changeSelector(value){
-            this.nowSelector = value;
-            this.$emit('update-selector', this.nowSelector); 
+            this.$emit('update-selector', value); 
     },
     },
 };
