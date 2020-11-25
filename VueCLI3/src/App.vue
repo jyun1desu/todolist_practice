@@ -14,7 +14,14 @@
       @addNewTask="updateTaskList"
     />
     <div class="todo_list">
-      <TodoItem/>
+      <TodoItem
+        v-for="(task,index) in sortedTasks"
+        :index="index"
+        :task="task"
+        :key="task.taskTitle+index"
+        @updateTask="updateOldTask"
+        @delete="deleteTask"
+      />
     </div>
     <p class="left_tasks_numbers">2 tasks left</p>
   </main>
@@ -34,7 +41,6 @@ export default {
       addNewTask: {
         isClick: false,
         isOpen: false,
-        emptyTitle: false,
       },
     }
   },
@@ -64,22 +70,29 @@ export default {
     },
     withDraw() {
       this.addNewTask.isOpen = false;
-      this.addNewTask.emptyTitle = false;
       setTimeout(() => this.addNewTask.isClick = false, 280);
     },
     updateTaskList(value){
       this.tasks.push(value);
+    },
+    updateOldTask(oldTask,newTask){
+      const index = this.tasks.indexOf(oldTask);
+      this.tasks[index] = { ...newTask }
+    },
+    deleteTask(task){
+      const index = this.tasks.indexOf(task);
+      this.tasks.splice(index, 1);
     }
   },
   computed:{
-    // sortedTasks() {
-    //   const sorted = this.tasks.sort((a, b) => {
-    //       const orderA = (a.primary ? -2 : 0) + (a.done ? 1 : -2)
-    //       const orderB = (b.primary ? -2 : 0) + (b.done ? 1 : -2)
-    //       return [orderA - orderB]
-    //   })
-    //   return sorted
-    // },
+    sortedTasks() {
+      const sorted = this.tasks.slice().sort((a, b) => {
+          const orderA = (a.primary ? -2 : 0) + (a.done ? 1 : -2)
+          const orderB = (b.primary ? -2 : 0) + (b.done ? 1 : -2)
+          return [orderA - orderB]
+      })
+      return sorted
+    },
     // selectedTasks(){
     // switch(this.nowSelector) {
     //     case 'all':

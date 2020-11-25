@@ -14,9 +14,10 @@
         <input
         v-model="newTask.taskTitle"
         name="title"
-        class="task_title"
         type="text"
-        placeholder="hi" />
+        class="task_title"
+        :class="{warning:emptyTitle}"
+        :placeholder="placeholder" />
         <i 
         @click="newTask.primary=!newTask.primary"
         data-use="primary"
@@ -68,7 +69,7 @@
         </div>
 
         <div class="button_area">
-        <button @click="initializeTask" class="cancel_button">× Cancel</button>
+        <button @click.prevent="initializeTask" class="cancel_button">× Cancel</button>
         <button type="submit" class="submit_button">+ Add Task</button>
         </div>
     </form>
@@ -94,34 +95,40 @@ export default {
         }
     },
     methods:{
-            fileNameUpdate(e) {
-                const file = e.target.files[0].name;
-                this.newTask.updateFile = file;
-            },
-            submitNewTask(){
-                const title = this.newTask.taskTitle;
-                if (!title.length) {
-                    this.emptyTitle = true;
-                    return;
-                }
-                const task = this.newTask;
-                this.$emit('add-new-task',task);
-                this.initializeTask();
-            },
-            initializeTask(){
-                this.newTask = {
-                    taskTitle: '',
-                    deadlineDate: '',
-                    deadlineTime: '',
-                    updateFile: '',
-                    memo: '',
-                    done: false,
-                    primary: false,
-                    isDragged: false,
-                    isPassed: false,
-                };
-                this.$emit('close-edit');
+        fileNameUpdate(e) {
+            const file = e.target.files[0].name;
+            this.newTask.updateFile = file;
+        },
+        submitNewTask(){
+            const title = this.newTask.taskTitle;
+            if (!title.length) {
+                this.emptyTitle = true;
+                return;
             }
+            const task = this.newTask;
+            this.$emit('add-new-task',task);
+            this.initializeTask();
+        },
+        initializeTask(){
+            this.emptyTitle = false;
+            this.newTask = {
+                taskTitle: '',
+                deadlineDate: '',
+                deadlineTime: '',
+                updateFile: '',
+                memo: '',
+                done: false,
+                primary: false,
+                isDragged: false,
+                isPassed: false,
+            };
+            this.$emit('close-edit');
+        }
+    },
+    computed:{
+        placeholder() {
+            return this.emptyTitle ? "Please type something here" : "Please add task title here"
+        },
     }
     };
 </script>

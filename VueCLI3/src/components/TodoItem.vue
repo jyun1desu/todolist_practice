@@ -1,29 +1,58 @@
 <template>
-    <form draggable="true" class="tasks">
+    <form
+    @submit.prevent="submitEdit" 
+    class="tasks"
+    :class="{noquery: editMode,
+            primary:edittingTask.primary,
+            done:edittingTask.done,
+            }"
+    :draggable="!editMode">
         <div class="drag_icon"></div>
         <div class="main_information">
-        <i class="fa-check completed_checkbox far"></i>
+        <i 
+        @click="toggle('done')"
+        :class="{
+            far: edittingTask.done,
+            fas: edittingTask.done,
+            clicked: edittingTask.done,}"
+        class="fa-check completed_checkbox">
+        </i>
         <input
             type="text"
-            placeholder="dsdsdsd"
-            readonly="readonly"
+            :placeholder="placeholder"
+            :readonly="!editMode"
             class="task_title"
-            value="hello"
+            :class="{warning: edittingTask.taskTitle.length==0?true:false}"
+            v-model="edittingTask.taskTitle"
         />
-        <i class="fa-star star_mark far"></i> <i class="fa-pen edit_icon far"></i>
-        <i class="far fa-trash-alt delete_icon"></i>
+        <i 
+        @click="toggle('primary')"
+        :class="{
+            far: edittingTask.primary,
+            fas: edittingTask.primary,
+            clicked: edittingTask.primary}"
+        class="fa-star star_mark far">
+        </i>
+        <i 
+        @click="editModeHandler"
+        class="fa-pen edit_icon far"
+        :class="{far:!editMode,clicked:editMode,fas:editMode}">
+        </i>
+        <i 
+        @click="$emit('delete', task)"
+        class="far fa-trash-alt delete_icon"></i>
         </div>
         <div class="quick_detail">
-        <span>
-            <i class="far fa-calendar-alt"></i>
-            <span>2020-11-13</span>
-        </span>
-        <span>
-            <i class="far fa-file"></i>
-        </span>
-        <span>
-            <i class="far fa-comment-dots"></i>
-        </span>
+            <span v-if="edittingTask.deadlineDate">
+                <i class="far fa-calendar-alt"></i>
+                <span>{{edittingTask.deadlineDate}}</span>
+            </span>
+            <span v-if="edittingTask.updateFile">
+                <i class="far fa-file"></i>
+            </span>
+            <span v-if="edittingTask.memo">
+                <i class="far fa-comment-dots"></i>
+            </span>
         </div>
 
         <div class="detail_area">
@@ -32,8 +61,8 @@
             <div class="content_block">
             <p>Deadline</p>
             <div class="time_block">
-                <input type="date" class="deadline_date" />
-                <input type="time" class="deadline_time" />
+                <input v-model="edittingTask.deadlineDate" type="date" class="deadline_date" />
+                <input v-model="edittingTask.deadlineTime" type="time" class="deadline_time" />
             </div>
             </div>
         </div>
@@ -41,28 +70,79 @@
             <i class="icon far fa-file"></i>
             <div class="content_block">
             <p>File</p>
-            <input id="update1" type="file" class="update_button" />
-            <label for="update1"></label>
+            <input 
+            @change="fileNameUpdate"
+            :id="'update'+index"
+            type="file"
+            class="update_button" />
+            <span v-text="edittingTask.updateFile" class="file_name"></span>
+            <label :for="'update'+index"></label>
             </div>
         </div>
         <div class="memo">
             <i class="icon far fa-comment-dots"></i>
             <div class="content_block">
             <p>Comment</p>
-            <textarea placeholder="Type your memo here...">1</textarea>
+            <textarea  v-model="edittingTask.memo" placeholder="Type your memo here..."></textarea>
             </div>
         </div>
         </div>
         <div class="button_area">
-        <button type="button" class="cancel_edit_button">× Cancel</button>
-        <button type="button" class="save_button">+ Save</button>
+        <button @click.prevent="cancelEdit" type="button" class="cancel_edit_button">× Cancel</button>
+        <button type="submit" class="save_button">+ Save</button>
         </div>
     </form>
 </template>
 
 <script>
 export default {
-  name: "TodoItem",
+    name: "TodoItem",
+    props:['task', 'index'],
+    data(){
+        return{
+            editMode: false,
+            edittingTask: {
+                ...this.task
+            }
+        }
+    },
+    methods:{
+        toggle(usage) {
+            this.edittingTask[usage] = !this.edittingTask[usage];
+            if (!this.editMode) {
+                this.$emit('update-task',this.task,this.edittingTask);
+            }
+        },
+        editModeHandler(){
+            this.editMode = !this.editMode;
+            this.$emit('update-task',this.task,this.edittingTask);
+        },
+        fileNameUpdate(e) {
+            const file = e.target.files[0].name;
+            this.edittingTask.updateFile = file;
+        },
+        submitEdit(){
+            if (!this.edittingTask.taskTitle) return;
+            this.$emit('update-task',this.task,this.edittingTask);
+            this.editMode = false;
+        },
+        cancelEdit(){
+            this.edittingTask = { 
+                ...this.task,
+                primary:this.edittingTask.primary,
+                done:this.edittingTask.done, 
+            };
+            this.editMode = false;
+        }
+
+
+    },
+    computed:{
+        placeholder() {
+            const isEmptyTitle = !this.edittingTask.taskTitle.length
+            return isEmptyTitle ? "Please add task title here" : ""
+        },
+    }
 };
 </script>
 
