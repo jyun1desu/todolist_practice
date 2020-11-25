@@ -1,8 +1,14 @@
 <template>
     <form
     @submit.prevent="submitEdit" 
+    @dragstart="handleDragStart"
+    @dragenter="handleDragPassby"
+    @dragend="handleDragEnd"
     class="tasks"
     :class="{noquery: editMode,
+            dragged:task.isDragged,
+            passedfromtop:task.isPassed&&dragDirection,
+            passedfrombottom:task.isPassed&&!dragDirection,
             primary:edittingTask.primary,
             done:edittingTask.done,
             }"
@@ -97,7 +103,7 @@
 <script>
 export default {
     name: "TodoItem",
-    props:['task', 'index'],
+    props:['task', 'index','drag-direction'],
     data(){
         return{
             editMode: false,
@@ -133,9 +139,16 @@ export default {
                 done:this.edittingTask.done, 
             };
             this.editMode = false;
+        },
+        handleDragStart() {
+            this.$emit('start-dragging',this.task)
+        },
+        handleDragPassby(e) {
+            this.$emit('drag-pass-by',this.task,e.pageY)
+        },
+        handleDragEnd() {
+            this.$emit('drag-is-end')
         }
-
-
     },
     computed:{
         placeholder() {

@@ -14,14 +14,21 @@
       @closeEdit="withDraw"
       @addNewTask="updateTaskList"
     />
-    <div class="todo_list">
+    <div class="todo_list"
+      @dragenter.prevent
+      @dragover.prevent
+      @drop="handleDrop">
       <TodoItem
         v-for="(task,index) in selectedTasks"
         :index="index"
         :task="task"
+        :drag-direction="dragEventData.isMoveDown"
         :key="task.taskTitle+index"
         @updateTask="updateOldTask"
         @delete="deleteTask"
+        @start-dragging="getDraggedElement"
+        @drag-pass-by="getPassedElement"
+        @drag-is-end="handleDragEnd"
       />
     </div>
     <p class="left_tasks_numbers">{{countTasks}}</p>
@@ -42,6 +49,13 @@ export default {
       addNewTask: {
         isClick: false,
         isOpen: false,
+      },
+      dragEventData: {
+        beingDragged: null,
+        beingPassedby: null,
+        previousY: null,
+        isMoveDown: null,
+        dropTriggered: null,
       },
     }
   },
@@ -83,7 +97,56 @@ export default {
     deleteTask(task){
       const index = this.tasks.indexOf(task);
       this.tasks.splice(index, 1);
-    }
+    },
+    getDraggedElement(draggedtask) {
+        this.dragEventData.beingDragged = draggedtask;
+        draggedtask.isDragged = true;
+    },
+    getPassedElement(passbytask, position) {
+        const dragged = this.dragEventData.beingDragged;
+        const passed = this.dragEventData.beingPassedby;
+        const sameType = (dragged.primary == passbytask.primary) && (dragged.done == passbytask.done);
+        if (sameType && dragged !== passbytask) {
+            const moveDown = position > this.dragEventData.previousY;
+            this.dragEventData.isMoveDown = moveDown
+            passbytask.isPassed = true;
+        }
+        if (passed && passed !== passbytask) {
+            passed.isPassed = false;
+        }
+        this.dragEventData.beingPassedby = passbytask;
+        this.dragEventData.previousY = position;
+    },
+    handleDrop() {
+      const dragged = this.dragEventData.beingDragged;
+      const draggedIndex = this.tasks.indexOf(dragged)
+      const passed = this.dragEventData.beingPassedby;
+      const sameType = (dragged.primary == passed.primary) && (dragged.done == passed.done);
+      if (!sameType) return;
+      if (this.dragEventData.isMoveDown) {
+          this.tasks.splice(this.tasks.indexOf(passed) + 1, 0, dragged)
+          this.tasks.splice(draggedIndex, 1)
+      } else {
+          this.tasks.splice(this.tasks.indexOf(passed), 0, dragged)
+          this.tasks.splice(draggedIndex + 1, 1)
+      }
+      this.dragEventData.dropTriggered = true;
+      this.initialData();
+    },
+    handleDragEnd(){
+        if(!this.dragEventData.dropTriggered) this.initialData(); 
+    },
+    initialData() {
+      this.dragEventData.beingDragged && (this.dragEventData.beingDragged.isDragged = false);
+      this.dragEventData.beingDragged && (this.dragEventData.beingPassedby.isPassed = false);
+      this.dragEventData = {
+          beingDragged: null,
+          beingPassedby: null,
+          previousY: null,
+          isMoveDown: null,
+          dropTriggered: null,
+      }
+    },
   },
   computed:{
     sortedTasks(){
