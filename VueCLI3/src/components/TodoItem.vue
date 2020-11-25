@@ -133,11 +133,15 @@ export default {
             this.editMode = false;
         },
         cancelEdit(){
+            const edittedPrimary = this.edittingTask.primary;
+            const edittedStatus = this.edittingTask.done;
+        
             this.edittingTask = { 
                 ...this.task,
-                primary:this.edittingTask.primary,
-                done:this.edittingTask.done, 
+                primary:edittedPrimary,
+                done:edittedStatus, 
             };
+            this.$emit('update-task',this.task,this.edittingTask);
             this.editMode = false;
         },
         handleDragStart() {
