@@ -1,55 +1,74 @@
 <template>
     <form draggable="true" class="tasks">
-        <div class="drag_icon"></div> 
+        <div class="drag_icon"></div>
         <div class="main_information">
-            <i class="fa-check completed_checkbox far"></i>
-            <input type="text" placeholder="" readonly="readonly" class="task_title">
-            <i class="fa-star star_mark far"></i> <i class="fa-pen edit_icon far"></i>
-            <i class="far fa-trash-alt delete_icon"></i>
+        <i class="fa-check completed_checkbox far"></i>
+        <input
+            type="text"
+            placeholder="dsdsdsd"
+            readonly="readonly"
+            class="task_title"
+            value="hello"
+        />
+        <i class="fa-star star_mark far"></i> <i class="fa-pen edit_icon far"></i>
+        <i class="far fa-trash-alt delete_icon"></i>
         </div>
-        <div class="quick_detail"></div>
+        <div class="quick_detail">
+        <span>
+            <i class="far fa-calendar-alt"></i>
+            <span>2020-11-13</span>
+        </span>
+        <span>
+            <i class="far fa-file"></i>
+        </span>
+        <span>
+            <i class="far fa-comment-dots"></i>
+        </span>
+        </div>
+
         <div class="detail_area">
-            <div class="deadline">
-                <i class="icon far fa-calendar-alt"></i>
-                <div class="content_block">
-                    <p>Deadline</p>
-                        <div class="time_block">
-                            <input type="date" class="deadline_date">
-                            <input type="time" class="deadline_time">
-                        </div>
-                </div>
+        <div class="deadline">
+            <i class="icon far fa-calendar-alt"></i>
+            <div class="content_block">
+            <p>Deadline</p>
+            <div class="time_block">
+                <input type="date" class="deadline_date" />
+                <input type="time" class="deadline_time" />
             </div>
-            <div class="file_update">
-                <i class="icon far fa-file"></i>
-                <div class="content_block">
-                    <p>File</p>
-                    <input id="update1" type="file" class="update_button">
-                    <label for="update1"></label></div>
-                </div>
-                <div class="memo">
-                    <i class="icon far fa-comment-dots"></i>
-                    <div class="content_block">
-                        <p>Comment</p>
-                        <textarea placeholder="Type your memo here...">1</textarea>
-                    </div>
-                </div>
+            </div>
+        </div>
+        <div class="file_update">
+            <i class="icon far fa-file"></i>
+            <div class="content_block">
+            <p>File</p>
+            <input id="update1" type="file" class="update_button" />
+            <label for="update1"></label>
+            </div>
+        </div>
+        <div class="memo">
+            <i class="icon far fa-comment-dots"></i>
+            <div class="content_block">
+            <p>Comment</p>
+            <textarea placeholder="Type your memo here...">1</textarea>
+            </div>
+        </div>
         </div>
         <div class="button_area">
-            <button type="button" class="cancel_edit_button">× Cancel</button>
-            <button type="button" class="save_button">+ Save</button>
+        <button type="button" class="cancel_edit_button">× Cancel</button>
+        <button type="button" class="save_button">+ Save</button>
         </div>
     </form>
 </template>
 
 <script>
 export default {
-    name:'TodoItem'
-}
+  name: "TodoItem",
+};
 </script>
 
 <style lang="scss">
-.todo_list{
-        .tasks {
+.todo_list {
+    .tasks {
         @include task_detail;
         background-color: $secondary_background_color;
         border-radius: 5px;
@@ -59,72 +78,86 @@ export default {
         transition: all 0.5s;
         overflow: hidden;
 
-        &.dragged{
-            opacity: 0.3;
-            transform: translateY(0);
-        }
-        &.passedfromtop{
-            margin: 0 0 50px;
-        }
-        &.passedfrombottom{
-            margin: 50px 0 8px;
+        position: relative;
+
+        .drag_icon {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.1s;
+        left: 8px;
+        background-color: $primary_background_color;
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            background-color: inherit;
+            border-radius: inherit;
         }
 
+        &:before {
+            top: -9px;
+        }
+
+        &:after {
+            top: 9px;
+        }
+        }
+
+        &.dragged {
+        opacity: 0.3;
+        transform: translateY(0);
+        }
+        &.passedfromtop {
+        margin: 0 0 50px;
+        }
+        &.passedfrombottom {
+        margin: 50px 0 8px;
+        }
         &.primary {
-            background-color: $highlight_color;
+        background-color: $highlight_color;
         }
-
-        &.noquery {
-            .delete_icon {
-                transform: scale(1);
-                max-width: 20px;
-            }
-
-            .quick_detail {
-                display: none;
-            }
-
-            .detail_area {
-                display: block;
-            }
-
-            .button_area {
-                display: flex;
-            }
-        }
-
-        &.done .task_title {
+        &.done {
+        .task_title {
             text-decoration: line-through;
         }
-    }
-
-    .main_information {
+        }
+        .main_information {
         @include task_overview;
         border-bottom: none;
 
-        .task_title {
-            @include input_style;
-            margin-right: 10px;
-            margin-bottom: 0;
-            flex: 0 1 100%;
-            font-size: 18px;
-            font-weight: bold;
-            background-color: transparent;
+            i {
+                @include icons;
+            }
 
-            &::placeholder {
+            .task_title {
+                @include input_style;
+                margin-right: 10px;
+                margin-bottom: 0;
+                flex: 0 1 100%;
+                font-size: 18px;
+                font-weight: bold;
+                background-color: transparent;
+
+                &::placeholder {
                 font-size: 18px;
                 color: $secondary_font_color;
                 font-weight: bold;
-            }
-    
-            &.warning::placeholder {
+                }
+
+                &.warning::placeholder {
                 color: $warning_color;
+                }
             }
         }
-
-    }
-
-    .quick_detail {
+        .quick_detail {
         padding: 0 0 0 60px;
         display: flex;
         align-items: center;
@@ -133,35 +166,74 @@ export default {
             padding-left: 60px;
         }
 
-        >span {
+        > span {
             display: flex;
             align-items: center;
             font-size: 0;
             margin-bottom: 10px;
 
-            &+span {
-                margin-left: 12px;
+            & + span {
+            margin-left: 12px;
             }
 
-            >span {
-                margin-left: 3px;
+            > span {
+            margin-left: 3px;
             }
 
             i,
             span {
-                font-size: 12px;
-                color: $secondary_icon_color;
+            font-size: 12px;
+            color: $secondary_icon_color;
             }
         }
-    }
-
-    .detail_area {
+        }
+        .detail_area {
         display: none;
         border-top: 2px solid $secondary_font_color;
-    }
-
-    .button_area {
+        }
+        .button_area {
         display: none;
+        }
+
+
+        &:hover {
+            transform: scale(1.01) translateY(-5px);
+            box-shadow: 0px 0px 5px 3px #c8c8c8;
+            .drag_icon {
+                opacity: 1;
+            }
+            .main_information {
+                .delete_icon {
+                    transform: scale(1);
+                    max-width: 20px;
+                }
+            }
+        }
+        &.noquery {
+            &:hover {
+                transform: scale(1) translateY(0);
+                box-shadow: none;
+
+                .drag_icon {
+                display: none;
+                }
+            }
+            .main_information {
+                .delete_icon {
+                    transform: scale(1);
+                    max-width: 20px;
+                }
+            }
+            .quick_detail {
+                display: none;
+            }
+            .detail_area {
+                display: block;
+            }
+            .button_area {
+                display: flex;
+            }
+        }
     }
 }
 </style>
