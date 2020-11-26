@@ -136,24 +136,11 @@ export default {
 <style lang="scss">
 .add_task_form {
     @include task_detail;
-    display: none;
     background-color: $secondary_background_color;
     border-radius: 5px;
     box-shadow: 0px 3px 4px #c8c8c8;
     overflow: hidden;
     margin-top: 10px;
-
-    &.click {
-        display: block;
-        max-height: 10px;
-        transition: 0.5s;
-    }
-
-    &.click-active {
-        display: block;
-        opacity: 1;
-        max-height: 500px;
-    }
 
     &.primary {
         .title_area {

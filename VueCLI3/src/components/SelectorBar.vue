@@ -4,7 +4,7 @@
         v-for="selector in selectButtons"
         :data-selector="selector.sort"
         :class="{ 'focus-active': nowSelector === selector.sort }"
-        @click="changeSelector(selector.sort)"
+        @click="$emit('update-selector', selector.sort)"
         :key="selector.title"
         >
         {{ selector.title }}
@@ -33,11 +33,6 @@ export default {
             },
         ],
         };
-    },
-    methods:{
-        changeSelector(value){
-            this.$emit('update-selector', value); 
-    },
     },
 };
 </script>

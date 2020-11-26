@@ -18,7 +18,7 @@
         <i 
         @click="toggle('done')"
         :class="{
-            far: edittingTask.done,
+            far: !edittingTask.done,
             fas: edittingTask.done,
             clicked: edittingTask.done,}"
         class="fa-check completed_checkbox">
@@ -34,7 +34,7 @@
         <i 
         @click="toggle('primary')"
         :class="{
-            far: edittingTask.primary,
+            far: !edittingTask.primary,
             fas: edittingTask.primary,
             clicked: edittingTask.primary}"
         class="fa-star star_mark far">
@@ -45,7 +45,7 @@
         :class="{far:!editMode,clicked:editMode,fas:editMode}">
         </i>
         <i 
-        @click="$emit('delete', task)"
+        @click="$emit('delete')"
         class="far fa-trash-alt delete_icon"></i>
         </div>
         <div class="quick_detail">
@@ -116,12 +116,12 @@ export default {
         toggle(usage) {
             this.edittingTask[usage] = !this.edittingTask[usage];
             if (!this.editMode) {
-                this.$emit('update-task',this.task,this.edittingTask);
+                this.$emit('update-task',this.edittingTask);
             }
         },
         editModeHandler(){
             this.editMode = !this.editMode;
-            this.$emit('update-task',this.task,this.edittingTask);
+            this.$emit('update-task',this.edittingTask);
         },
         fileNameUpdate(e) {
             const file = e.target.files[0].name;
@@ -129,7 +129,7 @@ export default {
         },
         submitEdit(){
             if (!this.edittingTask.taskTitle) return;
-            this.$emit('update-task',this.task,this.edittingTask);
+            this.$emit('update-task',this.edittingTask);
             this.editMode = false;
         },
         cancelEdit(){
@@ -141,7 +141,7 @@ export default {
                 primary:edittedPrimary,
                 done:edittedStatus, 
             };
-            this.$emit('update-task',this.task,this.edittingTask);
+            this.$emit('update-task',this.edittingTask);
             this.editMode = false;
         },
         handleDragStart() {

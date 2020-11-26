@@ -29,9 +29,5 @@ export default {
         &:focus{
             outline: none;
         }
-
-        &.click {
-            display: none;
-        }
     }
 </style>

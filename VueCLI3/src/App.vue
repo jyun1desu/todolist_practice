@@ -7,13 +7,15 @@
   </header>
   <main class="container">
     <StartNewTask 
-      :class="{click: addNewTask.isClick,'click-active':addNewTask.isOpen}"
-      @click="addNewTaskForm"/>
-    <NewTaskForm
-      :class="{click: addNewTask.isClick,'click-active':addNewTask.isOpen}"
-      @closeEdit="withDraw"
-      @addNewTask="updateTaskList"
-    />
+      v-if="!isNewTaskFormShow"
+      @click="isNewTaskFormShow=true"/>
+    <transition name="unfold">
+      <NewTaskForm
+        v-if="isNewTaskFormShow"
+        @closeEdit="isNewTaskFormShow=false"
+        @addNewTask="pushNewTask"
+      />
+    </transition>
     <div class="todo_list"
       @dragenter.prevent
       @dragover.prevent
@@ -24,8 +26,8 @@
         :task="task"
         :drag-direction="dragEventData.isMoveDown"
         :key="task.taskTitle+index"
-        @updateTask="updateOldTask"
-        @delete="deleteTask"
+        @updateTask="updateOldTask($event, index)"
+        @delete="deleteTask(index)"
         @start-dragging="getDraggedElement"
         @drag-pass-by="getPassedElement"
         @drag-is-end="handleDragEnd"
@@ -42,10 +44,17 @@ import NewTaskForm from "./components/NewTaskForm.vue";
 import TodoItem from "./components/TodoItem.vue";
 export default {
   name: "App",
+  created() {
+    const old_tasks = JSON.parse(localStorage.getItem('tasks'))
+    if (old_tasks) {
+      this.tasks = old_tasks
+    }
+  },
   data(){
     return{
-      tasks: JSON.parse(localStorage.getItem('tasks')) || [],
+      tasks: [],
       nowSelector: 'all',
+      isNewTaskFormShow: false,
       addNewTask: {
         isClick: false,
         isOpen: false,
@@ -77,25 +86,18 @@ export default {
     selectTasks(value){
       this.nowSelector = value
     },
-    addNewTaskForm() {
-      this.addNewTask.isClick = true;
-      setTimeout(() => {
-          this.addNewTask.isOpen = true
-      }, 5);
-    },
-    withDraw() {
-      this.addNewTask.isOpen = false;
-      setTimeout(() => this.addNewTask.isClick = false, 280);
-    },
-    updateTaskList(value){
+    // withDraw() {
+    //   this.addNewTask.isOpen = false;
+    //   setTimeout(() => this.addNewTask.isClick = false, 280);
+    // },
+    pushNewTask(value){
       this.tasks.push(value);
     },
-    updateOldTask(oldTask,newTask){
-      const index = this.tasks.indexOf(oldTask);
+    updateOldTask(newTask, index){
+      // const index = this.tasks.indexOf(oldTask);
       this.tasks[index] = { ...newTask }
     },
-    deleteTask(task){
-      const index = this.tasks.indexOf(task);
+    deleteTask(index){
       this.tasks.splice(index, 1);
     },
     getDraggedElement(draggedtask) {
@@ -210,5 +212,24 @@ export default {
       font-style: italic;
       color: $secondary_font_color;
     }
+  }
+
+  .unfold-enter-active{
+    max-height: 10px;
+    transition: all .5s;
+  }
+
+  .unfold-enter-to{
+    max-height: 500px;
+    // transition: all 0.5s;
+  }
+
+  .unfold-leave-active{
+    transition: all .3s;
+    max-height: 500px;
+  }
+
+  .unfold-leave-to{
+    max-height: 0px;
   }
 </style>
