@@ -55,10 +55,6 @@ export default {
       tasks: [],
       nowSelector: 'all',
       isNewTaskFormShow: false,
-      addNewTask: {
-        isClick: false,
-        isOpen: false,
-      },
       dragEventData: {
         beingDragged: null,
         beingPassedby: null,
@@ -175,11 +171,15 @@ export default {
       return selected;
     },
     countTasks() {
-    const undoneleft = this.tasks.filter(task => task.done === false).length;
-    const leftText = `${undoneleft} task${undoneleft>1?"s":""} left`;
-    const doneCount = this.tasks.filter(task => task.done === true).length;
-    const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
-    return this.nowSelector === "done" ? doneText : leftText;
+      const undoneleft = this.tasks.filter(task => task.done === false).length;
+      const leftText = `${undoneleft} task${undoneleft>1?"s":""} left`;
+      const doneCount = this.tasks.filter(task => task.done === true).length;
+      const doneText = `${doneCount} task${doneCount>1?"s":""} completed`;
+      if(this.nowSelector==="all"){
+        return `${doneText}, ${leftText}`
+      }else{
+        return this.nowSelector === "done" ? doneText : leftText;
+      }
     },
   }
 };
@@ -221,7 +221,6 @@ export default {
 
   .unfold-enter-to{
     max-height: 500px;
-    // transition: all 0.5s;
   }
 
   .unfold-leave-active{
